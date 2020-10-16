@@ -414,7 +414,7 @@
 <h4 id="&#x4EFF;&#x771F;&#x7ED3;&#x6784;&#x56FE;"><a href="#&#x4EFF;&#x771F;&#x7ED3;&#x6784;&#x56FE;" class="headerlink" title="&#x4EFF;&#x771F;&#x7ED3;&#x6784;&#x56FE;"></a>&#x4EFF;&#x771F;&#x7ED3;&#x6784;&#x56FE;</h4><p><img src="/2019/08/07/verilog&#x8BBE;&#x8BBE;&#x8BA1;&#x52A0;&#x6CD5;&#x5668;/12.png" alt></p>
 <h4 id="&#x4EFF;&#x771F;&#x6587;&#x4EF6;"><a href="#&#x4EFF;&#x771F;&#x6587;&#x4EF6;" class="headerlink" title="&#x4EFF;&#x771F;&#x6587;&#x4EF6;"></a>&#x4EFF;&#x771F;&#x6587;&#x4EF6;</h4><figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">module <span class="keyword">bjqxwsimu;</span></span><br><span class="line"><span class="keyword"> </span>   reg a,<span class="keyword">b;</span></span><br><span class="line"><span class="keyword"> </span>   wire sum,cout<span class="comment">;</span></span><br><span class="line">    <span class="keyword">bjqxw </span>sl(a,<span class="keyword">b,sum,cout);</span></span><br><span class="line"><span class="keyword"> </span>   initial</span><br><span class="line">        <span class="keyword">begin</span></span><br><span class="line"><span class="keyword"> </span>           a=<span class="number">0</span><span class="comment">;b=0;</span></span><br><span class="line">        end</span><br><span class="line">    always <span class="comment">#10 {a,b}={a,b}+1;</span></span><br><span class="line">endmodule</span><br></pre></td></tr></table></figure>
 
-<h3 id="&#x7ED3;&#x6784;&#x63CF;&#x8FF0;"><a href="#&#x7ED3;&#x6784;&#x63CF;&#x8FF0;" class="headerlink" title="&#x7ED3;&#x6784;&#x63CF;&#x8FF0;"></a>&#x7ED3;&#x6784;&#x63CF;&#x8FF0;</h3><h4 id="&#x8BBE;&#x8BA1;&#x6587;&#x4EF6;-1"><a href="#&#x8BBE;&#x8BA1;&#x6587;&#x4EF6;-1" class="headerlink" title="&#x8BBE;&#x8BA1;&#x6587;&#x4EF6;"></a>&#x8BBE;&#x8BA1;&#x6587;&#x4EF6;</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">module</span> <span class="title">add</span><span class="params">(a,b,sum,<span class="built_in">cout</span>)</span></span>;</span><br><span class="line">    input a,b;</span><br><span class="line">    output sum,<span class="built_in">cout</span>;</span><br><span class="line">    xor(sum,a,b);</span><br><span class="line">    <span class="keyword">and</span>(<span class="built_in">cout</span>,a,b);</span><br><span class="line">endmodule</span><br></pre></td></tr></table></figure>
+<h3 id="&#x7ED3;&#x6784;&#x63CF;&#x8FF0;"><a href="#&#x7ED3;&#x6784;&#x63CF;&#x8FF0;" class="headerlink" title="&#x7ED3;&#x6784;&#x63CF;&#x8FF0;"></a>&#x7ED3;&#x6784;&#x63CF;&#x8FF0;</h3><h4 id="&#x8BBE;&#x8BA1;&#x6587;&#x4EF6;-1"><a href="#&#x8BBE;&#x8BA1;&#x6587;&#x4EF6;-1" class="headerlink" title="&#x8BBE;&#x8BA1;&#x6587;&#x4EF6;"></a>&#x8BBE;&#x8BA1;&#x6587;&#x4EF6;</h4><figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">module</span> add(a,b,sum,cout);</span><br><span class="line">    <span class="keyword">input</span> a,b;</span><br><span class="line">    <span class="keyword">output</span> sum,cout;</span><br><span class="line">    <span class="keyword">xor</span>(sum,a,b);</span><br><span class="line">    <span class="keyword">and</span>(cout,a,b);</span><br><span class="line"><span class="keyword">endmodule</span></span><br></pre></td></tr></table></figure>
 
 <h4 id="&#x4EFF;&#x771F;&#x7ED3;&#x6784;&#x56FE;-1"><a href="#&#x4EFF;&#x771F;&#x7ED3;&#x6784;&#x56FE;-1" class="headerlink" title="&#x4EFF;&#x771F;&#x7ED3;&#x6784;&#x56FE;"></a>&#x4EFF;&#x771F;&#x7ED3;&#x6784;&#x56FE;</h4><p><img src="/2019/08/07/verilog&#x8BBE;&#x8BBE;&#x8BA1;&#x52A0;&#x6CD5;&#x5668;/5.png" alt></p>
 <h4 id="&#x4EFF;&#x771F;&#x6587;&#x4EF6;-1"><a href="#&#x4EFF;&#x771F;&#x6587;&#x4EF6;-1" class="headerlink" title="&#x4EFF;&#x771F;&#x6587;&#x4EF6;"></a>&#x4EFF;&#x771F;&#x6587;&#x4EF6;</h4><figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">module <span class="keyword">add1;</span></span><br><span class="line"><span class="keyword"> </span>   reg a,<span class="keyword">b;</span></span><br><span class="line"><span class="keyword"> </span>   wire sum,cout<span class="comment">;</span></span><br><span class="line">    <span class="keyword">add </span>ul(a,<span class="keyword">b,sum,cout);</span></span><br><span class="line"><span class="keyword"> </span>   initial</span><br><span class="line">    <span class="keyword">begin</span></span><br><span class="line"><span class="keyword"> </span>       a=<span class="number">0</span><span class="comment">;b=0;</span></span><br><span class="line">    end</span><br><span class="line">    always <span class="comment">#10 {a,b}={a,b}+1;</span></span><br><span class="line">endmodule</span><br></pre></td></tr></table></figure>
@@ -626,7 +626,7 @@ var jiathis_config={
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-count">33</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -639,7 +639,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">标签</span>
                 
               </div>
@@ -763,7 +763,7 @@ var jiathis_config={
     <!-- 博客字数统计 -->
     <span class="site-pv">
       <i class="fa fa-pencil"></i>
-      博客全站共： <span class="post-count">40k</span> 字
+      博客全站共： <span class="post-count">51.6k</span> 字
     </span>
 </div>
 <!-- 新增访客统计代码 END-->

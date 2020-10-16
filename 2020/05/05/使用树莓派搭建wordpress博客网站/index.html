@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<style>
+    .pace .pace-progress {
+        background: #1E92FB; /*进度条颜色*/
+        height: 3px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #1E92FB, 0 0 5px     #1E92FB; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #1E92FB;    /*上边框颜色*/
+        border-left-color: #1E92FB;    /*左边框颜色*/
+    }
+</style>
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/m-32x32.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/m-16x16.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="BlogsByMxdon" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="&amp;#x4F7F;&amp;#x7528;&amp;#x6811;&amp;#x8393;&amp;#x6D3E;&amp;#x642D;&amp;#x5EFA;wordpress&amp;#x535A;&amp;#x5BA2;&amp;#x7F51;&amp;#x7AD9;&amp;#x4E0B;&amp;#x8F7D;wordpress&amp;#x4E0B;&amp;#x8F7D;&amp;#x5730;&amp;#x5740;&amp;#xFF1A;https://wordpress.org/  &amp;#x5B89;&amp;#x88C">
+<meta property="og:type" content="article">
+<meta property="og:title" content="BlogsByMxdon">
+<meta property="og:url" content="http://yoursite.com/2020/05/05/使用树莓派搭建wordpress博客网站/index.html">
+<meta property="og:site_name" content="BlogsByMxdon">
+<meta property="og:description" content="&amp;#x4F7F;&amp;#x7528;&amp;#x6811;&amp;#x8393;&amp;#x6D3E;&amp;#x642D;&amp;#x5EFA;wordpress&amp;#x535A;&amp;#x5BA2;&amp;#x7F51;&amp;#x7AD9;&amp;#x4E0B;&amp;#x8F7D;wordpress&amp;#x4E0B;&amp;#x8F7D;&amp;#x5730;&amp;#x5740;&amp;#xFF1A;https://wordpress.org/  &amp;#x5B89;&amp;#x88C">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2020/05/05/使用树莓派搭建wordpress博客网站/D:%5Cgithub%5CBlog%5Csource_posts%5C%E4%BD%BF%E7%94%A8%E6%A0%91%E8%8E%93%E6%B4%BE%E6%90%AD%E5%BB%BAwordpress%E5%8D%9A%E5%AE%A2%E7%BD%91%E7%AB%99%5C46f1b7ce-9f21-444b-b252-ec0892dd70d8.png">
+<meta property="og:image" content="http://yoursite.com/2020/05/05/使用树莓派搭建wordpress博客网站/D:%5Cgithub%5CBlog%5Csource_posts%5C%E4%BD%BF%E7%94%A8%E6%A0%91%E8%8E%93%E6%B4%BE%E6%90%AD%E5%BB%BAwordpress%E5%8D%9A%E5%AE%A2%E7%BD%91%E7%AB%99%5C3b4c819a-8183-4e49-b79a-d75eb2fabcc2.png">
+<meta property="og:image" content="http://yoursite.com/2020/05/05/使用树莓派搭建wordpress博客网站/D:%5Cgithub%5CBlog%5Csource_posts%5C%E4%BD%BF%E7%94%A8%E6%A0%91%E8%8E%93%E6%B4%BE%E6%90%AD%E5%BB%BAwordpress%E5%8D%9A%E5%AE%A2%E7%BD%91%E7%AB%99%5Cff160488-6d22-4a2a-a586-26627bfe9073.png">
+<meta property="og:image" content="http://yoursite.com/2020/05/05/使用树莓派搭建wordpress博客网站/D:%5Cgithub%5CBlog%5Csource_posts%5C%E4%BD%BF%E7%94%A8%E6%A0%91%E8%8E%93%E6%B4%BE%E6%90%AD%E5%BB%BAwordpress%E5%8D%9A%E5%AE%A2%E7%BD%91%E7%AB%99%5C19d506c3-cf88-48c7-a589-14a9ebf75185.png">
+<meta property="og:image" content="http://yoursite.com/2020/05/05/使用树莓派搭建wordpress博客网站/D:%5Cgithub%5CBlog%5Csource_posts%5C%E4%BD%BF%E7%94%A8%E6%A0%91%E8%8E%93%E6%B4%BE%E6%90%AD%E5%BB%BAwordpress%E5%8D%9A%E5%AE%A2%E7%BD%91%E7%AB%99%5Cfd161472-ea7c-4638-bcb6-9d25b722b4ab.png">
+<meta property="og:image" content="http://yoursite.com/2020/05/05/使用树莓派搭建wordpress博客网站/D:%5Cgithub%5CBlog%5Csource_posts%5C%E4%BD%BF%E7%94%A8%E6%A0%91%E8%8E%93%E6%B4%BE%E6%90%AD%E5%BB%BAwordpress%E5%8D%9A%E5%AE%A2%E7%BD%91%E7%AB%99%5C8aee8efa-51a5-4abd-9a3f-d529469fe89d.png">
+<meta property="og:image" content="http://yoursite.com/2020/05/05/使用树莓派搭建wordpress博客网站/D:%5Cgithub%5CBlog%5Csource_posts%5C%E4%BD%BF%E7%94%A8%E6%A0%91%E8%8E%93%E6%B4%BE%E6%90%AD%E5%BB%BAwordpress%E5%8D%9A%E5%AE%A2%E7%BD%91%E7%AB%99%5Cc74c9e22-024f-4745-b9aa-210fb1278562.png">
+<meta property="og:image" content="http://yoursite.com/2020/05/05/使用树莓派搭建wordpress博客网站/D:%5Cgithub%5CBlog%5Csource_posts%5C%E4%BD%BF%E7%94%A8%E6%A0%91%E8%8E%93%E6%B4%BE%E6%90%AD%E5%BB%BAwordpress%E5%8D%9A%E5%AE%A2%E7%BD%91%E7%AB%99%5C19cc7f6b-7115-4075-9bc6-97abef24924f.png">
+<meta property="og:image" content="http://yoursite.com/2020/05/05/使用树莓派搭建wordpress博客网站/D:%5Cgithub%5CBlog%5Csource_posts%5C%E4%BD%BF%E7%94%A8%E6%A0%91%E8%8E%93%E6%B4%BE%E6%90%AD%E5%BB%BAwordpress%E5%8D%9A%E5%AE%A2%E7%BD%91%E7%AB%99%5C30a69add-e0c2-4de5-a3eb-697752dd5940.png">
+<meta property="og:image" content="http://yoursite.com/2020/05/05/使用树莓派搭建wordpress博客网站/D:%5Cgithub%5CBlog%5Csource_posts%5C%E4%BD%BF%E7%94%A8%E6%A0%91%E8%8E%93%E6%B4%BE%E6%90%AD%E5%BB%BAwordpress%E5%8D%9A%E5%AE%A2%E7%BD%91%E7%AB%99%5Cbc7e6993-72a9-4a86-aef6-c472a85b1967.png">
+<meta property="og:image" content="http://yoursite.com/2020/05/05/使用树莓派搭建wordpress博客网站/D:%5Cgithub%5CBlog%5Csource_posts%5C%E4%BD%BF%E7%94%A8%E6%A0%91%E8%8E%93%E6%B4%BE%E6%90%AD%E5%BB%BAwordpress%E5%8D%9A%E5%AE%A2%E7%BD%91%E7%AB%99%5C6390f0cf-5828-4ca2-8e8b-f8b05f759e35.png">
+<meta property="og:image" content="http://yoursite.com/2020/05/05/使用树莓派搭建wordpress博客网站/D:%5Cgithub%5CBlog%5Csource_posts%5C%E4%BD%BF%E7%94%A8%E6%A0%91%E8%8E%93%E6%B4%BE%E6%90%AD%E5%BB%BAwordpress%E5%8D%9A%E5%AE%A2%E7%BD%91%E7%AB%99%5C3d5f2fc7-0d53-421d-8262-4c90871eeaa7.png">
+<meta property="og:image" content="http://yoursite.com/2020/05/05/使用树莓派搭建wordpress博客网站/D:%5Cgithub%5CBlog%5Csource_posts%5C%E4%BD%BF%E7%94%A8%E6%A0%91%E8%8E%93%E6%B4%BE%E6%90%AD%E5%BB%BAwordpress%E5%8D%9A%E5%AE%A2%E7%BD%91%E7%AB%99%5Cceebb4eb-a3e1-4f38-b759-6fde31795529.png">
+<meta property="og:updated_time" content="2020-05-04T17:25:01.711Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="BlogsByMxdon">
+<meta name="twitter:description" content="&amp;#x4F7F;&amp;#x7528;&amp;#x6811;&amp;#x8393;&amp;#x6D3E;&amp;#x642D;&amp;#x5EFA;wordpress&amp;#x535A;&amp;#x5BA2;&amp;#x7F51;&amp;#x7AD9;&amp;#x4E0B;&amp;#x8F7D;wordpress&amp;#x4E0B;&amp;#x8F7D;&amp;#x5730;&amp;#x5740;&amp;#xFF1A;https://wordpress.org/  &amp;#x5B89;&amp;#x88C">
+<meta name="twitter:image" content="http://yoursite.com/2020/05/05/使用树莓派搭建wordpress博客网站/D:%5Cgithub%5CBlog%5Csource_posts%5C%E4%BD%BF%E7%94%A8%E6%A0%91%E8%8E%93%E6%B4%BE%E6%90%AD%E5%BB%BAwordpress%E5%8D%9A%E5%AE%A2%E7%BD%91%E7%AB%99%5C46f1b7ce-9f21-444b-b252-ec0892dd70d8.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/05/05/使用树莓派搭建wordpress博客网站/">
+
+
+
+
+
+  <title> | BlogsByMxdon</title>
+  
+
+
+
+
+
+
+
+
+</head>
+<a href="https://github.com/you"><img width="149" height="149" style="position:absolute;top:0;right:0;border: 0;" src="https://github.blog/wp-content/uploads/2008/12/forkme_right_darkblue_121621.png?resize=149%2C149" class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1"></a>
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+    
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">BlogsByMxdon</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/05/使用树莓派搭建wordpress博客网站/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mxdon">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="BlogsByMxdon">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline"></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-05-05T01:24:10+08:00">
+                2020-05-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2020/05/05/使用树莓派搭建wordpress博客网站/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2020/05/05/使用树莓派搭建wordpress博客网站/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2020/05/05/使用树莓派搭建wordpress博客网站/" class="leancloud_visitors" data-flag-title>
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  916
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="&#x4F7F;&#x7528;&#x6811;&#x8393;&#x6D3E;&#x642D;&#x5EFA;wordpress&#x535A;&#x5BA2;&#x7F51;&#x7AD9;"><a href="#&#x4F7F;&#x7528;&#x6811;&#x8393;&#x6D3E;&#x642D;&#x5EFA;wordpress&#x535A;&#x5BA2;&#x7F51;&#x7AD9;" class="headerlink" title="&#x4F7F;&#x7528;&#x6811;&#x8393;&#x6D3E;&#x642D;&#x5EFA;wordpress&#x535A;&#x5BA2;&#x7F51;&#x7AD9;"></a>&#x4F7F;&#x7528;&#x6811;&#x8393;&#x6D3E;&#x642D;&#x5EFA;wordpress&#x535A;&#x5BA2;&#x7F51;&#x7AD9;</h1><h2 id="&#x4E0B;&#x8F7D;wordpress"><a href="#&#x4E0B;&#x8F7D;wordpress" class="headerlink" title="&#x4E0B;&#x8F7D;wordpress"></a>&#x4E0B;&#x8F7D;wordpress</h2><p>&#x4E0B;&#x8F7D;&#x5730;&#x5740;&#xFF1A;<code>https://wordpress.org/</code></p>
+<p><img src="/2020/05/05/&#x4F7F;&#x7528;&#x6811;&#x8393;&#x6D3E;&#x642D;&#x5EFA;wordpress&#x535A;&#x5BA2;&#x7F51;&#x7AD9;/D:%5Cgithub%5CBlog%5Csource_posts%5C%E4%BD%BF%E7%94%A8%E6%A0%91%E8%8E%93%E6%B4%BE%E6%90%AD%E5%BB%BAwordpress%E5%8D%9A%E5%AE%A2%E7%BD%91%E7%AB%99%5C46f1b7ce-9f21-444b-b252-ec0892dd70d8.png" alt></p>
+<h2 id="&#x5B89;&#x88C5;&#x6811;&#x8393;&#x6D3E;"><a href="#&#x5B89;&#x88C5;&#x6811;&#x8393;&#x6D3E;" class="headerlink" title="&#x5B89;&#x88C5;&#x6811;&#x8393;&#x6D3E;"></a>&#x5B89;&#x88C5;&#x6811;&#x8393;&#x6D3E;</h2><p>&#x8BE6;&#x60C5;&#x53C2;&#x8003;&#x300A;&#x8FD9;&#x7BC7;&#x6587;&#x7AE0;&#x300B;</p>
+<h2 id="&#x73AF;&#x5883;&#x642D;&#x5EFA;"><a href="#&#x73AF;&#x5883;&#x642D;&#x5EFA;" class="headerlink" title="&#x73AF;&#x5883;&#x642D;&#x5EFA;"></a>&#x73AF;&#x5883;&#x642D;&#x5EFA;</h2><blockquote>
+<p>&#x7531;&#x4E8E;&#x865A;&#x62DF;&#x673A;&#x51FA;&#x73B0;&#x4E86;&#x70B9;&#x95EE;&#x9898;&#x2014;&#x2014;&#x65E0;&#x6CD5;&#x8BBE;&#x7F6E;&#x5171;&#x4EAB;&#x6587;&#x4EF6;&#x5939;&#x2014;&#x2014;<code>virtualbox</code>&#x4E2D;&#xFF0C;&#x6587;&#x4EF6;&#x6743;&#x9650;&#x4FEE;&#x6539;&#x7684;&#x65F6;&#x5019;&#x603B;&#x4F1A;&#x62A5;&#x9519;&#x201C;<code>read only file system</code>&#x201D;&#xFF0C;&#x5C1D;&#x8BD5;&#x4E86;&#x91CD;&#x65B0;&#x6302;&#x8F7D;&#x7B49;&#x8BF8;&#x591A;&#x65B9;&#x6CD5;&#x672A;&#x679C;&#xFF0C;&#x6539;&#x5230;<code>Windows</code>&#x4E0B;&#x4F7F;&#x7528;<code>VMware</code>&#xFF0C;&#x7ED3;&#x679C;&#x5B89;&#x88C5;<code>VMwaretools</code>&#x7684;&#x9009;&#x9879;&#x5448;&#x7070;&#x8272;&#xFF0C;&#x65E0;&#x6CD5;&#x70B9;&#x51FB;&#xFF0C;&#x4E5F;&#x662F;&#x6CA1;&#x80FD;&#x89E3;&#x51B3;&#xFF08;&#x6700;&#x8FD1;&#x6CA1;&#x80FD;&#x89E3;&#x51B3;&#x7684;&#x4E8B;&#x60C5;&#x4E5F;&#x592A;&#x591A;&#x4E86;&#x2026;&#x2026;&#xFF09;</p>
+</blockquote>
+<p>&#x4F46;&#x662F;&#x4F5C;&#x4E1A;&#x8FD8;&#x662F;&#x8981;&#x4EA4;&#x7684;&#xFF0C;&#x53EA;&#x80FD;&#x6682;&#x65F6;&#x653E;&#x5F03;&#x4FEE;&#x590D;&#xFF0C;&#x9009;&#x62E9;&#x4F7F;&#x7528;&#x7F51;&#x76D8;&#x4F20;&#x8F93;&#xFF08;&#x5976;&#x725B;&#x5FEB;&#x4F20;&#xFF09;&#xFF08;&#x53EF;&#x6C14;&#x7684;&#x662F;&#x5171;&#x4EAB;&#x7C98;&#x8D34;&#x677F;&#x4E5F;&#x6CA1;&#x529E;&#x6CD5;&#x6B63;&#x5E38;&#x4F7F;&#x7528;&#x2026;&#x2026;&#xFF09;&#xFF1A;</p>
+<p><img src="/2020/05/05/&#x4F7F;&#x7528;&#x6811;&#x8393;&#x6D3E;&#x642D;&#x5EFA;wordpress&#x535A;&#x5BA2;&#x7F51;&#x7AD9;/D:%5Cgithub%5CBlog%5Csource_posts%5C%E4%BD%BF%E7%94%A8%E6%A0%91%E8%8E%93%E6%B4%BE%E6%90%AD%E5%BB%BAwordpress%E5%8D%9A%E5%AE%A2%E7%BD%91%E7%AB%99%5C3b4c819a-8183-4e49-b79a-d75eb2fabcc2.png" alt><br>&#x53EA;&#x597D;&#x624B;&#x52A8;&#x8F93;&#x5165;&#x7F51;&#x5740;&#xFF1A;</p>
+<p><img src="/2020/05/05/&#x4F7F;&#x7528;&#x6811;&#x8393;&#x6D3E;&#x642D;&#x5EFA;wordpress&#x535A;&#x5BA2;&#x7F51;&#x7AD9;/D:%5Cgithub%5CBlog%5Csource_posts%5C%E4%BD%BF%E7%94%A8%E6%A0%91%E8%8E%93%E6%B4%BE%E6%90%AD%E5%BB%BAwordpress%E5%8D%9A%E5%AE%A2%E7%BD%91%E7%AB%99%5Cff160488-6d22-4a2a-a586-26627bfe9073.png" alt></p>
+<h3 id="&#x5B89;&#x88C5;php"><a href="#&#x5B89;&#x88C5;php" class="headerlink" title="&#x5B89;&#x88C5;php"></a>&#x5B89;&#x88C5;<code>php</code></h3><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt <span class="keyword">install</span> php</span><br></pre></td></tr></table></figure>
+
+<p>&#x9ED8;&#x8BA4;&#x5B89;&#x88C5;&#x7684;&#x7248;&#x672C;&#x662F;<code>7.3</code><br>&#x53EF;&#x7528;<code>php -v</code>&#x67E5;&#x770B;</p>
+<h3 id="&#x5B89;&#x88C5;mysql"><a href="#&#x5B89;&#x88C5;mysql" class="headerlink" title="&#x5B89;&#x88C5;mysql"></a>&#x5B89;&#x88C5;<code>mysql</code></h3><p>&#x5E38;&#x89C4;&#x601D;&#x8DEF;&#x4E5F;&#x8FD8;&#x662F;&#x4E0D;&#x884C;&#xFF08;&#x75AF;&#x4E86;&#xFF0C;&#x6811;&#x8393;&#x6D3E;&#x4F7F;&#x6211;&#x5904;&#x5904;&#x78B0;&#x58C1;&#xFF09;&#xFF0C;&#x7ECF;&#x8FC7;&#x4E00;&#x756A;&#x67E5;&#x8BC1;&#xFF0C;&#x5E94;&#x8BE5;&#x5B89;&#x88C5;<code>mysql</code>&#x7684;&#x5347;&#x7EA7;&#x7248;&#x2014;&#x2014;<code>mariadb</code>&#xFF0C;&#x5B89;&#x88C5;&#x547D;&#x4EE4;&#xFF1A;</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-<span class="builtin-name">get</span> install mariadb-server</span><br></pre></td></tr></table></figure>
+
+<p>&#x9ED8;&#x8BA4;&#x60C5;&#x51B5;&#x4E0B;MariaDB&#x5B89;&#x88C5;&#x597D;&#x540E;&#x90FD;&#x6CA1;&#x6709;&#x914D;&#x7F6E;&#x8BBF;&#x95EE;&#x7528;&#x6237;&#x7684;&#x5BC6;&#x7801;&#xFF0C;&#x56E0;&#x6B64;&#x5982;&#x679C;&#x9700;&#x8981;&#x8FDC;&#x7A0B;&#x8FDE;&#x63A5;&#x65F6;&#x4F1A;&#x65E0;&#x6CD5;&#x8FDE;&#x63A5;&#x3002;&#x56E0;&#x6B64;&#x9700;&#x8981;&#x5148;&#x5BF9;root&#x7528;&#x6237;&#x8BBE;&#x7F6E;&#x5BC6;&#x7801;&#x3002;&#x9996;&#x5148;&#x900F;&#x8FC7;&#x4E0A;&#x4E00;&#x6B65;&#x4E2D;&#x7684;&#x547D;&#x4EE4;&#x8FDE;&#x63A5;&#x81F3;MariaDB&#xFF0C;&#x8F93;&#x5165;&#x5982;&#x4E0B;&#x8BED;&#x53E5;&#x8FDB;&#x884C;&#x5BC6;&#x7801;&#x7684;&#x4FEE;&#x6539;:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> mysql;</span><br><span class="line"><span class="keyword">UPDATE</span> <span class="keyword">user</span> <span class="keyword">SET</span> <span class="keyword">password</span>=<span class="keyword">password</span>(<span class="string">&apos;&#x4F60;&#x7684;&#x5BC6;&#x7801;&apos;</span>) <span class="keyword">WHERE</span> <span class="keyword">user</span>=<span class="string">&apos;root&apos;</span>;</span><br><span class="line"><span class="keyword">UPDATE</span> <span class="keyword">user</span> <span class="keyword">SET</span> <span class="keyword">plugin</span>=<span class="string">&apos;mysql_native_password&apos;</span> <span class="keyword">WHERE</span> <span class="keyword">user</span> = <span class="string">&apos;root&apos;</span>;</span><br><span class="line"><span class="keyword">flush</span> <span class="keyword">privileges</span>;</span><br><span class="line">exit</span><br></pre></td></tr></table></figure>
+
+<p>&#x91CD;&#x542F;&#x670D;&#x52A1;</p>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">sudo systemctl restart mariadb</span></span><br></pre></td></tr></table></figure>
+
+<p>&#x91CD;&#x542F;&#x5B8C;&#x6210;&#x540E;&#xFF0C;&#x8BD5;&#x7528;&#x5BC6;&#x7801;&#x8FDB;&#x884C;mariadb&#x767B;&#x5F55;&#xFF0C;&#x9A8C;&#x8BC1;&#x662F;&#x5426;&#x4FEE;&#x6539;&#x6210;&#x529F;</p>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">mysql -u root -p</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="&#x5B89;&#x88C5;apache"><a href="#&#x5B89;&#x88C5;apache" class="headerlink" title="&#x5B89;&#x88C5;apache"></a>&#x5B89;&#x88C5;apache</h3><p>&#x81EA;&#x5E26;&#x5566;&#xFF0C;&#x4E0D;&#x7528;&#x5B89;&#x88C5;&#x5566;</p>
+<h2 id="&#x914D;&#x7F6E;wordpress"><a href="#&#x914D;&#x7F6E;wordpress" class="headerlink" title="&#x914D;&#x7F6E;wordpress"></a>&#x914D;&#x7F6E;wordpress</h2><p>&#x5C06;<code>wordpress</code>&#x89E3;&#x538B;&#x5230;<code>/var/www/</code>&#x7684;&#x76EE;&#x5F55;&#x4E0B;&#xFF0C;&#x540D;&#x5B57;&#x968F;&#x610F;&#xFF0C;&#x8FD9;&#x91CC;&#x6211;&#x7684;&#x6587;&#x4EF6;&#x5939;&#x53EB;&#x505A;<code>blog</code></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">sudo</span> <span class="selector-tag">unzip</span> <span class="selector-tag">wordpress</span><span class="selector-class">.zip</span></span><br></pre></td></tr></table></figure>
+
+<p>&#x8BBF;&#x95EE;<code>localhost</code>&#xFF0C;&#x663E;&#x793A;&#x5982;&#x4E0B;&#xFF1A;<br><img src="/2020/05/05/&#x4F7F;&#x7528;&#x6811;&#x8393;&#x6D3E;&#x642D;&#x5EFA;wordpress&#x535A;&#x5BA2;&#x7F51;&#x7AD9;/D:%5Cgithub%5CBlog%5Csource_posts%5C%E4%BD%BF%E7%94%A8%E6%A0%91%E8%8E%93%E6%B4%BE%E6%90%AD%E5%BB%BAwordpress%E5%8D%9A%E5%AE%A2%E7%BD%91%E7%AB%99%5C19d506c3-cf88-48c7-a589-14a9ebf75185.png" alt></p>
+<p>&#x66F4;&#x6539;<code>apache</code>&#x7684;&#x9996;&#x9875;&#x5B9A;&#x5411;,&#x8981;&#x4E0D;&#x7136;&#x8BBF;&#x95EE;<code>localhost</code>&#x7684;&#x65F6;&#x5019;&#x81EA;&#x52A8;&#x5C31;&#x662F;<code>/var/www/</code>&#x6587;&#x4EF6;&#x5939;&#x4E0B;&#x9ED8;&#x8BA4;&#x7684;<code>html</code>&#x6587;&#x4EF6;&#x5939;&#x53CA;&#x5176;&#x4E0B;&#x9762;&#x7684;<code>index.html</code></p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo nano <span class="regexp">/etc/</span>apache2<span class="regexp">/sites-available/</span><span class="number">000</span>-<span class="keyword">default</span>.conf</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/05/05/&#x4F7F;&#x7528;&#x6811;&#x8393;&#x6D3E;&#x642D;&#x5EFA;wordpress&#x535A;&#x5BA2;&#x7F51;&#x7AD9;/D:%5Cgithub%5CBlog%5Csource_posts%5C%E4%BD%BF%E7%94%A8%E6%A0%91%E8%8E%93%E6%B4%BE%E6%90%AD%E5%BB%BAwordpress%E5%8D%9A%E5%AE%A2%E7%BD%91%E7%AB%99%5Cfd161472-ea7c-4638-bcb6-9d25b722b4ab.png" alt><br>&#x7136;&#x540E;&#x53C8;&#x62A5;&#x6CA1;&#x6709;<code>MySQL</code>&#x6269;&#x5C55;&#x7684;&#x9519;&#x8BEF;<br><img src="/2020/05/05/&#x4F7F;&#x7528;&#x6811;&#x8393;&#x6D3E;&#x642D;&#x5EFA;wordpress&#x535A;&#x5BA2;&#x7F51;&#x7AD9;/D:%5Cgithub%5CBlog%5Csource_posts%5C%E4%BD%BF%E7%94%A8%E6%A0%91%E8%8E%93%E6%B4%BE%E6%90%AD%E5%BB%BAwordpress%E5%8D%9A%E5%AE%A2%E7%BD%91%E7%AB%99%5C8aee8efa-51a5-4abd-9a3f-d529469fe89d.png" alt><br>&#x5B89;&#x88C5;&#x6269;&#x5C55;&#x89E3;&#x51B3;&#xFF1A;</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt <span class="keyword">install</span> php-mysql</span><br></pre></td></tr></table></figure>
+
+<p>&#x7136;&#x540E;&#x53C8;&#x62A5;&#x9519;&#xFF1A;&#x5EFA;&#x7ACB;&#x6570;&#x636E;&#x5E93;&#x8FDE;&#x63A5;&#x51FA;&#x9519;<br><img src="/2020/05/05/&#x4F7F;&#x7528;&#x6811;&#x8393;&#x6D3E;&#x642D;&#x5EFA;wordpress&#x535A;&#x5BA2;&#x7F51;&#x7AD9;/D:%5Cgithub%5CBlog%5Csource_posts%5C%E4%BD%BF%E7%94%A8%E6%A0%91%E8%8E%93%E6%B4%BE%E6%90%AD%E5%BB%BAwordpress%E5%8D%9A%E5%AE%A2%E7%BD%91%E7%AB%99%5Cc74c9e22-024f-4745-b9aa-210fb1278562.png" alt><br>&#x7ECF;&#x67E5;&#x8BE2;&#xFF0C;&#x662F;&#x56E0;&#x4E3A;&#x6570;&#x636E;&#x5E93;&#x7684;&#x914D;&#x7F6E;&#x548C;&#x8FDE;&#x63A5;&#x95EE;&#x9898;&#x3002;<br>&#x6253;&#x5F00;&#x6570;&#x636E;&#x5E93;&#xFF1A;</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#x8FDE;&#x63A5;&#x6570;&#x636E;&#x5E93;</span><br><span class="line">mysql -u root -p</span><br><span class="line"></span><br><span class="line">&#x521B;&#x5EFA;wordpress&#x6570;&#x636E;&#x5E93;</span><br><span class="line"><span class="keyword">create</span> <span class="keyword">database</span> wordpress;</span><br><span class="line"></span><br><span class="line">&#x521B;&#x5EFA;&#x540D;&#x53EB;wordpress&#x7684;&#x7528;&#x6237;&#xFF0C;&#x5BC6;&#x7801;&#x662F;root&#xFF08;&#x53EF;&#x81EA;&#x884C;&#x4FEE;&#x6539;&#xFF09;</span><br><span class="line"><span class="keyword">grant</span> <span class="keyword">all</span> <span class="keyword">on</span> wordpress.* <span class="keyword">to</span> wordpress@<span class="string">&apos;localhost&apos;</span> <span class="keyword">identified</span> <span class="keyword">by</span> <span class="string">&apos;root&apos;</span>;</span><br><span class="line"></span><br><span class="line">&#x5237;&#x65B0;&#x66F4;&#x6539;</span><br><span class="line"><span class="keyword">flush</span> <span class="keyword">privileges</span>;</span><br></pre></td></tr></table></figure>
+
+<p>&#x8FD9;&#x6837;&#x6570;&#x636E;&#x5E93;&#x5C31;&#x5EFA;&#x7ACB;&#x5B8C;&#x4E86;&#xFF0C;&#x63A5;&#x4E0B;&#x6765;&#x662F;&#x4E0E;<code>wordpress</code>&#x8FDB;&#x884C;&#x94FE;&#x63A5;&#xFF1A;</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#x628A;&#x914D;&#x7F6E;&#x6587;&#x4EF6;<span class="string">&apos;wp-config-sample.php&apos;</span>&#x7684;&#x540D;&#x5B57;&#x6539;&#x6210;<span class="string">&apos;wp-config.php&apos;</span></span><br><span class="line">sudo mv wp-config-sample<span class="selector-class">.php</span> wp-config.php</span><br><span class="line"></span><br><span class="line">&#x7F16;&#x8F91;&#x914D;&#x7F6E;&#x6587;&#x4EF6;</span><br><span class="line">sudo nano wp-config.php</span><br></pre></td></tr></table></figure>
+
+<p>&#x5C06;&#x6570;&#x636E;&#x5E93;&#x7684;&#x76F8;&#x5173;&#x4FE1;&#x606F;&#xFF0C;&#x4E00;&#x4E00;&#x5BF9;&#x5E94;&#x4FEE;&#x6539;&#x6389;&#xFF1A;<br><img src="/2020/05/05/&#x4F7F;&#x7528;&#x6811;&#x8393;&#x6D3E;&#x642D;&#x5EFA;wordpress&#x535A;&#x5BA2;&#x7F51;&#x7AD9;/D:%5Cgithub%5CBlog%5Csource_posts%5C%E4%BD%BF%E7%94%A8%E6%A0%91%E8%8E%93%E6%B4%BE%E6%90%AD%E5%BB%BAwordpress%E5%8D%9A%E5%AE%A2%E7%BD%91%E7%AB%99%5C19cc7f6b-7115-4075-9bc6-97abef24924f.png" alt></p>
+<p>&#x7136;&#x540E;&#x518D;&#x8BBF;&#x95EE;<code>localhost/blog/index.php</code>&#x5373;&#x53EF;&#x5F00;&#x59CB;&#x914D;&#x7F6E;<code>wordpress</code><br><img src="/2020/05/05/&#x4F7F;&#x7528;&#x6811;&#x8393;&#x6D3E;&#x642D;&#x5EFA;wordpress&#x535A;&#x5BA2;&#x7F51;&#x7AD9;/D:%5Cgithub%5CBlog%5Csource_posts%5C%E4%BD%BF%E7%94%A8%E6%A0%91%E8%8E%93%E6%B4%BE%E6%90%AD%E5%BB%BAwordpress%E5%8D%9A%E5%AE%A2%E7%BD%91%E7%AB%99%5C30a69add-e0c2-4de5-a3eb-697752dd5940.png" alt><br>&#x90E8;&#x5206;&#x8BBE;&#x7F6E;&#x5982;&#x56FE;&#xFF1A;&#x7136;&#x540E;&#x70B9;&#x51FB;&#x4E0B;&#x65B9;&#x7684;&#x5B89;&#x88C5;&#x5373;&#x53EF;&#x3002;<br><img src="/2020/05/05/&#x4F7F;&#x7528;&#x6811;&#x8393;&#x6D3E;&#x642D;&#x5EFA;wordpress&#x535A;&#x5BA2;&#x7F51;&#x7AD9;/D:%5Cgithub%5CBlog%5Csource_posts%5C%E4%BD%BF%E7%94%A8%E6%A0%91%E8%8E%93%E6%B4%BE%E6%90%AD%E5%BB%BAwordpress%E5%8D%9A%E5%AE%A2%E7%BD%91%E7%AB%99%5Cbc7e6993-72a9-4a86-aef6-c472a85b1967.png" alt><br>&#x7136;&#x540E;&#x767B;&#x5F55;<br><img src="/2020/05/05/&#x4F7F;&#x7528;&#x6811;&#x8393;&#x6D3E;&#x642D;&#x5EFA;wordpress&#x535A;&#x5BA2;&#x7F51;&#x7AD9;/D:%5Cgithub%5CBlog%5Csource_posts%5C%E4%BD%BF%E7%94%A8%E6%A0%91%E8%8E%93%E6%B4%BE%E6%90%AD%E5%BB%BAwordpress%E5%8D%9A%E5%AE%A2%E7%BD%91%E7%AB%99%5C6390f0cf-5828-4ca2-8e8b-f8b05f759e35.png" alt><br>&#x8BD5;&#x5199;&#x4E00;&#x7BC7;&#x5E76;&#x53D1;&#x5E03;&#xFF1A;<br><img src="/2020/05/05/&#x4F7F;&#x7528;&#x6811;&#x8393;&#x6D3E;&#x642D;&#x5EFA;wordpress&#x535A;&#x5BA2;&#x7F51;&#x7AD9;/D:%5Cgithub%5CBlog%5Csource_posts%5C%E4%BD%BF%E7%94%A8%E6%A0%91%E8%8E%93%E6%B4%BE%E6%90%AD%E5%BB%BAwordpress%E5%8D%9A%E5%AE%A2%E7%BD%91%E7%AB%99%5C3d5f2fc7-0d53-421d-8262-4c90871eeaa7.png" alt><br>&#x6700;&#x7EC8;&#x6548;&#x679C;&#xFF1A;<br><img src="/2020/05/05/&#x4F7F;&#x7528;&#x6811;&#x8393;&#x6D3E;&#x642D;&#x5EFA;wordpress&#x535A;&#x5BA2;&#x7F51;&#x7AD9;/D:%5Cgithub%5CBlog%5Csource_posts%5C%E4%BD%BF%E7%94%A8%E6%A0%91%E8%8E%93%E6%B4%BE%E6%90%AD%E5%BB%BAwordpress%E5%8D%9A%E5%AE%A2%E7%BD%91%E7%AB%99%5Cceebb4eb-a3e1-4f38-b759-6fde31795529.png" alt></p>
+<p>&#x9535;&#x9535;~&#x8BA1;&#x7F51;&#x4F5C;&#x4E1A;&#x5B8C;&#x4E8B;&#x5566;</p>
+<h2 id="&#x53C2;&#x8003;&#x6587;&#x732E;"><a href="#&#x53C2;&#x8003;&#x6587;&#x732E;" class="headerlink" title="&#x53C2;&#x8003;&#x6587;&#x732E;"></a>&#x53C2;&#x8003;&#x6587;&#x732E;</h2><p><a href="http://codex.wordpress.org.cn/WordPress%E7%9A%84%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B#.E8.91.97.E5.90.8D.E7.9A.845.E5.88.86.E9.92.9F.E5.AE.89.E8.A3.85.E6.AD.A5.E9.AA.A4" target="_blank" rel="noopener">WordPress&#x7684;&#x5B89;&#x88C5;&#x8FC7;&#x7A0B;</a><br><a href="https://blog.csdn.net/sitebus/article/details/97435428" target="_blank" rel="noopener">Ubuntu&#x4E0B;&#x5B89;&#x88C5;PHP</a><br><a href="https://www.cnblogs.com/bluewelkin/p/3808226.html" target="_blank" rel="noopener">Linux&#x4E0B;&#x5B89;&#x88C5;&#x914D;&#x7F6E;MySQL+Apache+PHP+WordPress&#x7684;&#x8BE6;&#x7EC6;&#x7B14;&#x8BB0;</a><br><a href="https://blog.csdn.net/danmaidesenling/article/details/51280273" target="_blank" rel="noopener">Linux&#x4E0A;&#x5B89;&#x88C5; wordpress&#xFF08;apache&#xFF0C;php&#xFF0C;mysql&#xFF09;</a><br><a href="https://www.cnblogs.com/ftl1012/p/9302206.html" target="_blank" rel="noopener">Linux &#x4E0B;Wordpress&#x535A;&#x5BA2;&#x642D;&#x5EFA;</a><br><a href="https://blog.csdn.net/armcsdn/article/details/100481814" target="_blank" rel="noopener">&#x5173;&#x4E8E;&#x5728;&#x6811;&#x8393;&#x6D3E;&#x4E0A;&#x4E0D;&#x80FD;&#x5B89;&#x88C5;MySql</a><br><a href="https://www.wpdaxue.com/error-establishing-a-database-connection.html" target="_blank" rel="noopener">&#x89E3;&#x51B3;WordPress&#x5EFA;&#x7ACB;&#x6570;&#x636E;&#x5E93;&#x8FDE;&#x63A5;&#x65F6;&#x51FA;&#x9519;</a><br><a href="https://www.cnblogs.com/x_wukong/p/5859882.html" target="_blank" rel="noopener">&#x60A8;&#x7684; PHP &#x4F3C;&#x4E4E;&#x6CA1;&#x6709;&#x5B89;&#x88C5;&#x8FD0;&#x884C; WordPress &#x6240;&#x5FC5;&#x9700;&#x7684; MySQL &#x6269;&#x5C55;&#x201D;&#x5904;&#x7406;&#x65B9;&#x6CD5;</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="Mxdon 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="Mxdon 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/04/12/Ubuntu19.10使用Qemu安装树莓派/" rel="next" title>
+                <i class="fa fa-chevron-left"></i> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/05/10/远程控制/" rel="prev" title>
+                 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript">
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.gif" alt="Mxdon">
+            
+              <p class="site-author-name" itemprop="name">Mxdon</p>
+              <p class="site-description motion-element" itemprop="description">没能力，所以努力</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">33</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://mxdongit.github.io" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://blog.csdn.net/Mxdon_on" target="_blank" title="CSDN">
+                      
+                        <i class="fa fa-fw fa-crosshairs"></i>CSDN</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://mxdongit@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.jianshu.com/u/67b0eb1aab03" target="_blank" title="jianshu">
+                      
+                        <i class="fa fa-fw fa-heartbeat"></i>jianshu</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#使用树莓派搭建wordpress博客网站"><span class="nav-number">1.</span> <span class="nav-text">使用树莓派搭建wordpress博客网站</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#下载wordpress"><span class="nav-number">1.1.</span> <span class="nav-text">下载wordpress</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装树莓派"><span class="nav-number">1.2.</span> <span class="nav-text">安装树莓派</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#环境搭建"><span class="nav-number">1.3.</span> <span class="nav-text">环境搭建</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装php"><span class="nav-number">1.3.1.</span> <span class="nav-text">安装php</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装mysql"><span class="nav-number">1.3.2.</span> <span class="nav-text">安装mysql</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装apache"><span class="nav-number">1.3.3.</span> <span class="nav-text">安装apache</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置wordpress"><span class="nav-number">1.4.</span> <span class="nav-text">配置wordpress</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考文献"><span class="nav-number">1.5.</span> <span class="nav-text">参考文献</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+<div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-[object Object]"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mxdon</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+<!-- 新增访客统计代码 -->
+
+<div class="busuanzi-count">
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      访问用户：<span class="busuanzi-value" id="busuanzi_value_site_uv"></span>人 
+    </span>
+    <div class="powered-by"></div>
+    <span class="site-uv">
+      <i class="fa fa-eye"></i>
+      访问次数：<span class="busuanzi-value" id="busuanzi_value_site_pv"></span>次  
+    </span>
+    <!-- 博客字数统计 -->
+    <span class="site-pv">
+      <i class="fa fa-pencil"></i>
+      博客全站共： <span class="post-count">51.6k</span> 字
+    </span>
+</div>
+<!-- 新增访客统计代码 END-->
+
+<!-- 在网页底部添加网站运行时间 -->
+<span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+<script>
+    var now = new Date();
+    function createtime() {
+        var grt= new Date("12/30/2018 00:00:00");//此处修改你的建站时间或者网站上线时间
+        now.setTime(now.getTime()+250);
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;}
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;}
+        document.getElementById("timeDate").innerHTML = "Run for "+dnum+" Days ";
+        document.getElementById("times").innerHTML = hnum + " Hours " + mnum + " m " + snum + " s";
+    }
+setInterval("createtime()",250);
+</script>
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'AH42wJj2ypkYY3tg5QlJ9w6K-gzGzoHsz',
+        appKey: 'YxFCwY535YSXh2FQEnOs8YH5',
+        placeholder: 'ヾﾉ≧∀≦)o来啊，快活啊!',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("AH42wJj2ypkYY3tg5QlJ9w6K-gzGzoHsz", "YxFCwY535YSXh2FQEnOs8YH5");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+
+</body>
+<!-- Ò³Ãæµã»÷Ð¡ºìÐÄ -->
+<script type="text/javascript" src="/js/src/clicklove.js"></script>
+</html>
