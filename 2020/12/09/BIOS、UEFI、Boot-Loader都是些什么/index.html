@@ -1,0 +1,510 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>BIOS、UEFI、Boot Loader都是些什么 | Mxdon</title><meta name="keywords" content="硬件"><meta name="author" content="Mxdon,mxdongit@126.com"><meta name="copyright" content="Mxdon"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="什么是BIOS Basic Input Output System（基本输入输出系统） 其实就是一组保存着计算机最重要的基本输入输出的程序、开机后自检程序、系统自启动程序，并固化到计算机内主板上的一个ROM芯片上的程序。  基本的输入输出是什么BIOS的终极目标：  “BIOS的最主要的功能：初始化硬件平台和提供硬件的软件抽象，引导操作系统启动。”  所以： 输入的是：硬件平台的信息 输出的是：硬">
+<meta property="og:type" content="article">
+<meta property="og:title" content="BIOS、UEFI、Boot Loader都是些什么">
+<meta property="og:url" content="http://blog.mxdon.cool/2020/12/09/BIOS%E3%80%81UEFI%E3%80%81Boot-Loader%E9%83%BD%E6%98%AF%E4%BA%9B%E4%BB%80%E4%B9%88/index.html">
+<meta property="og:site_name" content="Mxdon">
+<meta property="og:description" content="什么是BIOS Basic Input Output System（基本输入输出系统） 其实就是一组保存着计算机最重要的基本输入输出的程序、开机后自检程序、系统自启动程序，并固化到计算机内主板上的一个ROM芯片上的程序。  基本的输入输出是什么BIOS的终极目标：  “BIOS的最主要的功能：初始化硬件平台和提供硬件的软件抽象，引导操作系统启动。”  所以： 输入的是：硬件平台的信息 输出的是：硬">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pic.downk.cc/item/5e8dc71d504f4bcb044d3130.jpg">
+<meta property="article:published_time" content="2020-12-09T14:58:16.000Z">
+<meta property="article:modified_time" content="2021-12-05T14:44:41.912Z">
+<meta property="article:author" content="Mxdon">
+<meta property="article:tag" content="硬件">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pic.downk.cc/item/5e8dc71d504f4bcb044d3130.jpg"><link rel="shortcut icon" href="/img/mxdon.png"><link rel="canonical" href="http://blog.mxdon.cool/2020/12/09/BIOS%E3%80%81UEFI%E3%80%81Boot-Loader%E9%83%BD%E6%98%AF%E4%BA%9B%E4%BB%80%E4%B9%88/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta/><meta/><meta/><meta/><meta/><meta/><meta/><meta/><meta/><meta/><meta/><meta/><meta/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: Mxdon","link":"链接: ","source":"来源: Mxdon","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'mediumZoom',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: true,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'BIOS、UEFI、Boot Loader都是些什么',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-12-05 22:44:41'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const fontSizeVal = saveToLocal.get('global-font-size')
+    if (fontSizeVal !== undefined) {
+      document.documentElement.style.setProperty('--global-font-size', fontSizeVal + 'px')
+    }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    document.addEventListener('pjax:complete', detectApple)})(window)</script><meta name="generator" content="Hexo 5.4.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/mxdon.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">35</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">21</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://pic.downk.cc/item/5e8dc71d504f4bcb044d3130.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Mxdon</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">BIOS、UEFI、Boot Loader都是些什么</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2020-12-09T14:58:16.000Z" title="发表于 2020-12-09 22:58:16">2020-12-09</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-12-05T14:44:41.912Z" title="更新于 2021-12-05 22:44:41">2021-12-05</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%A1%AC%E4%BB%B6/">硬件</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.5k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>8分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="BIOS、UEFI、Boot Loader都是些什么"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="什么是BIOS"><a href="#什么是BIOS" class="headerlink" title="什么是BIOS"></a>什么是BIOS</h2><blockquote>
+<p><code>Basic Input Output System</code>（基本输入输出系统）</p>
+<p>其实就是一组保存着计算机最重要的<strong>基本输入输出的程序</strong>、<strong>开机后自检程序</strong>、<strong>系统自启动程序</strong>，<strong>并固化到计算机内主板上的一个ROM芯片上的程序</strong>。</p>
+</blockquote>
+<h3 id="基本的输入输出是什么"><a href="#基本的输入输出是什么" class="headerlink" title="基本的输入输出是什么"></a>基本的输入输出是什么</h3><p><strong>BIOS的终极目标：</strong></p>
+<blockquote>
+<p>“BIOS的最主要的功能：初始化硬件平台和提供硬件的软件抽象，引导操作系统启动。”</p>
+</blockquote>
+<p>所以：</p>
+<p>输入的是：硬件平台的信息</p>
+<p>输出的是：硬件的软件抽象</p>
+<p>然后<strong>将引导文件加载至内存引导操作系统启动</strong></p>
+<h3 id="自检程序“检”了什么"><a href="#自检程序“检”了什么" class="headerlink" title="自检程序“检”了什么"></a>自检程序“检”了什么</h3><p><img src="https://gitee.com/mxdon/img/raw/master/2020/image-20201209230345560.png" alt="image-20201209230345560"></p>
+<p>每个硬件平台都需要发现IO总线，因为数据的传输离不开总线。</p>
+<p>所谓的系统自检，就是<code>Power On Self Test</code>，也就是图中的<code>POST</code>过程。在传统<code>BIOS</code>的上电阶段，通过<code>IO</code>枚举发现总线，进入到标准描述的平台接口部分。</p>
+<h3 id="系统自启动了什么"><a href="#系统自启动了什么" class="headerlink" title="系统自启动了什么"></a>系统自启动了什么</h3><p><img src="https://gitee.com/mxdon/img/raw/master/2020/image-20201209231643209.png" alt="image-20201209231643209"></p>
+<p>自启动了操作系统呀~毕竟按下电源只是启动了<code>BIOS</code>程序。</p>
+<p>此外，在传统<code>BIOS</code>程序中，还不支持文件系统，不像上图的<code>Dell</code>主板，可以手动的添加引导文件，在传统<code>BIOS</code>启动之后，<code>BIOS</code>会自动加载<code>MBR</code>的主引导记录，使操作系统“自行启动”</p>
+<p><strong>所以我们再看什么是<code>BIOS</code>？</strong></p>
+<p><img src="https://gitee.com/mxdon/img/raw/master/2020/image-20201209230345560.png" alt="image-20201209230345560"></p>
+<p><strong>输入：</strong>围绕上图进行展开，左边部分刚好是硬件的初始化：<code>CPU</code>初始化、内存初始化……相当于是上面说的，输入的硬件平台信息。</p>
+<p><strong>自检：</strong>再经过中间部分的系统自检，控制台初始化、设备初始化、通过枚举发现总线并初始化。</p>
+<p><strong>输出&amp;自启动：</strong>选择引导设备之后，通过<code>BIOS</code>将硬件平台的软件接口提供给<code>OS Loader</code>，以供操作系统运行使用。</p>
+<p><code>BIOS</code>的脉络就稍微有一些清楚了吧。</p>
+<h2 id="什么是UEFI-BIOS"><a href="#什么是UEFI-BIOS" class="headerlink" title="什么是UEFI BIOS"></a>什么是UEFI BIOS</h2><blockquote>
+<p>Unified Extensible Firmware Interface（统一可扩展固件接口）</p>
+<p>  由于安藤处理器芯片组的创新，64位架构的处理器已经不再适用传统BIOS的16位运行模式，英特尔将系统固件和操作系统之间的接口完全重新定义为一个可扩展的，标准化的固件接口规范。</p>
+</blockquote>
+<p><code>UEFI</code>名字听起来和<code>BIOS</code>相差较大，但是作为业界的新<code>BIOS</code>——<code>UEFI BIOS</code>，毕竟还是<code>BIOS</code>，所以它的主要目标就还是——<strong>初始化硬件，提供硬件的软件抽象，并引导操作系统启动</strong></p>
+<h3 id="UEFI和BIOS的区别"><a href="#UEFI和BIOS的区别" class="headerlink" title="UEFI和BIOS的区别"></a>UEFI和BIOS的区别</h3><p><img src="https://gitee.com/mxdon/img/raw/master/2020/image-20201209233106533.png" alt="image-20201209233106533"></p>
+<p><strong>效率方面：</strong><code>BIOS</code>正是因为其闭源、接口混乱才导致其最终不适用于新架构的芯片，那时候刚好赶上开源的浪潮，<code>UEFI</code>开源且使用规定的标准接口，通过提供接口，也将大部分代码移步到了<code>C</code>代码，大大降低了开发难度，这也是其快速发展的根本原因。</p>
+<p><strong>性能方面：</strong><code>UEFI</code>舍弃了硬件外部中断的低效方式，只保留了时钟中断，通过异步+事件来实现对外部设备的操作，性能因此得到极大的释放。</p>
+<p><strong>扩展性和兼容性：</strong>由于规范的模块化设计，在扩展功能时只需要动态链接其模块即可，扩展十分方便。而且传统<code>BIOS</code>必须运行在<code>16</code>位的指令模式下，寻址范围也十分有限，而<code>UEFI BIOS</code>支持64位的程序，兼容<code>32</code>位，这也是为什么<code>Windows XP</code>这么久了，稍微改改还可以安装在新设备上。</p>
+<p><strong>安全性：</strong><code>UEFI</code>安装的驱动设备需要经过签名验证才可以，通过一定的加密机制进行验证，其安全性也非常的高。</p>
+<p><strong>其他：</strong>传统<code>BIOS</code>只支持容量不超过<code>2TB</code>的驱动器，原因是：按照常见的<code>512Byte</code>扇区，其分区表的单个分区的第<code>13-16</code>字节用来进行<code>LBA</code>寻址，也就是以扇区为单位进行寻址。</p>
+<p><img src="https://gitee.com/mxdon/img/raw/master/2020/image-20201209234539804.png" alt="image-20201209234539804"></p>
+<p><code>13-16</code>总共<code>4</code>个字节，<code>1Byte=8bit</code>，这样也就是<code>4*8=32</code>位，总共就是<code>2^32</code>个单位空间，以扇区为单位进行寻址，也就是每次<code>512Byte</code>，也就是：<br>$$<br>2^{32}*512=2^{41}B=2^{31}KB=2^{21}MB=2^{11}GB=2TB<br>$$<br>所以传统<code>BIOS</code>支持的最大容量的驱动器，不超过<code>2TB</code>。以硬件厂商<code>1000：1024</code>的计算方式，也就是<code>2.2TB</code>：<br>$$<br>2^{41}B/1000,000,000,000=2.2TB<br>$$<br>那么<code>UEFI</code>支持多大的呢？</p>
+<p><img src="https://gitee.com/mxdon/img/raw/master/2020/image-20201209235422385.png" alt="image-20201209235422385"></p>
+<p>采用类似的分区表，具体可以看[参考文章]。</p>
+<p><code>UEFI</code>支持<code>64</code>位的地址空间，所以其寻址偏移恰好为一个机器长度——<code>64</code>位，即<code>8Byte</code>，还是按照<code>LBA</code>寻址方式，按照上述计算：<br>$$<br>2^{64}*512=2^{73}B=2^{13}EB=8ZB<br>$$<br>但是微软关方和一些其他资料都显示是<code>18EB</code>(按照硬件厂商<code>1000：1024</code>计算)：<br>$$<br>2^{64}B/10^{60}=18EB<br>$$</p>
+<p><img src="https://gitee.com/mxdon/img/raw/master/2020/image-20201211123226161.png" alt="微软对GPT大小的解释"></p>
+<p><img src="https://gitee.com/mxdon/img/raw/master/2020/image-20201211123247101.png" alt="Intel白皮书未对GPT大小进行说明"></p>
+<p><img src="https://gitee.com/mxdon/img/raw/master/2020/image-20201211123836500.png" alt="NTFS官网上的计算大小"></p>
+<p>所以可以对微软官网的数据<strong>证伪</strong>。</p>
+<blockquote>
+<p>由于现在又由<code>8</code>个<code>512Byte</code>扇区伪装一下，发展成了<code>4k</code>大小的扇区，所以上述计算还可以再乘<code>8</code>，即<code>GPT</code>最大分区容量可以是<code>64ZB</code>，而当前整个万维网的大小也不过<code>1ZB</code></p>
+</blockquote>
+<h3 id="GPT分区的结构"><a href="#GPT分区的结构" class="headerlink" title="GPT分区的结构"></a>GPT分区的结构</h3><p>既然说到了<code>GPT</code>分区的大小问题，那就顺便稍微说一说它的结构吧，如上图：</p>
+<p><img src="https://gitee.com/mxdon/img/raw/master/2020/image-20201211125738922.png" alt="NTFS官网的图"></p>
+<p><code>PMBR</code>是<code>Protective MBR</code>，就是当作<code>MBR</code>用，位置在<code>LBA0</code>，如果是传统引导，就从这个地方寻找引导文件，如果是<code>UEFI</code>引导，再从后面的<code>GPT HDR</code>寻找，<code>GPT HDR</code>是**<code>GPT</code>表头**，位置在<code>LBA1</code>，记录其他表项的位置；</p>
+<p><code>LBA2-LBA33</code>总共<code>32</code>个分区表，记录对应分区的信息，比如起始地址和结束地址等，每个分区的信息用<code>128Byte</code>记录，也叫做<strong>分区表项</strong>，比较有意思的一点是，由于<code>Windows</code>只允许最多<code>128</code>个分区，所以<code>GPT</code><strong>一般</strong>也就只设<code>32</code>个分区表。那这是为什么呢？</p>
+<p>前面介绍，一个扇区一般是<code>512Byte</code>，按照微软的设定来，<code>128</code>个分区，也就需要<code>128</code>个分区表项来记录，一个分区表项<code>128Byte</code>，也就是总共<br>$$<br>128<em>128=2^7</em>2^7=2^{14}<br>$$<br><code>32</code>个<code>512Byte</code>大小的扇区，是不是刚好：<br>$$<br>32<em>512=2^5</em>2^9=2^{14}<br>$$<br>这里可能只做了解即可。</p>
+<p>至于后面的蓝色区域，对应之后，<code>LBA-1</code>是<code>GPT HDR</code>的备份表，<code>LBA-2 - LBA-33</code>是分区表的备份表，如果前面的数据发生错误，就从后面恢复就好啦~</p>
+<p>中间的<code>LBA34-LBA-34</code>也就是除去表头、表项和备份表等信息的<strong>分区</strong>内容啦</p>
+<h3 id="UEFI与硬件初始化"><a href="#UEFI与硬件初始化" class="headerlink" title="UEFI与硬件初始化"></a>UEFI与硬件初始化</h3><blockquote>
+<p><code>UEFI</code>纯粹地是一个接口规范</p>
+<p>它不会具体涉及平台固件是如何实现的</p>
+<p><code>UEFI</code>建立在被称为平台初始化（<code>Platform Initialization</code>，简称<code>PI</code>）标准的框架之上。</p>
+<p><strong><code>PI</code>是关于<code>UEFI</code>具体如何实现的规范</strong></p>
+</blockquote>
+<p><img src="https://gitee.com/mxdon/img/raw/master/2020/image-20201210000457886.png" alt="image-20201210000457886"></p>
+<p>在<code>SEC</code>安全验证，初始化<code>cpu</code>和<code>cpu</code>内部资源，使<code>cache</code>作为<code>ram</code>提供堆栈运行C代码（<code>CAR</code>——<code>Cache As Ram</code>）</p>
+<p><code>PEI</code>阶段初始化内存，并将需要传递的信息传递给<code>DXE</code></p>
+<p><code>DXE</code>驱动执行环境，内存已经可以完全被使用，初始化核心芯片，并将控制权转交给<code>UEFI</code>接口</p>
+<p><code>BDS</code>引导设备选择，负责初始化所有启动<code>OS</code>所需的设备，负责执行所有符合<code>UEFI</code>驱动模型的驱动。</p>
+<p>选择完引导设备，就加载<code>OS loader</code>运行<code>OS</code></p>
+<p><code>OS</code>启动后，系统的控制权从UEFI转交给<code>OS loader</code>，<code>UEFI</code>占用的资源被回收到<code>OS loader</code>，只保留<code>UEFI</code>运行是服务。</p>
+<p>其实再统观一下上面的流程，是不是就变成了：<strong>基本输入&gt;&gt;&gt;<code>PI</code>&gt;&gt;&gt;<code>UEFI</code>&gt;&gt;&gt;基本输出</strong></p>
+<p>这个过程是不是又像<code>BIOS</code>了？毕竟<code>UEFI</code>还是用作<code>BIOS</code>的。</p>
+<p><img src="https://gitee.com/mxdon/img/raw/master/2020/image-20201210001009450.png" alt="image-20201210001009450"></p>
+<p>如果还是觉得<code>UEFI</code>和<code>BIOS</code>是两回事，那么可以换种解读：</p>
+<p><code>Rom Stage</code>：一开始运行在<code>Rom</code>中，初始化<code>Cache</code>作为<code>Ram</code>运行，从而有了初步的<code>C</code>环境，运行<code>C</code>代码。</p>
+<p><code>Ram Stage</code>：初始化一定的硬件之后，<code>BIOS</code>程序进入到<code>Ram</code>中，继续初始化芯片组、主板等硬件。</p>
+<p><code>Find something to boot</code>：最后找到启动设备，把控制权交给操作系统内核，开始操作系统的时代。</p>
+<h2 id="什么是Boot-Loader"><a href="#什么是Boot-Loader" class="headerlink" title="什么是Boot Loader"></a>什么是Boot Loader</h2><blockquote>
+<p><strong><code>Boot Loader</code>是在操作系统内核运行前执行的一小段程序</strong>，执行的工作听起来和<code>BIOS</code>很像：初始化硬件，和引导系统，相当于<code>UEFI</code>启动过程中的<code>PEI</code>初始化硬件、<code>DXE</code>识别启动设备，<code>BDS</code>把权限交给启动加载器，引导内核。</p>
+</blockquote>
+<p>对比一下<code>UEFI</code>和<code>Boot Loader</code>的启动方式：</p>
+<p><img src="https://gitee.com/mxdon/img/raw/master/2020/image-20201210000457886.png" alt="UEFI启动"></p>
+<p><img src="https://gitee.com/mxdon/img/raw/master/2020/image-20201210001749309.png" alt="Boot Loader启动"></p>
+<p>再分析<code>Boot Loader</code>的启动过程：</p>
+<p>首先硬件设备初始化。为加载 <code>Boot Loader</code> 的 <code>stage2</code> 准备 <code>RAM</code> 空间。拷贝 <code>Boot Loader</code> 的 <code>stage2</code> 到 <code>RAM</code> 空间中。设置好堆栈。跳转到 <code>stage2</code> 的 <code>C</code> 入口点。</p>
+<p>初始化本阶段要使用到的硬件设备。检测系统内存映射(<code>memory map</code>)。将<code>kernel</code> 映像和根文件系统映像从 <code>flash</code> 上读到 <code>RAM</code> 空间中。为内核设置启动参数。调用内核。</p>
+<blockquote>
+<p>PS:有的Boot Loader可能只有一个过程，上述为两个阶段的类型。</p>
+</blockquote>
+<p><strong>几个问题：</strong></p>
+<ol>
+<li><p><code>BIOS</code>为什么固化到<code>ROM</code>芯片上？</p>
+<p>因为掉电不丢失</p>
+</li>
+<li><p>只读存储器的话，又不能作修改，还有界面干什么？</p>
+<p>要作修改，修改内容在<code>CMOS</code>中</p>
+</li>
+<li><p>现在的<code>BIOS</code>固化到哪了？</p>
+<p><code>ROM</code>-&gt;<code>PROM</code>-&gt;<code>EPROM</code>-&gt;<code>EEPROM</code>-&gt;<code>FLASH</code>。</p>
+<ul>
+<li><p>一开始是在<code>ROM</code>上，但是只能检验，不能修改，十分的不方便，所以就转到了<code>PROM</code></p>
+</li>
+<li><p><code>PROM</code>可编程<code>ROM</code>，但是写入后也不能改，</p>
+</li>
+<li><p>然后就是<code>EPROM</code>，可擦除可编程<code>ROM</code>，但是人们又觉得不方便，</p>
+</li>
+<li><p>于是又有了<code>EEPROM</code>，电可擦除可编程<code>ROM</code>，而且双电压可防毒。</p>
+</li>
+<li><p><code>Flash</code>闪存，更方便，只要用专用程序即可修改，</p>
+</li>
+</ul>
+</li>
+</ol>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:mxdongit@126.com">Mxdon</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://blog.mxdon.cool/2020/12/09/BIOS%E3%80%81UEFI%E3%80%81Boot-Loader%E9%83%BD%E6%98%AF%E4%BA%9B%E4%BB%80%E4%B9%88/">http://blog.mxdon.cool/2020/12/09/BIOS%E3%80%81UEFI%E3%80%81Boot-Loader%E9%83%BD%E6%98%AF%E4%BA%9B%E4%BB%80%E4%B9%88/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://blog.mxdon.cool" target="_blank">Mxdon</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E7%A1%AC%E4%BB%B6/">硬件</a></div><div class="post_share"><div class="social-share" data-image="https://pic.downk.cc/item/5e8dc71d504f4bcb044d3130.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button button--animated"><i class="fas fa-qrcode"></i> 鼓励一下</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechatpay.jpg" target="_blank"><img class="post-qr-code-img" src="/img/wechatpay.jpg" alt="wechat"/></a><div class="post-qr-code-desc">wechat</div></li><li class="reward-item"><a href="/img/alipay.jpg" target="_blank"><img class="post-qr-code-img" src="/img/alipay.jpg" alt="alipay"/></a><div class="post-qr-code-desc">alipay</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2020/12/09/%E4%BD%BF%E7%94%A8%E6%A0%91%E8%8E%93%E6%B4%BE%E6%90%AD%E5%BB%BAwordpress%E5%8D%9A%E5%AE%A2%E7%BD%91%E7%AB%99/"><img class="prev-cover" src="https://pic.downk.cc/item/5e8dc71d504f4bcb044d3130.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">使用树莓派搭建wordpress博客网站</div></div></a></div><div class="next-post pull-right"><a href="/2020/12/26/%E7%A1%AC%E4%BB%B6%E5%85%A5%E9%97%A8%E7%9A%84%E4%B8%80%E7%82%B9%E7%82%B9%E5%BF%83%E5%BE%97/"><img class="next-cover" src="https://pic.downk.cc/item/5e8dc71d504f4bcb044d3130.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">硬件入门的一点点心得</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2021/12/05/What-is-BIOS/" title="What_is_BIOS"><img class="cover" src="https://pic.downk.cc/item/5e8dc71d504f4bcb044d3130.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="fas fa-history fa-fw"></i> 2021-12-05</div><div class="title">What_is_BIOS</div></div></a></div><div><a href="/2020/12/09/%E4%BD%BF%E7%94%A8%E6%A0%91%E8%8E%93%E6%B4%BE%E6%90%AD%E5%BB%BAwordpress%E5%8D%9A%E5%AE%A2%E7%BD%91%E7%AB%99/" title="使用树莓派搭建wordpress博客网站"><img class="cover" src="https://pic.downk.cc/item/5e8dc71d504f4bcb044d3130.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="fas fa-history fa-fw"></i> 2021-12-05</div><div class="title">使用树莓派搭建wordpress博客网站</div></div></a></div><div><a href="/2021/12/05/%E6%97%A0%E5%BC%80%E5%8F%91%E6%9D%BF%E5%A6%82%E4%BD%95%E5%BC%80%E5%8F%91linux%E7%B3%BB%E7%BB%9F%E5%86%85%E6%A0%B8/" title="龙芯杯无开发板如何开发和调试linux"><img class="cover" src="https://pic.downk.cc/item/5e8dc71d504f4bcb044d3130.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="fas fa-history fa-fw"></i> 2021-12-06</div><div class="title">龙芯杯无开发板如何开发和调试linux</div></div></a></div><div><a href="/2020/12/26/%E7%A1%AC%E4%BB%B6%E5%85%A5%E9%97%A8%E7%9A%84%E4%B8%80%E7%82%B9%E7%82%B9%E5%BF%83%E5%BE%97/" title="硬件入门的一点点心得"><img class="cover" src="https://pic.downk.cc/item/5e8dc71d504f4bcb044d3130.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="fas fa-history fa-fw"></i> 2021-12-06</div><div class="title">硬件入门的一点点心得</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFBIOS"><span class="toc-number">1.</span> <span class="toc-text">什么是BIOS</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E7%9A%84%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-number">1.1.</span> <span class="toc-text">基本的输入输出是什么</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E6%A3%80%E7%A8%8B%E5%BA%8F%E2%80%9C%E6%A3%80%E2%80%9D%E4%BA%86%E4%BB%80%E4%B9%88"><span class="toc-number">1.2.</span> <span class="toc-text">自检程序“检”了什么</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E8%87%AA%E5%90%AF%E5%8A%A8%E4%BA%86%E4%BB%80%E4%B9%88"><span class="toc-number">1.3.</span> <span class="toc-text">系统自启动了什么</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFUEFI-BIOS"><span class="toc-number">2.</span> <span class="toc-text">什么是UEFI BIOS</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#UEFI%E5%92%8CBIOS%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">2.1.</span> <span class="toc-text">UEFI和BIOS的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GPT%E5%88%86%E5%8C%BA%E7%9A%84%E7%BB%93%E6%9E%84"><span class="toc-number">2.2.</span> <span class="toc-text">GPT分区的结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#UEFI%E4%B8%8E%E7%A1%AC%E4%BB%B6%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="toc-number">2.3.</span> <span class="toc-text">UEFI与硬件初始化</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFBoot-Loader"><span class="toc-number">3.</span> <span class="toc-text">什么是Boot Loader</span></a></li></ol></div></div></div></div></main><footer id="footer" style="background-image: url('https://pic.downk.cc/item/5e8dc71d504f4bcb044d3130.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2021 By Mxdon</div><div class="footer_custom_text">Hi, welcome to Mxdon's blog</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="font-plus" type="button" title="放大字体"><i class="fas fa-plus"></i></button><button id="font-minus" type="button" title="缩小字体"><i class="fas fa-minus"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="chat_btn" type="button" title="rightside.chat_btn"><i class="fas fa-sms"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/medium-zoom/dist/medium-zoom.min.js"></script><script src="/js/search/local-search.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>(()=>{
+  const $countDom = document.getElementById('twikoo-count')
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: 'https://blog-comment-eiv9e480i-mxdongit.vercel.app',
+      region: 'eastasia'
+    }, null))
+  }
+
+  const getCount = () => {
+    twikoo.getCommentsCount({
+      envId: 'https://blog-comment-eiv9e480i-mxdongit.vercel.app',
+      region: 'eastasia',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(function (res) {
+      $countDom.innerText = res[0].count
+    }).catch(function (err) {
+      console.error(err);
+    });
+  }
+
+  const loadTwikoo = (bool = false) => {
+    if (typeof twikoo === 'object') {
+      init()
+      bool && $countDom && setTimeout(getCount,0)
+    } else {
+      getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(()=> {
+        init()
+        bool && $countDom && setTimeout(getCount,0)
+      })
+    }
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo(true)
+  } else {
+    window.loadOtherComment = () => {
+      loadTwikoo()
+    }
+  }
+})()</script></div><script>window.addEventListener('load', () => {
+  const changeContent = (content) => {
+    if (content === '') return content
+
+    content = content.replace(/<img.*?src="(.*?)"?[^\>]+>/ig, '[图片]') // replace image link
+    content = content.replace(/<a[^>]+?href=["']?([^"']+)["']?[^>]*>([^<]+)<\/a>/gi, '[链接]') // replace url
+    content = content.replace(/<pre><code>.*?<\/pre>/gi, '[代码]') // replace code
+    content = content.replace(/<[^>]+>/g,"") // remove html tag
+
+    if (content.length > 150) {
+      content = content.substring(0,150) + '...'
+    }
+    return content
+  }
+
+  const getComment = () => {
+    const runTwikoo = () => {
+      twikoo.getRecentComments({
+        envId: 'https://blog-comment-eiv9e480i-mxdongit.vercel.app',
+        region: 'eastasia',
+        pageSize: 6,
+        includeReply: true
+      }).then(function (res) {
+        const twikooArray = res.map(e => {
+          return {
+            'content': changeContent(e.comment),
+            'avatar': e.avatar,
+            'nick': e.nick,
+            'url': e.url + '#' + e.id,
+            'date': new Date(e.created).toISOString()
+          }
+        })
+
+        saveToLocal.set('twikoo-newest-comments', JSON.stringify(twikooArray), 10/(60*24))
+        generateHtml(twikooArray)
+      }).catch(function (err) {
+        const $dom = document.querySelector('#card-newest-comments .aside-list')
+        $dom.innerHTML= "无法获取评论，请确认相关配置是否正确"
+      })
+    }
+
+    if (typeof twikoo === 'object') {
+      runTwikoo()
+    } else {
+      getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(runTwikoo)
+    }
+  }
+
+  const generateHtml = array => {
+    let result = ''
+
+    if (array.length) {
+      for (let i = 0; i < array.length; i++) {
+        result += '<div class=\'aside-list-item\'>'
+
+        if (true) {
+          const name = 'src'
+          result += `<a href='${array[i].url}' class='thumbnail'><img ${name}='${array[i].avatar}' alt='${array[i].nick}'></a>`
+        }
+        
+        result += `<div class='content'>
+        <a class='comment' href='${array[i].url}'>${array[i].content}</a>
+        <div class='name'><span>${array[i].nick} / </span><time datetime="${array[i].date}">${btf.diffDate(array[i].date, true)}</time></div>
+        </div></div>`
+      }
+    } else {
+      result += '没有评论'
+    }
+
+    let $dom = document.querySelector('#card-newest-comments .aside-list')
+    $dom.innerHTML= result
+    window.lazyLoadInstance && window.lazyLoadInstance.update()
+    window.pjax && window.pjax.refresh($dom)
+  }
+
+  const newestCommentInit = () => {
+    if (document.querySelector('#card-newest-comments .aside-list')) {
+      const data = saveToLocal.get('twikoo-newest-comments')
+      if (data) {
+        generateHtml(JSON.parse(data))
+      } else {
+        getComment()
+      }
+    }
+  }
+
+  newestCommentInit()
+  document.addEventListener('pjax:complete', newestCommentInit)
+})</script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-nest.min.js"></script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-heart.min.js" async="async" mobile="false"></script><script src="//code.tidio.co/tajf1h7dq4euas8t8jusi0x28q74d8av.js" async="async"></script><script>function onTidioChatApiReady() {
+  window.tidioChatApi.hide();
+  window.tidioChatApi.on("close", function() {
+    window.tidioChatApi.hide();
+  });
+}
+if (window.tidioChatApi) {
+  window.tidioChatApi.on("ready", onTidioChatApiReady);
+} else {
+  document.addEventListener("tidioChat-ready", onTidioChatApiReady);
+}
+
+var chatBtnFn = () => {
+  document.getElementById("chat_btn").addEventListener("click", function(){
+    window.tidioChatApi.show();
+    window.tidioChatApi.open();
+  });
+}
+chatBtnFn()
+</script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = [
+  'title',
+  '#config-diff',
+  '#body-wrap',
+  '#rightside-config-hide',
+  '#rightside-config-show',
+  '.js-pjax'
+]
+
+if (false) {
+  pjaxSelectors.unshift('meta[property="og:image"]', 'meta[property="og:title"]', 'meta[property="og:url"]')
+}
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.removeEventListener('scroll', window.tocScrollFn)
+  window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // Analytics
+  if (false) {
+    MtaH5.pgv()
+  }
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

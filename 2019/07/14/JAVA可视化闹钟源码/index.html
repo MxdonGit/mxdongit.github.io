@@ -1,0 +1,416 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>JAVA可视化闹钟源码 | Mxdon</title><meta name="keywords" content="Java"><meta name="author" content="Mxdon,mxdongit@126.com"><meta name="copyright" content="Mxdon"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="概述一些同学的Java课设有这样一个问题，比较感兴趣就做了一下">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JAVA可视化闹钟源码">
+<meta property="og:url" content="http://blog.mxdon.cool/2019/07/14/JAVA%E5%8F%AF%E8%A7%86%E5%8C%96%E9%97%B9%E9%92%9F%E6%BA%90%E7%A0%81/index.html">
+<meta property="og:site_name" content="Mxdon">
+<meta property="og:description" content="概述一些同学的Java课设有这样一个问题，比较感兴趣就做了一下">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pic.downk.cc/item/5e8dc71d504f4bcb044d3130.jpg">
+<meta property="article:published_time" content="2019-07-14T05:23:04.000Z">
+<meta property="article:modified_time" content="2019-08-24T02:26:22.091Z">
+<meta property="article:author" content="Mxdon">
+<meta property="article:tag" content="Java">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pic.downk.cc/item/5e8dc71d504f4bcb044d3130.jpg"><link rel="shortcut icon" href="/img/mxdon.png"><link rel="canonical" href="http://blog.mxdon.cool/2019/07/14/JAVA%E5%8F%AF%E8%A7%86%E5%8C%96%E9%97%B9%E9%92%9F%E6%BA%90%E7%A0%81/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta/><meta/><meta/><meta/><meta/><meta/><meta/><meta/><meta/><meta/><meta/><meta/><meta/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: Mxdon","link":"链接: ","source":"来源: Mxdon","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'mediumZoom',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: true,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'JAVA可视化闹钟源码',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2019-08-24 10:26:22'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const fontSizeVal = saveToLocal.get('global-font-size')
+    if (fontSizeVal !== undefined) {
+      document.documentElement.style.setProperty('--global-font-size', fontSizeVal + 'px')
+    }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    document.addEventListener('pjax:complete', detectApple)})(window)</script><meta name="generator" content="Hexo 5.4.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/mxdon.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">35</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">21</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://pic.downk.cc/item/5e8dc71d504f4bcb044d3130.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Mxdon</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">JAVA可视化闹钟源码</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2019-07-14T05:23:04.000Z" title="发表于 2019-07-14 13:23:04">2019-07-14</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2019-08-24T02:26:22.091Z" title="更新于 2019-08-24 10:26:22">2019-08-24</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">3.1k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>13分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="JAVA可视化闹钟源码"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>一些同学的Java课设有这样一个问题，比较感兴趣就做了一下</p>
+<span id="more"></span>
+
+<h2 id="功能介绍："><a href="#功能介绍：" class="headerlink" title="功能介绍："></a>功能介绍：</h2><p>1、可增加闹钟</p>
+<p>2、可删除闹钟</p>
+<p>3、时间到了响铃</p>
+<p>4、关闭闹钟不会丢失闹钟（因为闹钟存储在txt文件中，不会因程序关闭就终止）</p>
+<h2 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h2><p>1、没有使用多线程，闹钟响起时只能等待1分钟或者关闭程序</p>
+<p>2、界面设计不够美观，后期有时间会进行修改，重新设计</p>
+<p>3、没有闹钟修改的功能，虽然可以通过增删来达到修改的目的，但功能仍然属于空缺范围</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br><span class="line">325</span><br><span class="line">326</span><br><span class="line">327</span><br><span class="line">328</span><br><span class="line">329</span><br><span class="line">330</span><br><span class="line">331</span><br><span class="line">332</span><br><span class="line">333</span><br><span class="line">334</span><br><span class="line">335</span><br><span class="line">336</span><br><span class="line">337</span><br><span class="line">338</span><br><span class="line">339</span><br><span class="line">340</span><br><span class="line">341</span><br><span class="line">342</span><br><span class="line">343</span><br><span class="line">344</span><br><span class="line">345</span><br><span class="line">346</span><br><span class="line">347</span><br><span class="line">348</span><br><span class="line">349</span><br><span class="line">350</span><br><span class="line">351</span><br><span class="line">352</span><br><span class="line">353</span><br><span class="line">354</span><br><span class="line">355</span><br><span class="line">356</span><br><span class="line">357</span><br><span class="line">358</span><br><span class="line">359</span><br><span class="line">360</span><br><span class="line">361</span><br></pre></td><td class="code"><pre><span class="line">package Clock;</span><br><span class="line"></span><br><span class="line">import sun.audio.AudioPlayer;</span><br><span class="line">import sun.audio.AudioStream;</span><br><span class="line"></span><br><span class="line">import javax.swing.*;               //awt和swing是做界面用的类</span><br><span class="line">import java.awt.*;</span><br><span class="line">import java.awt.event.ActionEvent;</span><br><span class="line">import java.awt.event.ActionListener;</span><br><span class="line">import java.awt.event.WindowAdapter;</span><br><span class="line">import java.awt.event.WindowEvent;</span><br><span class="line">import java.io.*;                   //io流用于读写文件，包括增删闹钟、打开铃声等等</span><br><span class="line">import java.util.Calendar;          //用于获取当前时间的类</span><br><span class="line">import java.util.GregorianCalendar;//标准阳历</span><br><span class="line">import java.util.StringTokenizer;  //读取文件转换成计算机语言用的类</span><br><span class="line">/*</span><br><span class="line">1 计时器</span><br><span class="line">要求1：一个带有可视化界面的钟表。</span><br><span class="line">要求2：可以添加若干个闹钟。</span><br><span class="line">要求3：具备持久化功能，关闭程序不能丢失闹钟。</span><br><span class="line">要求4：闹钟是可编辑，可删除的。</span><br><span class="line"></span><br><span class="line">实现：先创建一个面板显示闹钟，面板内创建按钮增加闹钟，按钮查看闹钟，按钮删除闹钟</span><br><span class="line">     线程间隔1s读取时间和闹钟比较</span><br><span class="line"></span><br><span class="line"> */</span><br><span class="line">public class ClockTry extends JFrame implements Runnable &#123;</span><br><span class="line">    /* 成员变量 */</span><br><span class="line">    private JPanel xx;      //总的面板</span><br><span class="line">    private JComboBox ho;   //hour选择时间的下拉框</span><br><span class="line">    private JComboBox mi;  //min选择分钟的下拉框</span><br><span class="line">    private JButton tjnz;   //添加闹钟的按钮</span><br><span class="line">    private JButton schour;    //删除闹钟的按钮</span><br><span class="line">    private String filename = &quot;D://homework//java//Gui//src//Clock//0.wav&quot;;     //所有的路径改这两个地方就可以了</span><br><span class="line">    private String pathname = &quot;D://homework//java//Gui//src//Clock//nz.txt&quot;; // 绝对路径或相对路径都可以，写入文件时演示相对路径,读取以上路径的input.txt文件</span><br><span class="line"></span><br><span class="line">    private int HOUR;       //定义HOUR用于接收按钮按下从下拉框中获取的数据</span><br><span class="line">    private int MIN;        //同上</span><br><span class="line"></span><br><span class="line">    int x = 100, y = 100, r = 100; // （x,y）为(0,0)点，表示原点</span><br><span class="line">    int h, m, s; // 时,分,秒</span><br><span class="line">    double rad = Math.PI / 180; //  1°</span><br><span class="line"></span><br><span class="line">    private String[][] str= new String[100][2];     //定义二维数组，用于存储以及对小时和分针的操作，暂定为100个闹钟于是定义为【100】【2】</span><br><span class="line">    /**</span><br><span class="line">    *读取文件，每次的增删都需要对数据进行读取，将数据写在面板上也需要读取数据</span><br><span class="line">     */</span><br><span class="line">    public void readFile() &#123;</span><br><span class="line">        try (FileReader reader = new FileReader(pathname);      //创建一个FilReader对象，将文件读出来，相当于请教一个当地人，当地人了解本地文化，但是语言不通听不懂</span><br><span class="line">             BufferedReader br = new BufferedReader(reader) // 建立一个对象，它把文件内容转成计算机能读懂的语言，相当于请一个翻译，把当地人读取的东西转换成计算机能懂的东西</span><br><span class="line">        ) &#123;</span><br><span class="line">            String line;</span><br><span class="line"></span><br><span class="line">            int i =0;</span><br><span class="line">            while ((line = br.readLine()) != null) &#123;        //翻译理解的东西存到line里面</span><br><span class="line">                int j =0;</span><br><span class="line">                StringTokenizer st = new StringTokenizer(line, &quot;:&quot;);        //重点：由于存储数据时都是时间，道理来说都是数字，无法区分小时部分和分钟部分</span><br><span class="line">                while (st.hasMoreTokens())&#123;               //每读取一次读到的内容     //所以这里用分割符“：”来分割，相应的，后面的写入文件也应该已“：”分割进行写入</span><br><span class="line">                    str[i][j]=st.nextToken();               //把读到的内容存储在数组里面便于后面的操做——增删</span><br><span class="line">                    j++;                                    //包括上面的j=0，是将for循环拆分放进while循环中，要不然循环写起来也很麻烦</span><br><span class="line">                &#125;</span><br><span class="line">                //System.out.print(str[i][0]+&quot;:&quot;+str[i][1]);       写的时候用来在控制台打印查看效果</span><br><span class="line">                //System.out.println();</span><br><span class="line">                i++;</span><br><span class="line">                j = 0;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; catch (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();                    //try……catch抛出异常</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 写入TXT文件</span><br><span class="line">     */</span><br><span class="line">    public void writeFile() &#123;</span><br><span class="line">        HOUR = Integer.valueOf(ho.getSelectedIndex());                          //获取下拉框中的值，存储到HOUR中</span><br><span class="line">        MIN = Integer.valueOf(mi.getSelectedIndex());</span><br><span class="line">        String x = HOUR + &quot;:&quot; + MIN;</span><br><span class="line">        try (FileWriter writer = new FileWriter(pathname,true);         //同上面的读取，本地人写入，注意：后面的append：true是表示不是重新写，而是在后面追加</span><br><span class="line">             BufferedWriter out = new BufferedWriter(writer)                    //翻译一下再写入</span><br><span class="line">        ) &#123;</span><br><span class="line"></span><br><span class="line">            out.write(HOUR + &quot;:&quot; + MIN + &quot;\r\n&quot;);                           //这里写入的时候把:写进去了！</span><br><span class="line">            out.flush();                                                        // 把缓存区内容压入文件，计算机的存储过程，存在缓存区再写入文件</span><br><span class="line">            JOptionPane.showMessageDialog(null,&quot;闹钟添加成功！&quot;,&quot;添加闹钟提醒&quot;,JOptionPane.INFORMATION_MESSAGE); //提示框：添加闹钟成功</span><br><span class="line">        &#125; catch (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 删除闹钟，实际上是先将要删除的数据找到移除数组，再将数组重新写入，所以要先读取文件，再重新写入</span><br><span class="line">     */</span><br><span class="line">    public void shanchuFile() &#123;</span><br><span class="line">        HOUR = Integer.valueOf(ho.getSelectedIndex());</span><br><span class="line">        MIN = Integer.valueOf(mi.getSelectedIndex());</span><br><span class="line">        try (FileWriter writer = new FileWriter(pathname);              //没有append：true，表示重新写！</span><br><span class="line">             BufferedWriter out = new BufferedWriter(writer)</span><br><span class="line">        ) &#123;</span><br><span class="line">            readFile();</span><br><span class="line">            for (int i = 0; i &lt; 100; i++) &#123;</span><br><span class="line">                if (Integer.valueOf(str[i][0])==HOUR &amp;&amp; Integer.valueOf(str[i][1])==MIN)&#123;</span><br><span class="line">                    continue;</span><br><span class="line">                &#125;</span><br><span class="line">                else&#123;</span><br><span class="line">                    out.write(str[i][0]+&quot;:&quot;+str[i][1]+&quot;\r\n&quot;); // \r\n即为换行</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            //out.write(&quot;1&quot;+&quot;1&quot;+&quot;\r\n&quot;); // \r\n即为换行</span><br><span class="line">            out.flush(); // 把缓存区内容压入文件</span><br><span class="line">        &#125; catch (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;catch (NumberFormatException e)&#123;</span><br><span class="line">            System.out.println(&quot;this isn&#x27;t exist!&quot;);</span><br><span class="line">            JOptionPane.showMessageDialog(null,&quot;该闹钟已删除！&quot;,&quot;删除闹钟提醒&quot;,JOptionPane.INFORMATION_MESSAGE); //弹窗提示</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /* 初始化函数 */</span><br><span class="line">    public void init() &#123;</span><br><span class="line"></span><br><span class="line">        Calendar now = new GregorianCalendar();     //获取当前时间</span><br><span class="line">        /*</span><br><span class="line">         * GregorianCalendar（标准阳历）</span><br><span class="line">         * 是Calendar（日历）【国际环境下都能运行的程序】</span><br><span class="line">         * 的子类</span><br><span class="line">         */</span><br><span class="line">        s = now.get(Calendar.SECOND) * 6; // 秒针转换成角度：1秒，秒针动一次，转动6°</span><br><span class="line">        m = now.get(Calendar.MINUTE) * 6; // 分针转换为角度：1分，分针动一次，转动6°</span><br><span class="line">        h = now.get(Calendar.HOUR) * 30 + now.get(Calendar.MINUTE) / 12 * 6; // 先把分化为小时，再乘以6°，因为分针转12°，时针才会转1°，一小时中间有5格，数学问题</span><br><span class="line">        /*</span><br><span class="line">         * Calendar.HOUR 显示范围：1-12（无论AM还是PM） Calendar.HOUR_OF_DAY 显示范围：1-24（包括PM</span><br><span class="line">         */</span><br><span class="line"></span><br><span class="line">        Thread t = new Thread(this);        //添加线程，线程目标是整个程序，this</span><br><span class="line">        t.start();                                  //线程就绪</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void paint(Graphics g) &#123;                 //awt中的方法，因为要时时显示闹钟，所以不得不使用绘画的方式，不断重绘</span><br><span class="line">        super.paint(g);</span><br><span class="line">        /*</span><br><span class="line">         * paint(g)函数会重绘图像，要加上super.paint(g)，表示在原来图像的基础上，再画图。</span><br><span class="line">         * 如果不加super.paint(g)，重绘时，会将原有的绘制清空，再根据paing(g)函数绘制。</span><br><span class="line">         */</span><br><span class="line"></span><br><span class="line">        g.setColor(Color.BLACK);                    //设置画笔颜色——黑色</span><br><span class="line">        g.drawOval(x, y, r * 2, r * 2);// 画表</span><br><span class="line">        /* drawOval(x,y,width,height)以矩形恰好框住椭圆，矩形左上角的顶点坐标为(x,y) */</span><br><span class="line"></span><br><span class="line">        // 秒针</span><br><span class="line">        int x1 = (int) (90 * Math.sin(rad * s));</span><br><span class="line">        int y1 = (int) (90 * Math.cos(rad * s));</span><br><span class="line">        g.drawLine(r+x, r+y, r+x + x1, r +y- y1);</span><br><span class="line">        /* drawLine(a,b,c,d) (a,b)为起始坐标 (c,d)为终点坐标 */</span><br><span class="line"></span><br><span class="line">        // 分针</span><br><span class="line">        x1 = (int) (80 * Math.sin(rad * m));</span><br><span class="line">        y1 = (int) (80 * Math.cos(rad * m));</span><br><span class="line">        g.drawLine(r+x, r+y, r +x+ x1, r+y - y1);</span><br><span class="line"></span><br><span class="line">        // 时针</span><br><span class="line">        x1 = (int) (60 * Math.sin(rad * h));</span><br><span class="line">        y1 = (int) (60 * Math.cos(rad * h));</span><br><span class="line">        g.drawLine(r+x, r+y, r+x + x1, r +y- y1);</span><br><span class="line"></span><br><span class="line">        // 画数字</span><br><span class="line">        int d = 30;</span><br><span class="line">        for (int i = 1; i &lt;= 12; i++) &#123;</span><br><span class="line">            x1 = (int) ((r - 10) * Math.sin(rad * d));</span><br><span class="line">            y1 = (int) ((r - 10) * Math.cos(rad * d));</span><br><span class="line">            g.drawString(String.valueOf(i), r+x + x1, r+y - y1);    //字符型的数据才能画</span><br><span class="line">            d += 30;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        // 画刻度</span><br><span class="line">        d = 0;</span><br><span class="line">        for (int i = 1; i &lt;= 60; i++) &#123;</span><br><span class="line">            x1 = (int) ((r - 2) * Math.sin(rad * d));</span><br><span class="line">            y1 = (int) ((r - 2) * Math.cos(rad * d));</span><br><span class="line">            g.drawString(&quot;.&quot;, r+x + x1, r +y- y1);      //画的是点，表示刻度</span><br><span class="line">            d += 6;</span><br><span class="line">        &#125;</span><br><span class="line">        // 显示时间</span><br><span class="line">        Calendar now1 = new GregorianCalendar();</span><br><span class="line">        int a, b, c;</span><br><span class="line">        a = now1.get(Calendar.HOUR_OF_DAY);     //获取当前的小时</span><br><span class="line">        b = now1.get(Calendar.MINUTE);          //获取当前的分钟</span><br><span class="line">        c = now1.get(Calendar.SECOND);           //获取当前的秒钟</span><br><span class="line">        g.drawString(a + &quot;:&quot; + b + &quot;:&quot; + c, 175, 330);      //将时间也画到面板上</span><br><span class="line">        g.drawString(&quot;全部闹钟：&quot;,100,350);                  //全部闹钟</span><br><span class="line"></span><br><span class="line">        try (FileReader reader = new FileReader(pathname);</span><br><span class="line">             BufferedReader br = new BufferedReader(reader) // 建立一个对象，它把文件内容转成计算机能读懂的语言</span><br><span class="line">        ) &#123;</span><br><span class="line">            String line;</span><br><span class="line"></span><br><span class="line">            int i =0;</span><br><span class="line">            while ((line = br.readLine()) != null) &#123;</span><br><span class="line">                int j =0;</span><br><span class="line">                StringTokenizer st = new StringTokenizer(line, &quot;:&quot;);</span><br><span class="line">                while (st.hasMoreTokens())&#123;</span><br><span class="line">                    str[i][j]=st.nextToken();</span><br><span class="line">                    j++;</span><br><span class="line">                &#125;</span><br><span class="line">                g.drawString(str[i][0]+&quot;:&quot;+str[i][1]+&quot;\n&quot;,180+(i/10)*70,350+15*(i-(i/10)*10));  //貌似重新写了一下readfile的方法，其实是有区别的，这里是读取以后画出来</span><br><span class="line">                //qbnz.setText(str[i][0]+&quot;:&quot;+str[i][1]+&quot;\n&quot;);</span><br><span class="line">                //System.out.print(str[i][0]+&quot;:&quot;+str[i][1]);</span><br><span class="line">                //System.out.println();</span><br><span class="line">                i++;</span><br><span class="line">                j = 0;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; catch (IOException z) &#123;</span><br><span class="line">            z.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    // 实现Runnable，实现implement Runnable就务必实现run方法，使线程运行</span><br><span class="line">    public void run() &#123;</span><br><span class="line">        while (true) &#123;</span><br><span class="line">            try &#123;</span><br><span class="line">                Thread.sleep(1000);// 间隔一秒</span><br><span class="line">            &#125; catch (Exception ex) &#123;</span><br><span class="line">            &#125;</span><br><span class="line">            s += 6;				// 秒针每次走6°</span><br><span class="line">            if (s &gt;= 360) &#123;</span><br><span class="line">                s = 0;            // 秒针归零</span><br><span class="line">                m += 6;</span><br><span class="line">            if (m == 72 || m == 144 || m == 288) &#123;</span><br><span class="line">                h += 6;                // 分针走72°，时针走6° 分针的12倍，时针走一次</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">            if (m &gt;= 360) &#123;</span><br><span class="line">                m = 0;                // 分针归零</span><br><span class="line">                h += 6;</span><br><span class="line">            	&#125;</span><br><span class="line">            if (h &gt;= 360) &#123;</span><br><span class="line">                h = 0;                // 时针归零</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">            this.repaint();     // 重新绘制</span><br><span class="line">            //this.readFile();</span><br><span class="line">            this.alert();       //将闹钟加入到线程当中</span><br><span class="line">        &#125;&#125;</span><br><span class="line"></span><br><span class="line">    public void alert()&#123;</span><br><span class="line">        Calendar now1 = new GregorianCalendar();</span><br><span class="line">        int a, b;</span><br><span class="line">        a = now1.get(Calendar.HOUR_OF_DAY);</span><br><span class="line">        b = now1.get(Calendar.MINUTE);      //这里没有获取秒针是因为闹钟不看秒针。。。。。</span><br><span class="line">        try (FileReader reader = new FileReader(pathname);</span><br><span class="line">             BufferedReader br = new BufferedReader(reader) // 建立一个对象，它把文件内容转成计算机能读懂的语言</span><br><span class="line">        ) &#123;</span><br><span class="line">            String line;</span><br><span class="line">            String[][] str= new String[100][2];</span><br><span class="line">            int i =0;</span><br><span class="line">            while ((line = br.readLine()) != null) &#123;</span><br><span class="line">                int j =0;</span><br><span class="line">                StringTokenizer st = new StringTokenizer(line, &quot;:&quot;);</span><br><span class="line">                while (st.hasMoreTokens())&#123;</span><br><span class="line">                    str[i][j]=st.nextToken();</span><br><span class="line">                    j++;</span><br><span class="line">                &#125;</span><br><span class="line">                if (a==Integer.valueOf(str[i][0]) &amp;&amp; b==Integer.valueOf(str[i][1]))&#123;        //读取后与获得的时间比较，如果闹钟存在，就响</span><br><span class="line">                    try&#123;</span><br><span class="line">                        InputStream in = new FileInputStream(&quot;D://homework//java//Gui//src//Clock//0.wav&quot;);//FIlename 是你加载的声音文件如(“game.wav”)</span><br><span class="line">                        AudioStream as = new AudioStream(in);           //和读取文件类似的原理，经翻译之后才播放出来</span><br><span class="line">                        AudioPlayer.player.start(as);       //用静态成员player.start播放音乐</span><br><span class="line">                        &#125; catch(FileNotFoundException e)&#123;</span><br><span class="line">                        System.out.print(&quot;FileNotFoundException &quot;);</span><br><span class="line">                    &#125; catch(IOException e)&#123;</span><br><span class="line">                        System.out.print(&quot;有错误!&quot;);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                i++;</span><br><span class="line">                j = 0;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; catch (IOException z) &#123;</span><br><span class="line">            z.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //初始化界面</span><br><span class="line">    public  void  launchFrame()&#123;</span><br><span class="line">        xx = new JPanel();      //插入一个面板</span><br><span class="line">        String[] hours = new String[24];        //长度为24的数组用于存储小时</span><br><span class="line">        for (int i = 0; i &lt; hours.length; i++) &#123;</span><br><span class="line">            hours[i]=i+&quot;&quot;;              //循环对hour进行赋值</span><br><span class="line">        &#125;</span><br><span class="line">        ho = new JComboBox(hours);      //将hour加入到下拉框中</span><br><span class="line">        ho.setSize(50,40);  //设置大小好像没用</span><br><span class="line">        String[] mins = new String[60];     //同理，这是分钟的地方</span><br><span class="line">        for (int i = 0; i &lt; mins.length; i++) &#123;</span><br><span class="line">            mins[i]=i+&quot;&quot;;                   //分钟赋值</span><br><span class="line">        &#125;</span><br><span class="line">        mi = new JComboBox(mins);           //分钟下拉框</span><br><span class="line">        mi.setSize(50,40);</span><br><span class="line">        tjnz = new JButton();               //添加闹钟的按钮，拼音首字母</span><br><span class="line">        tjnz.setText(&quot;添加到闹钟&quot;);             //按钮上显示的文字</span><br><span class="line">        tjnz.setSize(100,40);</span><br><span class="line">        schour = new JButton();                 //删除闹钟的按钮</span><br><span class="line">        schour.setText(&quot;从闹钟中删除&quot;);           //按钮上显示的文字</span><br><span class="line">        schour.setSize(100,40);</span><br><span class="line"></span><br><span class="line">        /**</span><br><span class="line">         * 将按钮下拉框啥的加入到面板中</span><br><span class="line">         */</span><br><span class="line">        xx.add(ho);</span><br><span class="line">        xx.add(mi);</span><br><span class="line">        xx.add(tjnz);</span><br><span class="line">        xx.add(schour);</span><br><span class="line">        this.add(xx);       //将面板加入到this对象中，要不然面板就不显示</span><br><span class="line">        tjnz.addActionListener(new ActionListener() &#123;       //添加按钮的功能</span><br><span class="line">                @Override                                   //重写的标识，务必要会</span><br><span class="line">                public void actionPerformed(ActionEvent e) &#123;</span><br><span class="line">                    // TODO Auto-generated method stub</span><br><span class="line">                    HOUR = Integer.valueOf(ho.getSelectedIndex());</span><br><span class="line">                    MIN = Integer.valueOf(mi.getSelectedIndex());      //获取到时分后</span><br><span class="line">                    writeFile();                                       //写入txt文件保存为闹钟</span><br><span class="line">                    readFile();                                        //再读取，这样才能时时更新面板上的全部闹钟</span><br><span class="line">        &#125;&#125;);</span><br><span class="line"></span><br><span class="line">        schour.addActionListener(new ActionListener() &#123;</span><br><span class="line">                @Override</span><br><span class="line">                public void actionPerformed(ActionEvent e) &#123;</span><br><span class="line">                    // TODO Auto-generated method stub</span><br><span class="line">                    HOUR = Integer.valueOf(ho.getSelectedIndex());</span><br><span class="line">                    MIN = Integer.valueOf(mi.getSelectedIndex());</span><br><span class="line">                    shanchuFile();                                      //这里是删除闹钟的按钮功能</span><br><span class="line">                    readFile();</span><br><span class="line">                &#125;&#125;);</span><br><span class="line"></span><br><span class="line">        this.setTitle(&quot;小闹钟&quot;);                                     //设置窗口标题</span><br><span class="line">        this.setVisible(true);                                      //设置窗口不隐身</span><br><span class="line">        this.setSize(700,500);                        //设置窗口大小</span><br><span class="line">        this.setLocation(500, 250);                           //设置窗口位置，相对于桌面左上角</span><br><span class="line">        this.init();                                                //调用初始化函数进行初始化</span><br><span class="line">        this.alert();</span><br><span class="line">        //this.run();       //重复调用run（）方法结果是秒针一次走12°</span><br><span class="line">        this.addWindowListener(new WindowAdapter() &#123;</span><br><span class="line">            @Override</span><br><span class="line">            public void windowClosing(WindowEvent e) &#123;</span><br><span class="line">                System.exit(0);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);     //设置窗口叉号的功能，点击就关闭程序</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        ClockTry c = new ClockTry();        //main方法，必有的成分，创建主类对象，</span><br><span class="line">        c.launchFrame();                    //调用初始化面板的方法，简化了本该在main方法中写的代码</span><br><span class="line"></span><br><span class="line">&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="运行效果"><a href="#运行效果" class="headerlink" title="运行效果"></a>运行效果</h2><p><img src="1.png" alt="1"></p>
+<p><img src="2.png" alt="2"></p>
+<p><img src="3.png" alt="3"></p>
+<p>此版本为第一次尝试，后续有时间会继续更新版本</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:mxdongit@126.com">Mxdon</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://blog.mxdon.cool/2019/07/14/JAVA%E5%8F%AF%E8%A7%86%E5%8C%96%E9%97%B9%E9%92%9F%E6%BA%90%E7%A0%81/">http://blog.mxdon.cool/2019/07/14/JAVA%E5%8F%AF%E8%A7%86%E5%8C%96%E9%97%B9%E9%92%9F%E6%BA%90%E7%A0%81/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://blog.mxdon.cool" target="_blank">Mxdon</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Java/">Java</a></div><div class="post_share"><div class="social-share" data-image="https://pic.downk.cc/item/5e8dc71d504f4bcb044d3130.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button button--animated"><i class="fas fa-qrcode"></i> 鼓励一下</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechatpay.jpg" target="_blank"><img class="post-qr-code-img" src="/img/wechatpay.jpg" alt="wechat"/></a><div class="post-qr-code-desc">wechat</div></li><li class="reward-item"><a href="/img/alipay.jpg" target="_blank"><img class="post-qr-code-img" src="/img/alipay.jpg" alt="alipay"/></a><div class="post-qr-code-desc">alipay</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2019/01/15/Java%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE%E8%B6%85%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B/"><img class="prev-cover" src="https://pic.downk.cc/item/5e8dc71d504f4bcb044d3130.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Java环境变量配置超详细教程</div></div></a></div><div class="next-post pull-right"><a href="/2019/07/16/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%BA%8C%E7%BA%A7Python/"><img class="next-cover" src="https://pic.downk.cc/item/5e8dc71d504f4bcb044d3130.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">计算机二级Python</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%A6%82%E8%BF%B0"><span class="toc-number">1.</span> <span class="toc-text">概述</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%9F%E8%83%BD%E4%BB%8B%E7%BB%8D%EF%BC%9A"><span class="toc-number">1.1.</span> <span class="toc-text">功能介绍：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%BA%E7%82%B9"><span class="toc-number">1.2.</span> <span class="toc-text">缺点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%90%E8%A1%8C%E6%95%88%E6%9E%9C"><span class="toc-number">1.3.</span> <span class="toc-text">运行效果</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer" style="background-image: url('https://pic.downk.cc/item/5e8dc71d504f4bcb044d3130.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2021 By Mxdon</div><div class="footer_custom_text">Hi, welcome to Mxdon's blog</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="font-plus" type="button" title="放大字体"><i class="fas fa-plus"></i></button><button id="font-minus" type="button" title="缩小字体"><i class="fas fa-minus"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="chat_btn" type="button" title="rightside.chat_btn"><i class="fas fa-sms"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/medium-zoom/dist/medium-zoom.min.js"></script><script src="/js/search/local-search.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>(()=>{
+  const $countDom = document.getElementById('twikoo-count')
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: 'https://blog-comment-eiv9e480i-mxdongit.vercel.app',
+      region: 'eastasia'
+    }, null))
+  }
+
+  const getCount = () => {
+    twikoo.getCommentsCount({
+      envId: 'https://blog-comment-eiv9e480i-mxdongit.vercel.app',
+      region: 'eastasia',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(function (res) {
+      $countDom.innerText = res[0].count
+    }).catch(function (err) {
+      console.error(err);
+    });
+  }
+
+  const loadTwikoo = (bool = false) => {
+    if (typeof twikoo === 'object') {
+      init()
+      bool && $countDom && setTimeout(getCount,0)
+    } else {
+      getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(()=> {
+        init()
+        bool && $countDom && setTimeout(getCount,0)
+      })
+    }
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo(true)
+  } else {
+    window.loadOtherComment = () => {
+      loadTwikoo()
+    }
+  }
+})()</script></div><script>window.addEventListener('load', () => {
+  const changeContent = (content) => {
+    if (content === '') return content
+
+    content = content.replace(/<img.*?src="(.*?)"?[^\>]+>/ig, '[图片]') // replace image link
+    content = content.replace(/<a[^>]+?href=["']?([^"']+)["']?[^>]*>([^<]+)<\/a>/gi, '[链接]') // replace url
+    content = content.replace(/<pre><code>.*?<\/pre>/gi, '[代码]') // replace code
+    content = content.replace(/<[^>]+>/g,"") // remove html tag
+
+    if (content.length > 150) {
+      content = content.substring(0,150) + '...'
+    }
+    return content
+  }
+
+  const getComment = () => {
+    const runTwikoo = () => {
+      twikoo.getRecentComments({
+        envId: 'https://blog-comment-eiv9e480i-mxdongit.vercel.app',
+        region: 'eastasia',
+        pageSize: 6,
+        includeReply: true
+      }).then(function (res) {
+        const twikooArray = res.map(e => {
+          return {
+            'content': changeContent(e.comment),
+            'avatar': e.avatar,
+            'nick': e.nick,
+            'url': e.url + '#' + e.id,
+            'date': new Date(e.created).toISOString()
+          }
+        })
+
+        saveToLocal.set('twikoo-newest-comments', JSON.stringify(twikooArray), 10/(60*24))
+        generateHtml(twikooArray)
+      }).catch(function (err) {
+        const $dom = document.querySelector('#card-newest-comments .aside-list')
+        $dom.innerHTML= "无法获取评论，请确认相关配置是否正确"
+      })
+    }
+
+    if (typeof twikoo === 'object') {
+      runTwikoo()
+    } else {
+      getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(runTwikoo)
+    }
+  }
+
+  const generateHtml = array => {
+    let result = ''
+
+    if (array.length) {
+      for (let i = 0; i < array.length; i++) {
+        result += '<div class=\'aside-list-item\'>'
+
+        if (true) {
+          const name = 'src'
+          result += `<a href='${array[i].url}' class='thumbnail'><img ${name}='${array[i].avatar}' alt='${array[i].nick}'></a>`
+        }
+        
+        result += `<div class='content'>
+        <a class='comment' href='${array[i].url}'>${array[i].content}</a>
+        <div class='name'><span>${array[i].nick} / </span><time datetime="${array[i].date}">${btf.diffDate(array[i].date, true)}</time></div>
+        </div></div>`
+      }
+    } else {
+      result += '没有评论'
+    }
+
+    let $dom = document.querySelector('#card-newest-comments .aside-list')
+    $dom.innerHTML= result
+    window.lazyLoadInstance && window.lazyLoadInstance.update()
+    window.pjax && window.pjax.refresh($dom)
+  }
+
+  const newestCommentInit = () => {
+    if (document.querySelector('#card-newest-comments .aside-list')) {
+      const data = saveToLocal.get('twikoo-newest-comments')
+      if (data) {
+        generateHtml(JSON.parse(data))
+      } else {
+        getComment()
+      }
+    }
+  }
+
+  newestCommentInit()
+  document.addEventListener('pjax:complete', newestCommentInit)
+})</script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-nest.min.js"></script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-heart.min.js" async="async" mobile="false"></script><script src="//code.tidio.co/tajf1h7dq4euas8t8jusi0x28q74d8av.js" async="async"></script><script>function onTidioChatApiReady() {
+  window.tidioChatApi.hide();
+  window.tidioChatApi.on("close", function() {
+    window.tidioChatApi.hide();
+  });
+}
+if (window.tidioChatApi) {
+  window.tidioChatApi.on("ready", onTidioChatApiReady);
+} else {
+  document.addEventListener("tidioChat-ready", onTidioChatApiReady);
+}
+
+var chatBtnFn = () => {
+  document.getElementById("chat_btn").addEventListener("click", function(){
+    window.tidioChatApi.show();
+    window.tidioChatApi.open();
+  });
+}
+chatBtnFn()
+</script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = [
+  'title',
+  '#config-diff',
+  '#body-wrap',
+  '#rightside-config-hide',
+  '#rightside-config-show',
+  '.js-pjax'
+]
+
+if (false) {
+  pjaxSelectors.unshift('meta[property="og:image"]', 'meta[property="og:title"]', 'meta[property="og:url"]')
+}
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.removeEventListener('scroll', window.tocScrollFn)
+  window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // Analytics
+  if (false) {
+    MtaH5.pgv()
+  }
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
