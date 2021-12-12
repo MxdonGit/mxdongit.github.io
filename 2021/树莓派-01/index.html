@@ -1,0 +1,484 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Mxdon | Mxdon</title><meta name="author" content="Mxdon,mxdongit@126.com"><meta name="copyright" content="Mxdon"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="树莓派入门–在Linux下搭建开发环境[toc] 环境由于网上绝大多数教程应该都是在Windows在如何烧写系统之类的，而我身为一个Linux用户（已经爱上Linux），就为Linux下的使用增添加瓦吧~（其实是因为我之前白嫖的内网穿透开始莫名其妙不给我用了，可能是嫖太多了emmmm，考虑到白嫖工具的网速之类问题，顺手就自己搭一个内网穿透环境吧（见下篇）） 系统：Ubuntu20.10 架构：X6">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Mxdon">
+<meta property="og:url" content="http://blog.mxdon.cool/2021/%E6%A0%91%E8%8E%93%E6%B4%BE-01/index.html">
+<meta property="og:site_name" content="Mxdon">
+<meta property="og:description" content="树莓派入门–在Linux下搭建开发环境[toc] 环境由于网上绝大多数教程应该都是在Windows在如何烧写系统之类的，而我身为一个Linux用户（已经爱上Linux），就为Linux下的使用增添加瓦吧~（其实是因为我之前白嫖的内网穿透开始莫名其妙不给我用了，可能是嫖太多了emmmm，考虑到白嫖工具的网速之类问题，顺手就自己搭一个内网穿透环境吧（见下篇）） 系统：Ubuntu20.10 架构：X6">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://api.isoyu.com/aipc_city.php">
+<meta property="article:published_time" content="2021-12-05T08:48:01.254Z">
+<meta property="article:modified_time" content="2021-04-17T18:37:17.045Z">
+<meta property="article:author" content="Mxdon">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://api.isoyu.com/aipc_city.php"><link rel="shortcut icon" href="/img/mxdon.png"><link rel="canonical" href="http://blog.mxdon.cool/2021/%E6%A0%91%E8%8E%93%E6%B4%BE-01/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta/><meta/><meta/><meta/><meta/><meta/><meta/><meta/><meta/><meta/><meta/><meta/><meta/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: Mxdon","link":"链接: ","source":"来源: Mxdon","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'mediumZoom',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: true,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Mxdon',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-04-18 02:37:17'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const fontSizeVal = saveToLocal.get('global-font-size')
+    if (fontSizeVal !== undefined) {
+      document.documentElement.style.setProperty('--global-font-size', fontSizeVal + 'px')
+    }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    document.addEventListener('pjax:complete', detectApple)})(window)</script><meta name="generator" content="Hexo 5.4.0"></head><body><a href="javascript:void(0);" onclick="preloader.endLoading();" title="点击跳过动画"><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="wizard-scene"><div class="wizard-objects"><div class="wizard-square"></div><div class="wizard-circle"></div><div class="wizard-triangle"></div></div><div class="wizard"><div class="wizard-body"></div><div class="wizard-right-arm"><div class="wizard-right-hand"></div></div><div class="wizard-left-arm"><div class="wizard-left-hand"></div></div><div class="wizard-head"><div class="wizard-beard"></div><div class="wizard-face"><div class="wizard-adds"></div></div><div class="wizard-hat"><div class="wizard-hat-of-the-hat"></div><div class="wizard-four-point-star --first"></div><div class="wizard-four-point-star --second"></div><div class="wizard-four-point-star --third"></div></div></div></div></div></div></a><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/mxdon.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">35</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">22</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://api.isoyu.com/aipc_city.php')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Mxdon</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">无题</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-12-05T08:48:01.254Z" title="发表于 2021-12-05 16:48:01">2021-12-05</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-04-17T18:37:17.045Z" title="更新于 2021-04-18 02:37:17">2021-04-18</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>4分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="树莓派入门–在Linux下搭建开发环境"><a href="#树莓派入门–在Linux下搭建开发环境" class="headerlink" title="树莓派入门–在Linux下搭建开发环境"></a>树莓派入门–在Linux下搭建开发环境</h1><p>[toc]</p>
+<h1 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h1><p>由于网上绝大多数教程应该都是在Windows在如何烧写系统之类的，而我身为一个Linux用户（已经爱上Linux），就为Linux下的使用增添加瓦吧~（其实是因为我之前白嫖的内网穿透开始莫名其妙不给我用了，可能是嫖太多了emmmm，考虑到白嫖工具的网速之类问题，顺手就自己搭一个内网穿透环境吧（见下篇））</p>
+<p>系统：Ubuntu20.10</p>
+<p>架构：X64</p>
+<p>材料：64G- TF卡一张、读卡器一个、树莓派4B 4G板卡一个</p>
+<h1 id="TF卡制作"><a href="#TF卡制作" class="headerlink" title="TF卡制作"></a>TF卡制作</h1><p>其实和Windows下的区别，无非就是制作系统的步骤不一样、ssh的步骤不一样~（好像也就这两步哈？）</p>
+<h2 id="格式化分区"><a href="#格式化分区" class="headerlink" title="格式化分区"></a>格式化分区</h2><p>Ubuntu生态较为完备，一般可以直接使用<strong>磁盘工具</strong>进行设置：</p>
+<p><img src="https://gitee.com/mxdon/img/raw/master/img/image-20210417104933418.png" alt="需要的话一开始可能还要格式化磁盘(推荐GPT或者不分区)"></p>
+<p><img src="https://gitee.com/mxdon/img/raw/master/img/image-20210417104957624.png" alt="卷名随便起就好啦"></p>
+<p>如果没有这样的软件，当然用命令行都可以做到呀：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">fdisk /dev/sdb	#sdb表示你的TF卡</span><br><span class="line">g				#创建gpt磁盘</span><br><span class="line">n				#创建分区</span><br><span class="line">默认			   #起始扇区，考虑分区对齐，所以从2048开始</span><br><span class="line">默认			   #结束扇区，用于将整个TF卡格式化</span><br><span class="line">t				#改变分区类型</span><br><span class="line">C12A7328-F81F-11D2-BA4B-00A0C93EC93B	#FAT的格式类型（EFI其实就是FAT）</span><br><span class="line">w</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/mxdon/img/raw/master/img/image-20210417141850479.png" alt="操作过程"></p>
+<p>上面EFI其实就是FAT类型的，这是由UEFI只支持FAT文件系统去承载EFI文件</p>
+<p>如果不放心的话（强迫症<del>是我</del>）可以使用mkfs.vfat进行转换(.vfat就是fat的名字加强版，区别不打（vfat支持长文件名）)</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkfs.vfat /dev/sdb</span><br></pre></td></tr></table></figure>
+
+<p>经过上面的分区操作，现在已经可以把系统写入到TF卡了！</p>
+<h2 id="下载系统"><a href="#下载系统" class="headerlink" title="下载系统"></a>下载系统</h2><p>树莓派的官方系统在：<a target="_blank" rel="noopener" href="https://www.raspberrypi.org/software/operating-systems/">https://www.raspberrypi.org/software/operating-systems/</a></p>
+<p><img src="https://gitee.com/mxdon/img/raw/master/img/image-20210417105359710.png" alt="谷歌翻译后的说明文字"></p>
+<p>在国内的话其实有很多镜像网站非常好用，比如清华源：<a target="_blank" rel="noopener" href="https://mirrors.tuna.tsinghua.edu.cn/raspberry-pi-os-images/">https://mirrors.tuna.tsinghua.edu.cn/raspberry-pi-os-images/</a></p>
+<p><img src="https://gitee.com/mxdon/img/raw/master/img/image-20210417110401792.png" alt="清华软件源"></p>
+<p>1、2、3分别代表标准版、完整版、轻量版，其他见名知意，我选择了完整版最新的文件下载</p>
+<h2 id="制作系统盘"><a href="#制作系统盘" class="headerlink" title="制作系统盘"></a>制作系统盘</h2><p>解压：下载的镜像是zip文件，所以要解压在linux下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">unzip 2020-02-13-raspbian-buster-full.zip -d ./		#-d后面的路径是解压路径，./就是解压在当前路径</span><br></pre></td></tr></table></figure>
+
+<p>然后写入TF卡</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dd bs=4M if=2020-02-13-raspbian-buster-full.img of=/dev/sdb		</span><br></pre></td></tr></table></figure>
+
+<p>bs=4M代表blokesize一次写入的大小，大部分系统是支持的，如果不放心可以改成1M，就是烧录慢一点而已</p>
+<p>if代表in_file</p>
+<p>of代表out_file</p>
+<p>照着抄就行啦</p>
+<p>然后烧录完的TF卡如下：</p>
+<p><img src="https://gitee.com/mxdon/img/raw/master/img/image-20210417143521421.png" alt="和Linux下的分区很像嘛，毕竟树莓派系统也是Linux"></p>
+<p>然后就开始插到板子里了</p>
+<h1 id="上电、连线、开机"><a href="#上电、连线、开机" class="headerlink" title="上电、连线、开机"></a>上电、连线、开机</h1><ol>
+<li>由于<del>没钱</del>没有准备相应的HDMI线、键盘等工具，所以只是个裸板，为了能够直接通过网络操作我的树莓派，所以要先在上面写完的TF卡中，打开其中的boot文件夹，在里面新建一个ssh文件：</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">touch /media/boot/ssh</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>然后连接网线和电源线，其中电源线就用常规的手机充电器就行</li>
+</ol>
+<p><img src="https://gitee.com/mxdon/img/raw/master/img/image-20210417152631452.png" alt="树莓派平面图"></p>
+<p>其中1、2、3分别插入TF卡、手机充电器、网线</p>
+<p>对于一个裸机，这写就足够了，如果没有网线的话，也可以在上述boot文件夹下添加wifi连接参数，也可以的。</p>
+<h2 id="开机"><a href="#开机" class="headerlink" title="开机"></a>开机</h2><p>树莓派并没有关机按键，所以插上电源以后就开机了，这时我们可以使用<code>arp -a</code>来查看局域网下的网络设备，其中排除所有已知ip以后就可以确定树莓派的ip地址</p>
+<p><img src="https://gitee.com/mxdon/img/raw/master/img/image-20210417153300465.png" alt="arp -a查看局域网设备"></p>
+<p>当然，手机上使用Fing（一个软件）一眼就能看出哪个是树莓派的ip：</p>
+<p><img src="https://gitee.com/mxdon/img/raw/master/img/image-20210417153509940.png" alt="Fing查看局域网设备"></p>
+<h1 id="ssh和vnc"><a href="#ssh和vnc" class="headerlink" title="ssh和vnc"></a>ssh和vnc</h1><h2 id="ssh"><a href="#ssh" class="headerlink" title="ssh"></a>ssh</h2><p>经过以上配置，开机以后便可以直接通过ssh连接树莓派：</p>
+<p><img src="https://gitee.com/mxdon/img/raw/master/img/image-20210417153839091.png" alt="ssh连接树莓派"></p>
+<p>其中1处的pi是这个系统的默认用户名，2处输入系统的默认密码是：“<code>raspberry</code>”</p>
+<p>这样就进入系统了！</p>
+<h2 id="VNC"><a href="#VNC" class="headerlink" title="VNC"></a>VNC</h2><p>要是想使用VNC，还需要一定的配置。</p>
+<p>首先执行<code>sudo raspi-config</code></p>
+<p>然后按照图示进行选择：</p>
+<p><img src="https://gitee.com/mxdon/img/raw/master/img/image-20210417154320236.png" alt="接口配置"></p>
+<p><img src="https://gitee.com/mxdon/img/raw/master/img/image-20210417154405609.png" alt="vnc配置"></p>
+<p><img src="https://gitee.com/mxdon/img/raw/master/img/image-20210417154428794.png" alt="选择yes"></p>
+<p><img src="https://gitee.com/mxdon/img/raw/master/img/image-20210417154456062.png" alt="配置完成"></p>
+<p><img src="https://gitee.com/mxdon/img/raw/master/img/image-20210417154539971.png" alt="通过方向键或者Tab键选择finish退出"></p>
+<p>此时树莓派的VNC功能也配置完成了！</p>
+<p>只需要在本机上使用VNC-viewer软件即可查看树莓派的桌面了！</p>
+<p>其中ubuntu自带的远程桌面：</p>
+<p><img src="https://gitee.com/mxdon/img/raw/master/img/image-20210417154932014.png" alt="ubuntu自带远程桌面"></p>
+<p>但是我遇到了这个：</p>
+<p><img src="https://gitee.com/mxdon/img/raw/master/img/image-20210417163127838.png" alt="自带远程桌面连接树莓派报错"></p>
+<p>然后我查到说树莓派自带的vncserver的加密方式与tigervnc viewer不同，所以只好换一个（也可以在树莓派上重新安装其他版本的vncserver），网上推荐realvnc-viewer，下载地址：<a target="_blank" rel="noopener" href="https://www.realvnc.com/en/connect/download/viewer/">https://www.realvnc.com/en/connect/download/viewer/</a></p>
+<p><img src="https://gitee.com/mxdon/img/raw/master/img/image-20210417163426291.png" alt="realvnc-viewer"></p>
+<p>输入ip地址，后面跟着vncserver的虚拟桌面序号，就可以连接成功啦~</p>
+<p><img src="https://gitee.com/mxdon/img/raw/master/img/image-20210417163626417.png" alt="树莓派"></p>
+<h1 id="换源"><a href="#换源" class="headerlink" title="换源"></a>换源</h1><p>经过一定的配置，现在已经是一个可以正常使用的小电脑啦</p>
+<p>为了更快的安装软件，国内用户经常需要替换软件源，将相应文件按下图编辑并替换掉：</p>
+<p><img src="https://gitee.com/mxdon/img/raw/master/img/image-20210417165025018.png" alt="树莓派换源"></p>
+<p>然后再更新apt仓库即可</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get upgrade</span><br></pre></td></tr></table></figure>
+
+<p>如果不知道替换适合自己的版本的话，也可以去清华大学软件源查看：地址——<a target="_blank" rel="noopener" href="https://mirrors.tuna.tsinghua.edu.cn/help/raspbian/">https://mirrors.tuna.tsinghua.edu.cn/help/raspbian/</a></p>
+<p><img src="https://gitee.com/mxdon/img/raw/master/img/image-20210417165220279.png" alt="清华大学软件源说明"></p>
+<h1 id="最后，点个关注不迷路"><a href="#最后，点个关注不迷路" class="headerlink" title="最后，点个关注不迷路"></a>最后，点个关注不迷路</h1><p><img src="https://p.pstatp.com/origin/137610000bfce4e396a63"></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:mxdongit@126.com">Mxdon</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://blog.mxdon.cool/2021/%E6%A0%91%E8%8E%93%E6%B4%BE-01/">http://blog.mxdon.cool/2021/%E6%A0%91%E8%8E%93%E6%B4%BE-01/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://blog.mxdon.cool" target="_blank">Mxdon</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://api.isoyu.com/aipc_city.php" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button button--animated"><i class="fas fa-qrcode"></i> 鼓励一下</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechatpay.jpg" target="_blank"><img class="post-qr-code-img" src="/img/wechatpay.jpg" alt="wechat"/></a><div class="post-qr-code-desc">wechat</div></li><li class="reward-item"><a href="/img/alipay.jpg" target="_blank"><img class="post-qr-code-img" src="/img/alipay.jpg" alt="alipay"/></a><div class="post-qr-code-desc">alipay</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2021/%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E8%BD%AF%E4%BB%B6%E6%8E%A8%E8%8D%90/"><img class="prev-cover" src="https://api.isoyu.com/aipc_scenery.php" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info"></div></div></a></div><div class="next-post pull-right"><a href="/2021/%E6%A0%91%E8%8E%93%E6%B4%BE-02%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E6%9C%8D%E5%8A%A1%E5%99%A8/"><img class="next-cover" src="http://www.dmoe.cc/random.php" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info"></div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%A0%91%E8%8E%93%E6%B4%BE%E5%85%A5%E9%97%A8%E2%80%93%E5%9C%A8Linux%E4%B8%8B%E6%90%AD%E5%BB%BA%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83"><span class="toc-number">1.</span> <span class="toc-text">树莓派入门–在Linux下搭建开发环境</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83"><span class="toc-number">2.</span> <span class="toc-text">环境</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#TF%E5%8D%A1%E5%88%B6%E4%BD%9C"><span class="toc-number">3.</span> <span class="toc-text">TF卡制作</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%88%86%E5%8C%BA"><span class="toc-number">3.1.</span> <span class="toc-text">格式化分区</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BD%E7%B3%BB%E7%BB%9F"><span class="toc-number">3.2.</span> <span class="toc-text">下载系统</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%B6%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9B%98"><span class="toc-number">3.3.</span> <span class="toc-text">制作系统盘</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%8A%E7%94%B5%E3%80%81%E8%BF%9E%E7%BA%BF%E3%80%81%E5%BC%80%E6%9C%BA"><span class="toc-number">4.</span> <span class="toc-text">上电、连线、开机</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%80%E6%9C%BA"><span class="toc-number">4.1.</span> <span class="toc-text">开机</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ssh%E5%92%8Cvnc"><span class="toc-number">5.</span> <span class="toc-text">ssh和vnc</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#ssh"><span class="toc-number">5.1.</span> <span class="toc-text">ssh</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#VNC"><span class="toc-number">5.2.</span> <span class="toc-text">VNC</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%8D%A2%E6%BA%90"><span class="toc-number">6.</span> <span class="toc-text">换源</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9C%80%E5%90%8E%EF%BC%8C%E7%82%B9%E4%B8%AA%E5%85%B3%E6%B3%A8%E4%B8%8D%E8%BF%B7%E8%B7%AF"><span class="toc-number">7.</span> <span class="toc-text">最后，点个关注不迷路</span></a></li></ol></div></div></div></div></main><footer id="footer" style="background-color: transparent;"><div id="footer-wrap"><div class="copyright">&copy;2021 By Mxdon</div><div class="footer_custom_text">Hi, welcome to Mxdon's blog</div></div><div class="container" id="jsi-flying-fish-container"><script src="js/fish.js"></script></div><style>   @media only screen and (max-width: 767px){
+   #sidebar_search_box input[type=text]{width:calc(100% - 24px)}
+}</style></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="font-plus" type="button" title="放大字体"><i class="fas fa-plus"></i></button><button id="font-minus" type="button" title="缩小字体"><i class="fas fa-minus"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="chat_btn" type="button" title="rightside.chat_btn"><i class="fas fa-sms"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/medium-zoom/dist/medium-zoom.min.js"></script><script src="/js/search/local-search.js"></script><script async="async">var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())
+setTimeout(function(){preloader.endLoading();}, 5000);</script><div class="js-pjax"><script>(()=>{
+  const $countDom = document.getElementById('twikoo-count')
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: 'https://blog-comment-eiv9e480i-mxdongit.vercel.app',
+      region: 'eastasia'
+    }, null))
+  }
+
+  const getCount = () => {
+    twikoo.getCommentsCount({
+      envId: 'https://blog-comment-eiv9e480i-mxdongit.vercel.app',
+      region: 'eastasia',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(function (res) {
+      $countDom.innerText = res[0].count
+    }).catch(function (err) {
+      console.error(err);
+    });
+  }
+
+  const loadTwikoo = (bool = false) => {
+    if (typeof twikoo === 'object') {
+      init()
+      bool && $countDom && setTimeout(getCount,0)
+    } else {
+      getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(()=> {
+        init()
+        bool && $countDom && setTimeout(getCount,0)
+      })
+    }
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo(true)
+  } else {
+    window.loadOtherComment = () => {
+      loadTwikoo()
+    }
+  }
+})()</script></div><script>window.addEventListener('load', () => {
+  const changeContent = (content) => {
+    if (content === '') return content
+
+    content = content.replace(/<img.*?src="(.*?)"?[^\>]+>/ig, '[图片]') // replace image link
+    content = content.replace(/<a[^>]+?href=["']?([^"']+)["']?[^>]*>([^<]+)<\/a>/gi, '[链接]') // replace url
+    content = content.replace(/<pre><code>.*?<\/pre>/gi, '[代码]') // replace code
+    content = content.replace(/<[^>]+>/g,"") // remove html tag
+
+    if (content.length > 150) {
+      content = content.substring(0,150) + '...'
+    }
+    return content
+  }
+
+  const getComment = () => {
+    const runTwikoo = () => {
+      twikoo.getRecentComments({
+        envId: 'https://blog-comment-eiv9e480i-mxdongit.vercel.app',
+        region: 'eastasia',
+        pageSize: 6,
+        includeReply: true
+      }).then(function (res) {
+        const twikooArray = res.map(e => {
+          return {
+            'content': changeContent(e.comment),
+            'avatar': e.avatar,
+            'nick': e.nick,
+            'url': e.url + '#' + e.id,
+            'date': new Date(e.created).toISOString()
+          }
+        })
+
+        saveToLocal.set('twikoo-newest-comments', JSON.stringify(twikooArray), 10/(60*24))
+        generateHtml(twikooArray)
+      }).catch(function (err) {
+        const $dom = document.querySelector('#card-newest-comments .aside-list')
+        $dom.innerHTML= "无法获取评论，请确认相关配置是否正确"
+      })
+    }
+
+    if (typeof twikoo === 'object') {
+      runTwikoo()
+    } else {
+      getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(runTwikoo)
+    }
+  }
+
+  const generateHtml = array => {
+    let result = ''
+
+    if (array.length) {
+      for (let i = 0; i < array.length; i++) {
+        result += '<div class=\'aside-list-item\'>'
+
+        if (true) {
+          const name = 'src'
+          result += `<a href='${array[i].url}' class='thumbnail'><img ${name}='${array[i].avatar}' alt='${array[i].nick}'></a>`
+        }
+        
+        result += `<div class='content'>
+        <a class='comment' href='${array[i].url}'>${array[i].content}</a>
+        <div class='name'><span>${array[i].nick} / </span><time datetime="${array[i].date}">${btf.diffDate(array[i].date, true)}</time></div>
+        </div></div>`
+      }
+    } else {
+      result += '没有评论'
+    }
+
+    let $dom = document.querySelector('#card-newest-comments .aside-list')
+    $dom.innerHTML= result
+    window.lazyLoadInstance && window.lazyLoadInstance.update()
+    window.pjax && window.pjax.refresh($dom)
+  }
+
+  const newestCommentInit = () => {
+    if (document.querySelector('#card-newest-comments .aside-list')) {
+      const data = saveToLocal.get('twikoo-newest-comments')
+      if (data) {
+        generateHtml(JSON.parse(data))
+      } else {
+        getComment()
+      }
+    }
+  }
+
+  newestCommentInit()
+  document.addEventListener('pjax:complete', newestCommentInit)
+})</script><script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/gh/xiabo2/CDN@latest/fish.js"></script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-nest.min.js"></script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-heart.min.js" async="async" mobile="false"></script><script src="//code.tidio.co/tajf1h7dq4euas8t8jusi0x28q74d8av.js" async="async"></script><script>function onTidioChatApiReady() {
+  window.tidioChatApi.hide();
+  window.tidioChatApi.on("close", function() {
+    window.tidioChatApi.hide();
+  });
+}
+if (window.tidioChatApi) {
+  window.tidioChatApi.on("ready", onTidioChatApiReady);
+} else {
+  document.addEventListener("tidioChat-ready", onTidioChatApiReady);
+}
+
+var chatBtnFn = () => {
+  document.getElementById("chat_btn").addEventListener("click", function(){
+    window.tidioChatApi.show();
+    window.tidioChatApi.open();
+  });
+}
+chatBtnFn()
+</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/gh/metowolf/MetingJS@1.2/dist/Meting.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = [
+  'title',
+  '#config-diff',
+  '#body-wrap',
+  '#rightside-config-hide',
+  '#rightside-config-show',
+  '.js-pjax'
+]
+
+if (false) {
+  pjaxSelectors.unshift('meta[property="og:image"]', 'meta[property="og:title"]', 'meta[property="og:url"]')
+}
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.removeEventListener('scroll', window.tocScrollFn)
+  window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // Analytics
+  if (false) {
+    MtaH5.pgv()
+  }
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

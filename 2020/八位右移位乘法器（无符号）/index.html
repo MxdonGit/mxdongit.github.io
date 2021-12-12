@@ -1,0 +1,440 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>八位右移位乘法器（无符号） | Mxdon</title><meta name="author" content="Mxdon,mxdongit@126.com"><meta name="copyright" content="Mxdon"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="八位右移位乘法器虚假的右移位其实移位总是相对的，所以右移还是有左移的成分。 左移位乘法器很好理解，因为在列竖式的时候就能看明白，符合我们的常规思维：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="八位右移位乘法器（无符号）">
+<meta property="og:url" content="http://blog.mxdon.cool/2020/%E5%85%AB%E4%BD%8D%E5%8F%B3%E7%A7%BB%E4%BD%8D%E4%B9%98%E6%B3%95%E5%99%A8%EF%BC%88%E6%97%A0%E7%AC%A6%E5%8F%B7%EF%BC%89/index.html">
+<meta property="og:site_name" content="Mxdon">
+<meta property="og:description" content="八位右移位乘法器虚假的右移位其实移位总是相对的，所以右移还是有左移的成分。 左移位乘法器很好理解，因为在列竖式的时候就能看明白，符合我们的常规思维：">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://api.isoyu.com/aipc_animation.php">
+<meta property="article:published_time" content="2020-11-07T10:56:14.000Z">
+<meta property="article:modified_time" content="2020-11-14T06:39:45.284Z">
+<meta property="article:author" content="Mxdon">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://api.isoyu.com/aipc_animation.php"><link rel="shortcut icon" href="/img/mxdon.png"><link rel="canonical" href="http://blog.mxdon.cool/2020/%E5%85%AB%E4%BD%8D%E5%8F%B3%E7%A7%BB%E4%BD%8D%E4%B9%98%E6%B3%95%E5%99%A8%EF%BC%88%E6%97%A0%E7%AC%A6%E5%8F%B7%EF%BC%89/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta/><meta/><meta/><meta/><meta/><meta/><meta/><meta/><meta/><meta/><meta/><meta/><meta/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: Mxdon","link":"链接: ","source":"来源: Mxdon","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'mediumZoom',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: true,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '八位右移位乘法器（无符号）',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2020-11-14 14:39:45'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const fontSizeVal = saveToLocal.get('global-font-size')
+    if (fontSizeVal !== undefined) {
+      document.documentElement.style.setProperty('--global-font-size', fontSizeVal + 'px')
+    }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    document.addEventListener('pjax:complete', detectApple)})(window)</script><meta name="generator" content="Hexo 5.4.0"></head><body><a href="javascript:void(0);" onclick="preloader.endLoading();" title="点击跳过动画"><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="wizard-scene"><div class="wizard-objects"><div class="wizard-square"></div><div class="wizard-circle"></div><div class="wizard-triangle"></div></div><div class="wizard"><div class="wizard-body"></div><div class="wizard-right-arm"><div class="wizard-right-hand"></div></div><div class="wizard-left-arm"><div class="wizard-left-hand"></div></div><div class="wizard-head"><div class="wizard-beard"></div><div class="wizard-face"><div class="wizard-adds"></div></div><div class="wizard-hat"><div class="wizard-hat-of-the-hat"></div><div class="wizard-four-point-star --first"></div><div class="wizard-four-point-star --second"></div><div class="wizard-four-point-star --third"></div></div></div></div></div></div></a><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/mxdon.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">35</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">22</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://api.isoyu.com/aipc_animation.php')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Mxdon</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">八位右移位乘法器（无符号）</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2020-11-07T10:56:14.000Z" title="发表于 2020-11-07 18:56:14">2020-11-07</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2020-11-14T06:39:45.284Z" title="更新于 2020-11-14 14:39:45">2020-11-14</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.4k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>5分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="八位右移位乘法器（无符号）"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="八位右移位乘法器"><a href="#八位右移位乘法器" class="headerlink" title="八位右移位乘法器"></a>八位右移位乘法器</h1><h2 id="虚假的右移位"><a href="#虚假的右移位" class="headerlink" title="虚假的右移位"></a>虚假的右移位</h2><p>其实移位总是相对的，所以右移还是有左移的成分。</p>
+<p>左移位乘法器很好理解，因为在列竖式的时候就能看明白，符合我们的常规思维：</p>
+<span id="more"></span>
+
+<p><img src="https://gitee.com/mxdon/img/raw/master/2020/image-20201110164456963.png" alt="image-20201110164456963"></p>
+<p>也就是说，每一次乘法之后，只要把对应的部分积左移相应的位数，再相加，就可以得到最终的结果，这个过程像极了小学二年级的乘法课，非常的直观了，这里不做赘述~</p>
+<p>那么什么是右移呢？我听到有同学说，把乘数和被乘数换一下就是了，像这样：</p>
+<p><img src="https://gitee.com/mxdon/img/raw/master/2020/image-20201110170450444.png" alt="image-20201110170450444"></p>
+<p>运算顺序<strong>从右往左</strong>，理论上结果是正确的，就是看起来有点别扭，我们把它转过来：</p>
+<p><img src="https://gitee.com/mxdon/img/raw/master/2020/image-20201110171651354.png" alt="image-20201110171651354"></p>
+<p>这下应该看明白了吧，无非是最后的结果再加移位一次，从而实现一个“虚假的右移位”</p>
+<h2 id="真正的右移位"><a href="#真正的右移位" class="headerlink" title="真正的右移位"></a>真正的右移位</h2><p>真正的右移位，其实是针对<strong>小数</strong>计算而言的，我们计算<strong>整数</strong>乘法的时候，习惯性的左移，根本原因是我们习惯了整数的小数点在最右侧，只要不超过那个小数点，就可以直接相加得结果。</p>
+<p>而小数计算，因为小数点在左边的缘故，在计算机当中，就可以根据小数点位置不变的思想，来<strong>将部分积右移</strong>，从而实现一个右移乘法器。这种思想所成的乘法器，也成为<strong>定点乘法器</strong>。</p>
+<p>以二进制小数计算“<code>0.1101 x 0.1011</code>”为例：</p>
+<p><img src="https://gitee.com/mxdon/img/raw/master/2020/8.png" alt="image-20201110171651354"></p>
+<p>由图可以看出，最后一位的结果并<strong>不参与</strong>移位相加的运算，什么意思呢？</p>
+<p>我们再画详细点：</p>
+<p><img src="https://gitee.com/mxdon/img/raw/master/2020/image-20201110192743010.png" alt="image-20201110192743010"></p>
+<p>计算时，<strong>每次得到的部分积，都会与上一次得到的部分积相加，而每次相加结果的最后一位不参与运算，可直接右移转存</strong>，则部分积占用的空间显然比左移运算小多了。这样说，想必应该足够明白了吧？</p>
+<h2 id="设计文件-方式一"><a href="#设计文件-方式一" class="headerlink" title="设计文件(方式一)"></a>设计文件(方式一)</h2><p>知道了上述原理，我们来写一个右移位的乘法器，逻辑很清晰，每次根据乘数位是否为<code>0</code>进行判断，如果是<code>0</code>，则<code>部分积=前一步的部分积+0</code>，如果是<code>1</code>，则<code>部分积=前一步的部分积+被乘数</code>，同时每次将部分积的最低位存储至结果的低位中，最后一次的部分积则为结果的高位。</p>
+<p>实现代码如下：</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">module</span> mul_8_1(result,mul1,mul2);</span><br><span class="line">    <span class="keyword">input</span> <span class="keyword">wire</span>[<span class="number">7</span>:<span class="number">0</span>] mul1;</span><br><span class="line">    <span class="keyword">input</span> <span class="keyword">wire</span>[<span class="number">7</span>:<span class="number">0</span>] mul2;</span><br><span class="line">    <span class="keyword">output</span> <span class="keyword">reg</span>[<span class="number">15</span>:<span class="number">0</span>] res;</span><br><span class="line">    <span class="keyword">reg</span> [<span class="number">7</span>:<span class="number">0</span>] A;        <span class="comment">//部分积</span></span><br><span class="line">    <span class="keyword">integer</span> i;</span><br><span class="line">    <span class="keyword">reg</span> [<span class="number">7</span>:<span class="number">0</span>] temp_x;   <span class="comment">//乘法运算时，被乘数与乘数最后一位的积的最后一位不参与最后的加法运算，将其右移另存。</span></span><br><span class="line">    <span class="keyword">always</span> @ (*)</span><br><span class="line">    <span class="keyword">begin</span></span><br><span class="line">        A=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (i=<span class="number">0</span>;i&lt;<span class="number">8</span>;i=i+<span class="number">1</span>)</span><br><span class="line">            <span class="keyword">begin</span></span><br><span class="line">                <span class="keyword">if</span>(mul2[i]) A=A+&#123;<span class="number">1&#x27;b0</span>,mul1&#125;;      <span class="comment">//部分积移位前可能会比乘数多一位</span></span><br><span class="line">                <span class="keyword">else</span> A=A+<span class="number">9&#x27;b000000000</span>;</span><br><span class="line">                temp_x[i]=A[<span class="number">0</span>];</span><br><span class="line">                A=A&gt;&gt;<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">end</span></span><br><span class="line">            res=&#123;A,temp_x&#125;;</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">endmodule</span></span><br></pre></td></tr></table></figure>
+
+<p>在<code>RTL</code>级电路综合中却很少使用<code>for</code>循环语句。主要原因就是<code>for</code>循环会被综合器展开为所有变量情况的执行语句，每个变量独立占用寄存器资源，每条执行语句并不能有效地复用硬件逻辑资源，造成巨大的资源浪费。也就是说，<code>for</code>语句循环几次，就是将相同的电路复制几次。循环次数越多，综合电路占用面积越大，综合就越慢。</p>
+<p>所以我们稍微改改写法，就可以解决<code>for</code>循环了。</p>
+<h3 id="综合电路"><a href="#综合电路" class="headerlink" title="综合电路"></a>综合电路</h3><p><code>23</code>个元件，<code>32</code>个<code>IO</code>口，<code>202</code>根线</p>
+<p><img src="https://gitee.com/mxdon/img/raw/master/2020/image-20201110195053083.png" alt="image-20201110195053083"></p>
+<h2 id="设计文件-方式二"><a href="#设计文件-方式二" class="headerlink" title="设计文件(方式二)"></a>设计文件(方式二)</h2><p>所幸八位的乘法器也并不算复杂，可以写一个并行计算的部分积。这样也就解决了<code>for</code>循环的问题。</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">`<span class="meta-keyword">define</span> size 8</span></span><br><span class="line"><span class="keyword">module</span> mul_8_1(</span><br><span class="line">    <span class="keyword">input</span> <span class="keyword">wire</span> [<span class="meta">`size - 1:0] mul1,mul2,</span></span><br><span class="line">    <span class="keyword">output</span> <span class="keyword">wire</span> [<span class="number">2</span>*<span class="meta">`size - 1:0] res</span></span><br><span class="line">    );</span><br><span class="line">    <span class="keyword">wire</span> [<span class="meta">`size : 0] A[0:`size-1];</span></span><br><span class="line">    <span class="keyword">wire</span> [<span class="meta">`size -1 : 0] low_pro;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">assign</span> A[<span class="number">0</span>] = mul2[<span class="number">0</span>] ? &#123;<span class="number">1&#x27;b0</span>,mul1&#125; : <span class="number">9&#x27;d0</span>;</span><br><span class="line">    <span class="keyword">assign</span> A[<span class="number">1</span>] = mul2[<span class="number">1</span>] ? ((A[<span class="number">0</span>]&gt;&gt;<span class="number">1</span>) + &#123;<span class="number">1&#x27;b0</span>,mul1&#125;) : ((A[<span class="number">0</span>]&gt;&gt;<span class="number">1</span>) + <span class="number">9&#x27;d0</span>);</span><br><span class="line">    <span class="keyword">assign</span> A[<span class="number">2</span>] = mul2[<span class="number">2</span>] ? ((A[<span class="number">1</span>]&gt;&gt;<span class="number">1</span>) + &#123;<span class="number">1&#x27;b0</span>,mul1&#125;) : ((A[<span class="number">1</span>]&gt;&gt;<span class="number">1</span>) + <span class="number">9&#x27;d0</span>);</span><br><span class="line">    <span class="keyword">assign</span> A[<span class="number">3</span>] = mul2[<span class="number">3</span>] ? ((A[<span class="number">2</span>]&gt;&gt;<span class="number">1</span>) + &#123;<span class="number">1&#x27;b0</span>,mul1&#125;) : ((A[<span class="number">2</span>]&gt;&gt;<span class="number">1</span>) + <span class="number">9&#x27;d0</span>);</span><br><span class="line">    <span class="keyword">assign</span> A[<span class="number">4</span>] = mul2[<span class="number">4</span>] ? ((A[<span class="number">3</span>]&gt;&gt;<span class="number">1</span>) + &#123;<span class="number">1&#x27;b0</span>,mul1&#125;) : ((A[<span class="number">3</span>]&gt;&gt;<span class="number">1</span>) + <span class="number">9&#x27;d0</span>);</span><br><span class="line">    <span class="keyword">assign</span> A[<span class="number">5</span>] = mul2[<span class="number">5</span>] ? ((A[<span class="number">4</span>]&gt;&gt;<span class="number">1</span>) + &#123;<span class="number">1&#x27;b0</span>,mul1&#125;) : ((A[<span class="number">4</span>]&gt;&gt;<span class="number">1</span>) + <span class="number">9&#x27;d0</span>);</span><br><span class="line">    <span class="keyword">assign</span> A[<span class="number">6</span>] = mul2[<span class="number">6</span>] ? ((A[<span class="number">5</span>]&gt;&gt;<span class="number">1</span>) + &#123;<span class="number">1&#x27;b0</span>,mul1&#125;) : ((A[<span class="number">5</span>]&gt;&gt;<span class="number">1</span>) + <span class="number">9&#x27;d0</span>);</span><br><span class="line">    <span class="keyword">assign</span> A[<span class="number">7</span>] = mul2[<span class="number">7</span>] ? ((A[<span class="number">6</span>]&gt;&gt;<span class="number">1</span>) + &#123;<span class="number">1&#x27;b0</span>,mul1&#125;) : ((A[<span class="number">6</span>]&gt;&gt;<span class="number">1</span>) + <span class="number">9&#x27;d0</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">assign</span> low_pro[<span class="number">0</span>] = A[<span class="number">0</span>][<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">assign</span> low_pro[<span class="number">1</span>] = A[<span class="number">1</span>][<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">assign</span> low_pro[<span class="number">2</span>] = A[<span class="number">2</span>][<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">assign</span> low_pro[<span class="number">3</span>] = A[<span class="number">3</span>][<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">assign</span> low_pro[<span class="number">4</span>] = A[<span class="number">4</span>][<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">assign</span> low_pro[<span class="number">5</span>] = A[<span class="number">5</span>][<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">assign</span> low_pro[<span class="number">6</span>] = A[<span class="number">6</span>][<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">assign</span> low_pro[<span class="number">7</span>] = A[<span class="number">7</span>][<span class="number">0</span>];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">assign</span> res = &#123;(A[<span class="number">7</span>] &gt;&gt; <span class="number">1</span>),low_pro&#125;;</span><br><span class="line"><span class="keyword">endmodule</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="综合电路-1"><a href="#综合电路-1" class="headerlink" title="综合电路"></a>综合电路</h3><p><code>23</code>个元件，<code>32</code>个<code>IO</code>口，<code>224</code>根线，和使用for循环的方式相比，多了几根线？？！</p>
+<p>好吧果然是我的能力问题，有见解的朋友们请务必说一下，我想学！</p>
+<p><img src="https://gitee.com/mxdon/img/raw/master/2020/image-20201110194747053.png" alt="image-20201110194747053"></p>
+<h2 id="测试文件"><a href="#测试文件" class="headerlink" title="测试文件"></a>测试文件</h2><p>由于两个都是乘法器，输入和输出端口都一样，则可以用同样的测试文件进行测试：</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">module</span> mul_tb(</span><br><span class="line">    );</span><br><span class="line">    <span class="keyword">reg</span> [<span class="number">7</span>:<span class="number">0</span>] mul1,mul2;</span><br><span class="line">    <span class="keyword">wire</span> [<span class="number">15</span>:<span class="number">0</span>] res;</span><br><span class="line">    <span class="keyword">reg</span> clk;</span><br><span class="line">    <span class="keyword">initial</span> <span class="keyword">begin</span></span><br><span class="line">        mul1 &lt;= <span class="number">8&#x27;d7</span>;</span><br><span class="line">        mul2 &lt;= <span class="number">8&#x27;d3</span>;</span><br><span class="line">        clk &lt;= <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">always</span> # <span class="number">10</span> clk = ~clk;</span><br><span class="line">    <span class="keyword">always</span> @ (<span class="keyword">posedge</span> clk) <span class="keyword">begin</span></span><br><span class="line">        mul2 &lt;= mul2 + <span class="number">1&#x27;b1</span>;</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    </span><br><span class="line">    mul_8_1 try(<span class="variable">.mul1</span>(mul1),<span class="variable">.mul2</span>(mul2),<span class="variable">.res</span>(res),);</span><br><span class="line"><span class="keyword">endmodule</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="仿真波形"><a href="#仿真波形" class="headerlink" title="仿真波形"></a>仿真波形</h2><p>调成无符号十进制数进行观察，如图所示，<code>7x7=49</code>，<code>7x8=56</code>，结果正确。</p>
+<p><img src="https://gitee.com/mxdon/img/raw/master/2020/image-20201110200652246.png" alt="image-20201110200652246"></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:mxdongit@126.com">Mxdon</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://blog.mxdon.cool/2020/%E5%85%AB%E4%BD%8D%E5%8F%B3%E7%A7%BB%E4%BD%8D%E4%B9%98%E6%B3%95%E5%99%A8%EF%BC%88%E6%97%A0%E7%AC%A6%E5%8F%B7%EF%BC%89/">http://blog.mxdon.cool/2020/%E5%85%AB%E4%BD%8D%E5%8F%B3%E7%A7%BB%E4%BD%8D%E4%B9%98%E6%B3%95%E5%99%A8%EF%BC%88%E6%97%A0%E7%AC%A6%E5%8F%B7%EF%BC%89/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://blog.mxdon.cool" target="_blank">Mxdon</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://api.isoyu.com/aipc_animation.php" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button button--animated"><i class="fas fa-qrcode"></i> 鼓励一下</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechatpay.jpg" target="_blank"><img class="post-qr-code-img" src="/img/wechatpay.jpg" alt="wechat"/></a><div class="post-qr-code-desc">wechat</div></li><li class="reward-item"><a href="/img/alipay.jpg" target="_blank"><img class="post-qr-code-img" src="/img/alipay.jpg" alt="alipay"/></a><div class="post-qr-code-desc">alipay</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2020/%E5%85%AB%E4%BD%8D%E8%B6%85%E5%89%8D%E8%BF%9B%E4%BD%8D%E5%8A%A0%E6%B3%95%E5%99%A8/"><img class="prev-cover" src="https://api.isoyu.com/aipc_girls.php" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">八位超前进位加法器&amp;八位行波进位加法器</div></div></a></div><div class="next-post pull-right"><a href="/2020/%E4%BD%BF%E7%94%A8%E6%A0%91%E8%8E%93%E6%B4%BE%E6%90%AD%E5%BB%BAwordpress%E5%8D%9A%E5%AE%A2%E7%BD%91%E7%AB%99/"><img class="next-cover" src="https://img.paulzzh.tech/touhou/random" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">使用树莓派搭建wordpress博客网站</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%AB%E4%BD%8D%E5%8F%B3%E7%A7%BB%E4%BD%8D%E4%B9%98%E6%B3%95%E5%99%A8"><span class="toc-number">1.</span> <span class="toc-text">八位右移位乘法器</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%99%9A%E5%81%87%E7%9A%84%E5%8F%B3%E7%A7%BB%E4%BD%8D"><span class="toc-number">1.1.</span> <span class="toc-text">虚假的右移位</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9C%9F%E6%AD%A3%E7%9A%84%E5%8F%B3%E7%A7%BB%E4%BD%8D"><span class="toc-number">1.2.</span> <span class="toc-text">真正的右移位</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BE%E8%AE%A1%E6%96%87%E4%BB%B6-%E6%96%B9%E5%BC%8F%E4%B8%80"><span class="toc-number">1.3.</span> <span class="toc-text">设计文件(方式一)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%BC%E5%90%88%E7%94%B5%E8%B7%AF"><span class="toc-number">1.3.1.</span> <span class="toc-text">综合电路</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BE%E8%AE%A1%E6%96%87%E4%BB%B6-%E6%96%B9%E5%BC%8F%E4%BA%8C"><span class="toc-number">1.4.</span> <span class="toc-text">设计文件(方式二)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%BC%E5%90%88%E7%94%B5%E8%B7%AF-1"><span class="toc-number">1.4.1.</span> <span class="toc-text">综合电路</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95%E6%96%87%E4%BB%B6"><span class="toc-number">1.5.</span> <span class="toc-text">测试文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%BF%E7%9C%9F%E6%B3%A2%E5%BD%A2"><span class="toc-number">1.6.</span> <span class="toc-text">仿真波形</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer" style="background-color: transparent;"><div id="footer-wrap"><div class="copyright">&copy;2021 By Mxdon</div><div class="footer_custom_text">Hi, welcome to Mxdon's blog</div></div><div class="container" id="jsi-flying-fish-container"><script src="js/fish.js"></script></div><style>   @media only screen and (max-width: 767px){
+   #sidebar_search_box input[type=text]{width:calc(100% - 24px)}
+}</style></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="font-plus" type="button" title="放大字体"><i class="fas fa-plus"></i></button><button id="font-minus" type="button" title="缩小字体"><i class="fas fa-minus"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="chat_btn" type="button" title="rightside.chat_btn"><i class="fas fa-sms"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/medium-zoom/dist/medium-zoom.min.js"></script><script src="/js/search/local-search.js"></script><script async="async">var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())
+setTimeout(function(){preloader.endLoading();}, 5000);</script><div class="js-pjax"><script>(()=>{
+  const $countDom = document.getElementById('twikoo-count')
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: 'https://blog-comment-eiv9e480i-mxdongit.vercel.app',
+      region: 'eastasia'
+    }, null))
+  }
+
+  const getCount = () => {
+    twikoo.getCommentsCount({
+      envId: 'https://blog-comment-eiv9e480i-mxdongit.vercel.app',
+      region: 'eastasia',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(function (res) {
+      $countDom.innerText = res[0].count
+    }).catch(function (err) {
+      console.error(err);
+    });
+  }
+
+  const loadTwikoo = (bool = false) => {
+    if (typeof twikoo === 'object') {
+      init()
+      bool && $countDom && setTimeout(getCount,0)
+    } else {
+      getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(()=> {
+        init()
+        bool && $countDom && setTimeout(getCount,0)
+      })
+    }
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo(true)
+  } else {
+    window.loadOtherComment = () => {
+      loadTwikoo()
+    }
+  }
+})()</script></div><script>window.addEventListener('load', () => {
+  const changeContent = (content) => {
+    if (content === '') return content
+
+    content = content.replace(/<img.*?src="(.*?)"?[^\>]+>/ig, '[图片]') // replace image link
+    content = content.replace(/<a[^>]+?href=["']?([^"']+)["']?[^>]*>([^<]+)<\/a>/gi, '[链接]') // replace url
+    content = content.replace(/<pre><code>.*?<\/pre>/gi, '[代码]') // replace code
+    content = content.replace(/<[^>]+>/g,"") // remove html tag
+
+    if (content.length > 150) {
+      content = content.substring(0,150) + '...'
+    }
+    return content
+  }
+
+  const getComment = () => {
+    const runTwikoo = () => {
+      twikoo.getRecentComments({
+        envId: 'https://blog-comment-eiv9e480i-mxdongit.vercel.app',
+        region: 'eastasia',
+        pageSize: 6,
+        includeReply: true
+      }).then(function (res) {
+        const twikooArray = res.map(e => {
+          return {
+            'content': changeContent(e.comment),
+            'avatar': e.avatar,
+            'nick': e.nick,
+            'url': e.url + '#' + e.id,
+            'date': new Date(e.created).toISOString()
+          }
+        })
+
+        saveToLocal.set('twikoo-newest-comments', JSON.stringify(twikooArray), 10/(60*24))
+        generateHtml(twikooArray)
+      }).catch(function (err) {
+        const $dom = document.querySelector('#card-newest-comments .aside-list')
+        $dom.innerHTML= "无法获取评论，请确认相关配置是否正确"
+      })
+    }
+
+    if (typeof twikoo === 'object') {
+      runTwikoo()
+    } else {
+      getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(runTwikoo)
+    }
+  }
+
+  const generateHtml = array => {
+    let result = ''
+
+    if (array.length) {
+      for (let i = 0; i < array.length; i++) {
+        result += '<div class=\'aside-list-item\'>'
+
+        if (true) {
+          const name = 'src'
+          result += `<a href='${array[i].url}' class='thumbnail'><img ${name}='${array[i].avatar}' alt='${array[i].nick}'></a>`
+        }
+        
+        result += `<div class='content'>
+        <a class='comment' href='${array[i].url}'>${array[i].content}</a>
+        <div class='name'><span>${array[i].nick} / </span><time datetime="${array[i].date}">${btf.diffDate(array[i].date, true)}</time></div>
+        </div></div>`
+      }
+    } else {
+      result += '没有评论'
+    }
+
+    let $dom = document.querySelector('#card-newest-comments .aside-list')
+    $dom.innerHTML= result
+    window.lazyLoadInstance && window.lazyLoadInstance.update()
+    window.pjax && window.pjax.refresh($dom)
+  }
+
+  const newestCommentInit = () => {
+    if (document.querySelector('#card-newest-comments .aside-list')) {
+      const data = saveToLocal.get('twikoo-newest-comments')
+      if (data) {
+        generateHtml(JSON.parse(data))
+      } else {
+        getComment()
+      }
+    }
+  }
+
+  newestCommentInit()
+  document.addEventListener('pjax:complete', newestCommentInit)
+})</script><script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/gh/xiabo2/CDN@latest/fish.js"></script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-nest.min.js"></script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-heart.min.js" async="async" mobile="false"></script><script src="//code.tidio.co/tajf1h7dq4euas8t8jusi0x28q74d8av.js" async="async"></script><script>function onTidioChatApiReady() {
+  window.tidioChatApi.hide();
+  window.tidioChatApi.on("close", function() {
+    window.tidioChatApi.hide();
+  });
+}
+if (window.tidioChatApi) {
+  window.tidioChatApi.on("ready", onTidioChatApiReady);
+} else {
+  document.addEventListener("tidioChat-ready", onTidioChatApiReady);
+}
+
+var chatBtnFn = () => {
+  document.getElementById("chat_btn").addEventListener("click", function(){
+    window.tidioChatApi.show();
+    window.tidioChatApi.open();
+  });
+}
+chatBtnFn()
+</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/gh/metowolf/MetingJS@1.2/dist/Meting.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = [
+  'title',
+  '#config-diff',
+  '#body-wrap',
+  '#rightside-config-hide',
+  '#rightside-config-show',
+  '.js-pjax'
+]
+
+if (false) {
+  pjaxSelectors.unshift('meta[property="og:image"]', 'meta[property="og:title"]', 'meta[property="og:url"]')
+}
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.removeEventListener('scroll', window.tocScrollFn)
+  window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // Analytics
+  if (false) {
+    MtaH5.pgv()
+  }
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
