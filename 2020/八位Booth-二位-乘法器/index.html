@@ -1,0 +1,562 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>八位Booth(二位)乘法器 | Mxdon</title><meta name="keywords" content="Verilog,乘法器,Booth"><meta name="author" content="Mxdon,mxdongit@126.com"><meta name="copyright" content="Mxdon"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="八位“Booth二位乘算法”乘法器原理补码乘法器之前介绍了几篇无符号乘法器或加法器的写法，当然，稍作修改也就可以改成符合有符号数的乘法器或加法器。 但是呢，我们之前写的乘法器或加法器，其实都是默认是正数来写的，而且是以正数的原码来写的，所以上面说稍作修改也就可以成为有符号数的乘法器或加法器，其实就是对我们以为的原码进行取补码，再进行乘法或加法的运算。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="八位Booth(二位)乘法器">
+<meta property="og:url" content="http://blog.mxdon.cool/2020/%E5%85%AB%E4%BD%8DBooth-%E4%BA%8C%E4%BD%8D-%E4%B9%98%E6%B3%95%E5%99%A8/index.html">
+<meta property="og:site_name" content="Mxdon">
+<meta property="og:description" content="八位“Booth二位乘算法”乘法器原理补码乘法器之前介绍了几篇无符号乘法器或加法器的写法，当然，稍作修改也就可以改成符合有符号数的乘法器或加法器。 但是呢，我们之前写的乘法器或加法器，其实都是默认是正数来写的，而且是以正数的原码来写的，所以上面说稍作修改也就可以成为有符号数的乘法器或加法器，其实就是对我们以为的原码进行取补码，再进行乘法或加法的运算。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://api.xhofe.top/img/api/bing">
+<meta property="article:published_time" content="2020-11-07T10:56:55.000Z">
+<meta property="article:modified_time" content="2022-09-19T15:12:34.460Z">
+<meta property="article:author" content="Mxdon">
+<meta property="article:tag" content="Verilog">
+<meta property="article:tag" content="乘法器">
+<meta property="article:tag" content="Booth">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://api.xhofe.top/img/api/bing"><link rel="shortcut icon" href="/img/mxdon.png"><link rel="canonical" href="http://blog.mxdon.cool/2020/%E5%85%AB%E4%BD%8DBooth-%E4%BA%8C%E4%BD%8D-%E4%B9%98%E6%B3%95%E5%99%A8/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta/><meta/><meta/><meta/><meta/><meta/><meta/><meta/><meta/><meta/><meta/><meta/><meta/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: Mxdon","link":"链接: ","source":"来源: Mxdon","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'mediumZoom',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: true,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '八位Booth(二位)乘法器',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-09-19 23:12:34'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const fontSizeVal = saveToLocal.get('global-font-size')
+    if (fontSizeVal !== undefined) {
+      document.documentElement.style.setProperty('--global-font-size', fontSizeVal + 'px')
+    }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    document.addEventListener('pjax:complete', detectApple)})(window)</script><meta name="generator" content="Hexo 5.4.2"></head><body><a href="javascript:void(0);" onclick="preloader.endLoading();" title="点击跳过动画"><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="wizard-scene"><div class="wizard-objects"><div class="wizard-square"></div><div class="wizard-circle"></div><div class="wizard-triangle"></div></div><div class="wizard"><div class="wizard-body"></div><div class="wizard-right-arm"><div class="wizard-right-hand"></div></div><div class="wizard-left-arm"><div class="wizard-left-hand"></div></div><div class="wizard-head"><div class="wizard-beard"></div><div class="wizard-face"><div class="wizard-adds"></div></div><div class="wizard-hat"><div class="wizard-hat-of-the-hat"></div><div class="wizard-four-point-star --first"></div><div class="wizard-four-point-star --second"></div><div class="wizard-four-point-star --third"></div></div></div></div></div></div></a><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/mxdon.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">43</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">50</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">20</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://api.xhofe.top/img/api/bing')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Mxdon</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">八位Booth(二位)乘法器</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2020-11-07T10:56:55.000Z" title="发表于 2020-11-07 18:56:55">2020-11-07</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-09-19T15:12:34.460Z" title="更新于 2022-09-19 23:12:34">2022-09-19</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%A1%AC%E4%BB%B6%E8%AE%BE%E8%AE%A1/">硬件设计</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%A1%AC%E4%BB%B6%E8%AE%BE%E8%AE%A1/Verilog/">Verilog</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">3.3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>12分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="八位Booth(二位)乘法器"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="八位“Booth二位乘算法”乘法器"><a href="#八位“Booth二位乘算法”乘法器" class="headerlink" title="八位“Booth二位乘算法”乘法器"></a>八位“Booth二位乘算法”乘法器</h1><h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><h3 id="补码乘法器"><a href="#补码乘法器" class="headerlink" title="补码乘法器"></a>补码乘法器</h3><p>之前介绍了几篇无符号乘法器或加法器的写法，当然，稍作修改也就可以改成符合有符号数的乘法器或加法器。</p>
+<p>但是呢，我们之前写的乘法器或加法器，其实都是默认是<strong>正数</strong>来写的，而且是以<strong>正数的原码</strong>来写的，所以上面说稍作修改也就可以成为有符号数的乘法器或加法器，其实就是对我们以为的<strong>原码进行取补码</strong>，再进行乘法或加法的运算。</p>
+<span id="more"></span>
+
+<p>随着计算机硬件部件的升级，处理器技术的发展，现代处理器中的定点数(小数点位置固定)都是按照补码形式来存储的。</p>
+<p>所以在之前写的无符号加法器中，只要利用：<br>$$<br>X_补+Y_补=[X+Y]_补<br>$$<br>就可以轻易将原先的加法器改写成有符号加法器——只要对结果再取一次补码即可。</p>
+<p>但是乘法器呢？稍作学习可以知道，补码的乘法是这样的：<br>$$<br>X<em>Y_补=[X</em>Y]_补<br>$$<br>我们再考虑一下之前所说的：<strong>在现代处理器中的定点数都是按照补码形式来存储的</strong>。</p>
+<p>所以我们要想得到两个数的乘法结果，首先应该知道<strong>被乘数的原码和补码，再对最终结果取补码</strong>，即可得到我们期望的乘法结果。</p>
+<p>那么如何求“<code>X*Y补</code>”呢？在处理器中，一个二进制数<code>Y补</code>形如<code>y7y6y5y4y3y2y1y0</code>，也就是表示一个数的补码，那么<strong>它的原码</strong>是多少呢？</p>
+<p>补码的计算方法，除了“首位不变，余位取反再加一”的方式，还有一种就是“<strong>用溢出条件来减这个数</strong>”，在我们之前第一节课说<strong>二进制</strong>的时候，以钟表为例——“十二进制”，得到结论——“<code>4</code>是<code>-8</code>的补码”。</p>
+<p><img src="https://gitee.com/mxdon/img/raw/master/2020/image-20201111205914305.png"></p>
+<p>我们用第二种取补码的方式：<code>-8的补码=12-8=4</code>（这里没有考虑符号问题，只是求了补码的值）</p>
+<p>所以考虑一下符号的话，<code>-8的补码=8-12=-4</code></p>
+<p>同理：</p>
+<p>十进制下，<code>-4的补码=4-10=-6</code></p>
+<p>二进制下，<code>-101补码=1101补码=101-1000=-011=1011</code></p>
+<p>这样解决求补码的方式在接下来的计算方面就更方便了，至于正数嘛，不变就好了。</p>
+<p>回到上面的问题，一个二进制数<code>Y补</code>形如<code>y7y6y5y4y3y2y1y0</code>，<strong>它的原码</strong>是多少呢？根据：<br>$$<br>[X_补]_补=X<br>$$<br><code>Y补</code>的原码<code>Y</code>应该为：<br>$$<br>Y=(y_7<em>2^7+y_6</em>2^6+y_5<em>2^5+……+y_0</em>2^0)-1<em>2^8<br>$$<br>稍微化简一下：<br>$$<br>Y=-y_7</em>2^7+(y_6<em>2^6+y_5</em>2^5+……+y_0<em>2^0)<br>$$<br>所以我们如果想求<code>X*Y</code>，可以先求其补码：<br>$$<br>[X</em>Y]_补=[X*(-y_7<em>2^7)+X</em>(y_6<em>2^6+y_5</em>2^5+……+y_0<em>2^0)]_补<br>$$<br>根据补码加法“<code>X补+Y补=[X+Y]补</code>”再稍微化简一下：<br>$$<br>[X</em>Y]_补=-y_7*[X<em>2^7]_补+y_6</em>[X<em>2^6]_补+y_5</em>[X<em>2^5]_补+……+y_0</em>[X<em>2^0]_补<br>$$<br>再引入一个定理：<br>$$<br>[X</em>2^n]_补=X_补<em>2^n<br>$$<br>所以上式又可以换一种写法：<br>$$<br>[X</em>Y]_补=X_补*(-y_7<em>2^7+(y_6</em>2^6+y_5<em>2^5+……+y_0</em>2^0))=Y<em>X_补<br>$$<br>哦这不就是上面介绍过的补码乘法嘛：<br>$$<br>[X</em>Y]_补=Y<em>X_补=X</em>Y_补<br>$$<br>如果令一个数<code>Y1补=y6y6y5y4y3y2y1y0</code>，去掉了首位，那么上式是不是可以理解为：<br>$$<br>[X<em>Y]_补=X_补</em>Y1_补-y_7<em>X_补</em>2^7<br>$$<br>其中的<code>Y1补</code>不就刚好是<code>Y补</code>的后7位嘛？也就是说一个乘法可以分为两部分理解：首位的乘法和其他位的乘法。<strong>首位的乘法产生的部分积符号是减，其他位的部分积符号为加</strong>。</p>
+<p>经过上面的推导大家应该会对补码乘法的原理有了一定的概念，我们来把它写成竖式的形式，以<code>(-6)x(-7)</code>为例，原码乘应该是<code>1110x1111</code>，在计算机中是以补码的形式存储，所以补码乘是<code>1010x1001</code>，代入公式，令<code>X补=1010</code>，<code>Y补=1001</code>，其运算过程如下：</p>
+<p><img src="https://gitee.com/mxdon/img/raw/master/2020/image-20201112144911306.png"></p>
+<p>这里可能有一些迷惑的是：为什么第一步运算得到的结果是<code>11111010</code>？为什么要在前面填充<code>1111</code>？</p>
+<p>这也就是所谓的符号填充，我们之前的设计中都没有涉及到符号位，所以默认都是填充<code>0</code>，现在遇到了负数问题，也就需要填充符号了，但是这样看起来是不是<del>一点都觉得</del>很奇怪？如果没办法理解的话，我建议你可以尝试对它求补码，看看是不是可以保持首位符号位不变，余位取反加一。惊叹于设计师的机智。</p>
+<p>补码乘法器的原理讲明白了，具体电路实现的话，大家可以尝试一下，本节重点不在于此。</p>
+<h3 id="Booth一位乘"><a href="#Booth一位乘" class="headerlink" title="Booth一位乘"></a>Booth一位乘</h3><p>在上面已经讨论了补码乘法器的原理，那么什么是<code>Booth</code>乘法器呢？<code>Booth</code>乘法器是由英国的<code>Booth</code>夫妇提出的，并没有什么特殊含义，所以我们直接快进到内容。</p>
+<p>经过补码乘法器的推导：<br>$$<br>[X<em>Y]_补=X_补</em>(-y_7<em>2^7+(y_6</em>2^6+y_5<em>2^5+……+y_0</em>2^0))<br>$$<br>参考中学数学：<br>$$<br>2^n=2<em>2^{n-1}<br>$$<br>其核心计算思想是括号里的形式，也就是</em><em><code>Y补</code>的原码<code>Y</code>，**所以我们对括号里的内容再进行分解合并，也就是对<code>Y</code>分解合并。先分解：<br>$$<br>Y=-y_7</em>2^7+((2-1)y_6<em>2^6+(2-1)y_5</em>2^5+……+(2-1)y_0<em>2^0)<br>$$<br>这样应该挺直观了吧：<br>$$<br>Y=-y_7</em>2^7+(y_6<em>2^7-y_6</em>2^6)+(y_5<em>2^6-y_5</em>2^5)+……+(y_0<em>2^1-y_0</em>2^0)<br>$$<br>再合并：<br>$$<br>Y=(y_6-y_7)*2^7+(y_5-y_6)*2^6+(y_4-y_5)*2^5+……+(0-y_0)*2^0<br>$$<br>最后有个<code>0-y0</code>的项，看起来有点不合群，所以令：<br>$$<br>y_{-1}=0<br>$$<br>代入上式，即：<br>$$<br>Y=(y_6-y_7)*2^7+(y_5-y_6)*2^6+(y_4-y_5)*2^5+……+(y_{-1}-y_0)*2^0<br>$$<br>这也就是<code>Booth</code>一位乘算法的原理。其优点就在于不用再像补码乘法器那样，<strong>不需要专门对最后一次部分积采用补码减法</strong>。</p>
+<p>根据上式，还可以列出<code>Booth</code>一位乘的规则：</p>
+<table>
+<thead>
+<tr>
+<th align="center">y(i-1)</th>
+<th align="center">y(i)</th>
+<th align="center">y(i-1) - y(i)</th>
+<th align="center">操作</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">加0</td>
+</tr>
+<tr>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">-1</td>
+<td align="center">减<code>X补</code></td>
+</tr>
+<tr>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">加<code>X补</code></td>
+</tr>
+<tr>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">加0</td>
+</tr>
+</tbody></table>
+<p>再举个例子来计算，仍以<code>(-6)x(-7)</code>为例，补码乘是<code>1010x1001</code>，列出竖式：</p>
+<p><img src="https://gitee.com/mxdon/img/raw/master/2020/image-20201112170824568.png"></p>
+<p>可是这里为什么还是有减法呢？和常规的补码乘法器相比，简直是老和尚抹洗头膏，大可不必。甚至由于每次判断两位数字，增大了电路的复杂度，那么为什么booth乘法器如此好用呢？</p>
+<p>其实<code>booth</code>一位乘算法并不常用，但是booth二位乘就不一样了，通过增加一定的空间复杂度，将运算周期减为一半！</p>
+<h3 id="Booth二位乘"><a href="#Booth二位乘" class="headerlink" title="Booth二位乘"></a>Booth二位乘</h3><p>还是根据补码乘法器，我们将<code>Y</code>的表达式再进行变换——先分解：<br>$$<br>Y=-2<em>y_7</em>2^6+y_6<em>2^6+(y_5</em>2^6-2<em>y_5</em>2^4)+……+y_0<em>2^0+y_{-1}<em>2^0<br>$$<br>再整合：<br>$$<br>Y=(y_5+y_6-2</em>y_7）</em>2^6+（y_3+y_4-2<em>y_5）</em>2^4)+……+(y_{-1}+y_0-2*y_1)*2^0<br>$$<br>好了<code>Booth</code>二位乘算法也完事了，类比于<code>Booth</code>一位乘，我们也可以列出<code>Booth</code>二位乘的规则：</p>
+<table>
+<thead>
+<tr>
+<th align="center">y(i-1)</th>
+<th align="center">y(i)</th>
+<th align="center">y(i+1)</th>
+<th align="center">y(i-1) + y(i) - 2*y(i+1)</th>
+<th align="center">操作</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">加<code>0</code></td>
+</tr>
+<tr>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">加<code>X补</code></td>
+</tr>
+<tr>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">加<code>X补</code></td>
+</tr>
+<tr>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">2</td>
+<td align="center">加<code>2*X补</code>，即<code>X补&lt;&lt;1</code></td>
+</tr>
+<tr>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">-2</td>
+<td align="center">减<code>2*X补</code>，即<code>X补&lt;&lt;1</code></td>
+</tr>
+<tr>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">-1</td>
+<td align="center">减<code>X补</code></td>
+</tr>
+<tr>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">-1</td>
+<td align="center">减<code>X补</code></td>
+</tr>
+<tr>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">加<code>0</code></td>
+</tr>
+</tbody></table>
+<p>再举个例子来计算，仍以<code>(-6)x(-7)</code>为例，补码乘是<code>1010x1001</code>，列出竖式：</p>
+<p><img src="https://gitee.com/mxdon/img/raw/master/2020/image-20201112183044343.png"></p>
+<p>运算周期减半了！</p>
+<p>好了，那<code>Booth</code>乘法器有没有三位乘呢？可以有，但是三位的时候就会出现加<code>3*X补</code>，<code>2*X补</code>可以通过左移一位得到，而<code>3*X补</code>就有点麻烦了，所以不再介绍，至于四位乘、八位乘，想挑战的同学可以挑战一下。</p>
+<h2 id="设计思路"><a href="#设计思路" class="headerlink" title="设计思路"></a>设计思路</h2><h3 id="减法变加法"><a href="#减法变加法" class="headerlink" title="减法变加法"></a>减法变加法</h3><p>首先我们来解决一个问题，如何把减法消除？我们知道，<strong>减去一个数，等于加上这个数的相反数；减去一个数，也等于加上这个数的补码。</strong>这个过程中的减数也默认是正数，因为正数的补码还是正数，只有正数前面加一个符号再去补码才有用。那么如上面竖式所写，<strong>减去一个负补码，就应该等于加上“这个负补码的补码的相反数”</strong>，比如上面的补码乘法器竖式，就应该变换成如下形式：</p>
+<p><img src="https://gitee.com/mxdon/img/raw/master/2020/image-20201112174657850.png"></p>
+<p>再说明一下吧：**减<code>11010</code>，就相当于加<code>11010</code>的补码的相反数，即加<code>10110</code>的相反数，即<code>00110</code>**。</p>
+<p>所以<code>booth</code>一位乘算法的示例应该变成这样：</p>
+<p><img src="https://gitee.com/mxdon/img/raw/master/2020/image-20201112175327806.png"></p>
+<p><code>booth</code>二位乘算法的示例应该变成这样：</p>
+<p><img src="https://gitee.com/mxdon/img/raw/master/2020/image-20201112183729148.png"></p>
+<h3 id="vivado特性"><a href="#vivado特性" class="headerlink" title="vivado特性"></a>vivado特性</h3><p>考虑到上述减法变加法的操作后，容易总结出：减法变加法，其实就是对补码的符号位取反，也就是对减数每一位取反后再加一。</p>
+<p>再回读一边上述的理论部分，可能你会发现，在乘法运算中，只用到了<strong>补码</strong>和<strong>“负补码”</strong>两种概念的数字。而在<code>vivado</code>中（相当于在处理器中），数字默认是以补码形式存储的，即输入的乘数<strong>默认就是补码形式</strong>，这样只需要再求出<strong>“负补码”</strong>即可。设<code>X[3:0]</code>表示一个乘数，默认是以补码形式存储，则其“负补码”：<br>$$<br>X_{负补码}=!X + 1<br>$$<br>至于其原码：<br>$$<br>X_{原码}=(X[3],!X[2:0]) + 1<br>$$<br>其实根本用不着。</p>
+<p>有了以上知识储备，我们就可以写代码啦~</p>
+<h2 id="设计文件"><a href="#设计文件" class="headerlink" title="设计文件"></a>设计文件</h2><figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//由于实力不够，没能设计成改一个数字变一个规模的程序</span></span><br><span class="line"><span class="meta">`<span class="meta-keyword">define</span> size 8</span></span><br><span class="line"><span class="keyword">module</span> mul_booth_signed(</span><br><span class="line">    <span class="keyword">input</span> <span class="keyword">wire</span> [<span class="meta">`size - 1 : 0] mul1,mul2,</span></span><br><span class="line">    <span class="keyword">input</span> clk,</span><br><span class="line">    <span class="keyword">input</span> <span class="keyword">wire</span> [<span class="number">2</span>:<span class="number">0</span>] clk_cnt,<span class="comment">//运算节拍，相当于状态机了，8位的话每次运算有4个拍</span></span><br><span class="line">    <span class="keyword">output</span> <span class="keyword">wire</span> [<span class="number">2</span>*<span class="meta">`size - 1 : 0] res</span></span><br><span class="line">    );</span><br><span class="line"></span><br><span class="line">    <span class="comment">//由于传值默认就是补码，所以只需要再计算“负补码”即可</span></span><br><span class="line">    <span class="keyword">wire</span> [<span class="meta">`size - 1 : 0] bmul1,bmul2;</span></span><br><span class="line">    <span class="keyword">assign</span> bmul1 = (~mul1 + <span class="number">1&#x27;b1</span>) ;</span><br><span class="line">    <span class="keyword">assign</span> bmul2 = (~mul2 + <span class="number">1&#x27;b1</span>) ;<span class="comment">//其实乘数2的负补码也没用到。</span></span><br><span class="line">	<span class="comment">//其实可以把状态机的开始和结束状态都写出来，我懒得写了，同学们可以尝试一下啊~</span></span><br><span class="line">    <span class="keyword">parameter</span>   zeroone       =   <span class="number">3&#x27;b00</span>,</span><br><span class="line">                twothree      =   <span class="number">3&#x27;b001</span>,</span><br><span class="line">                fourfive      =   <span class="number">3&#x27;b010</span>,</span><br><span class="line">                sixseven      =   <span class="number">3&#x27;b011</span>;</span><br><span class="line">    <span class="comment">//y(i-1),y(i),y(i+1)三个数的判断寄存器，由于有多种情况，也可以看成状态机（也可以改写成状态机形式，大家自己试试吧）</span></span><br><span class="line">    <span class="keyword">reg</span> [<span class="number">2</span>:<span class="number">0</span>] temp;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//部分积</span></span><br><span class="line">    <span class="keyword">reg</span> [<span class="number">2</span>*<span class="meta">`size-1 : 0] A;</span></span><br><span class="line">	<span class="comment">//每个节拍下把相应位置的数据传给temp寄存器</span></span><br><span class="line">    <span class="keyword">always</span> @ (<span class="keyword">posedge</span> clk) <span class="keyword">begin</span></span><br><span class="line">        <span class="keyword">case</span>(clk_cnt)</span><br><span class="line">            zeroone  : temp &lt;= &#123;mul2[<span class="number">1</span>:<span class="number">0</span>],<span class="number">1&#x27;b0</span>&#125;;</span><br><span class="line">            twothree : temp &lt;= mul2[<span class="number">3</span>:<span class="number">1</span>];</span><br><span class="line">            fourfive : temp &lt;= mul2[<span class="number">5</span>:<span class="number">3</span>];</span><br><span class="line">            sixseven : temp &lt;= mul2[<span class="number">7</span>:<span class="number">5</span>];</span><br><span class="line">            <span class="keyword">default</span> : temp &lt;= <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">endcase</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">	</span><br><span class="line">    <span class="keyword">always</span> @(<span class="keyword">posedge</span> clk) <span class="keyword">begin</span></span><br><span class="line">        <span class="keyword">if</span> (clk_cnt == <span class="number">3&#x27;b100</span>) <span class="keyword">begin</span><span class="comment">//如果节拍到4就让部分积归0，此时已经完成一次计算了</span></span><br><span class="line">            A &lt;= <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">end</span> <span class="keyword">else</span> <span class="keyword">case</span> (temp)</span><br><span class="line">            <span class="number">3&#x27;b000</span>,<span class="number">3&#x27;b111</span> :   <span class="keyword">begin</span><span class="comment">//这些是从高位到低位的判断，别看反了噢</span></span><br><span class="line">                A &lt;= A + <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">end</span></span><br><span class="line">            <span class="number">3&#x27;b001</span>,<span class="number">3&#x27;b010</span> : <span class="keyword">begin</span><span class="comment">//加法操作使用补码即可，倍数利用左移解决</span></span><br><span class="line">                A &lt;= A + (&#123;&#123;<span class="number">8</span>&#123;mul1[<span class="meta">`size-1]&#125;&#125;,mul1&#125; &lt;&lt; 2*(clk_cnt-1));</span></span><br><span class="line">            <span class="keyword">end</span></span><br><span class="line">            <span class="number">3&#x27;b011</span> : <span class="keyword">begin</span></span><br><span class="line">                A &lt;= A + (&#123;&#123;<span class="number">8</span>&#123;mul1[<span class="meta">`size-1]&#125;&#125;,mul1&#125; &lt;&lt; 2*(clk_cnt-1) + 1);</span></span><br><span class="line">            <span class="keyword">end</span></span><br><span class="line">            <span class="number">3&#x27;b100</span>: <span class="keyword">begin</span><span class="comment">//减法操作利用“负补码”改成加法操作，倍数利用左移解决</span></span><br><span class="line">                A &lt;= A + (&#123;&#123;<span class="number">8</span>&#123;bmul1[<span class="meta">`size-1]&#125;&#125;,bmul1&#125; &lt;&lt; 2*(clk_cnt-1) + 1);</span></span><br><span class="line">            <span class="keyword">end</span></span><br><span class="line">            <span class="number">3&#x27;b101</span>,<span class="number">3&#x27;b110</span> : <span class="keyword">begin</span></span><br><span class="line">                A &lt;= A + (&#123;&#123;<span class="number">8</span>&#123;bmul1[<span class="meta">`size-1]&#125;&#125;,bmul1&#125; &lt;&lt; 2*(clk_cnt-1));</span></span><br><span class="line">            <span class="keyword">end</span></span><br><span class="line">            <span class="keyword">default</span>: A &lt;= <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">endcase</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">	<span class="comment">//当节拍到4的时候写入结果寄存器。</span></span><br><span class="line">    <span class="keyword">assign</span> res = (clk_cnt == <span class="number">3&#x27;b100</span>) ? A : <span class="number">0</span>;</span><br><span class="line"><span class="keyword">endmodule</span></span><br></pre></td></tr></table></figure>
+
+<p>这是一个八位<code>Booth</code>二位乘算法的乘法器，至于<code>Booth</code>一位和<code>Booth</code>四位的乘法器，大家各自尝试就好。</p>
+<p>此外在这个文件当中，我用到了<code>clk_cnt</code>这个寄存器，大家是不是以为我会多用一个模块用来产生<code>clk_cnt</code>的波形？</p>
+<p>~~身为一个懒人，我直接在测试文件里写了吼吼吼~~~</p>
+<h3 id="综合电路"><a href="#综合电路" class="headerlink" title="综合电路"></a>综合电路</h3><p><code>37</code>个元件，<code>36</code>个IO口，<code>318</code>根线</p>
+<p><img src="https://gitee.com/mxdon/img/raw/master/2020/image-20201112221019705.png"></p>
+<h2 id="测试文件"><a href="#测试文件" class="headerlink" title="测试文件"></a>测试文件</h2><figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">`<span class="meta-keyword">timescale</span> 1ns / 1ps</span></span><br><span class="line"><span class="keyword">module</span> mul_tb(</span><br><span class="line">    );</span><br><span class="line">    <span class="keyword">reg</span> [<span class="number">7</span>:<span class="number">0</span>] mul1,mul2;</span><br><span class="line">    <span class="keyword">wire</span> [<span class="number">15</span>:<span class="number">0</span>] res;</span><br><span class="line">    <span class="keyword">reg</span> clk;</span><br><span class="line">    <span class="keyword">wire</span> clk_en;</span><br><span class="line">    <span class="keyword">reg</span> [<span class="number">2</span>:<span class="number">0</span>] clk_cnt;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">initial</span> <span class="keyword">begin</span></span><br><span class="line">        mul1 &lt;= -<span class="number">8&#x27;d7</span>;</span><br><span class="line">        mul2 &lt;= -<span class="number">8&#x27;d3</span>;</span><br><span class="line">        clk &lt;= <span class="number">0</span>;</span><br><span class="line">        clk_cnt &lt;= <span class="number">3&#x27;b0</span>;</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">always</span> # <span class="number">10</span> clk = ~clk;</span><br><span class="line">	<span class="comment">//clk_cnt发生器，懒人版</span></span><br><span class="line">    <span class="keyword">always</span> @(<span class="keyword">posedge</span> clk) <span class="keyword">begin</span></span><br><span class="line">        clk_cnt &lt;= clk_cnt + <span class="number">1&#x27;b1</span>;</span><br><span class="line">        <span class="keyword">if</span> (clk_cnt == <span class="number">3&#x27;b100</span>)</span><br><span class="line">            clk_cnt &lt;= <span class="number">3&#x27;b00</span>;</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">	<span class="comment">//每次运算结束后，让乘数变化，以便产生不同的数据用以观察</span></span><br><span class="line">    <span class="keyword">assign</span> clk_en = (clk_cnt == <span class="number">3&#x27;b100</span>) ? <span class="number">1&#x27;b1</span> : <span class="number">1&#x27;b0</span>;</span><br><span class="line">    <span class="keyword">always</span> @ (<span class="keyword">posedge</span> clk_en) <span class="keyword">begin</span></span><br><span class="line">        mul2 &lt;= mul2 + <span class="number">1&#x27;b1</span>;</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">    mul_booth_signed try(<span class="variable">.mul1</span>(mul1),<span class="variable">.mul2</span>(mul2),<span class="variable">.res</span>(res),<span class="variable">.clk</span>(clk),<span class="variable">.clk_cnt</span>(clk_cnt));</span><br><span class="line"><span class="keyword">endmodule</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="仿真波形"><a href="#仿真波形" class="headerlink" title="仿真波形"></a>仿真波形</h3><p><img src="https://gitee.com/mxdon/img/raw/master/2020/image-20201112220822106.png"></p>
+<p>将其改成有符号十进制数形式显示，可以验证电路设计正确。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:mxdongit@126.com">Mxdon</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://blog.mxdon.cool/2020/%E5%85%AB%E4%BD%8DBooth-%E4%BA%8C%E4%BD%8D-%E4%B9%98%E6%B3%95%E5%99%A8/">http://blog.mxdon.cool/2020/%E5%85%AB%E4%BD%8DBooth-%E4%BA%8C%E4%BD%8D-%E4%B9%98%E6%B3%95%E5%99%A8/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://blog.mxdon.cool" target="_blank">Mxdon</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Verilog/">Verilog</a><a class="post-meta__tags" href="/tags/%E4%B9%98%E6%B3%95%E5%99%A8/">乘法器</a><a class="post-meta__tags" href="/tags/Booth/">Booth</a></div><div class="post_share"><div class="social-share" data-image="https://api.xhofe.top/img/api/bing" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button button--animated"><i class="fas fa-qrcode"></i> 鼓励一下</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechatpay.jpg" target="_blank"><img class="post-qr-code-img" src="/img/wechatpay.jpg" alt="wechat"/></a><div class="post-qr-code-desc">wechat</div></li><li class="reward-item"><a href="/img/alipay.jpg" target="_blank"><img class="post-qr-code-img" src="/img/alipay.jpg" alt="alipay"/></a><div class="post-qr-code-desc">alipay</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2020/%E5%85%AB%E4%BD%8D%E5%8F%B3%E7%A7%BB%E4%BD%8D%E4%B9%98%E6%B3%95%E5%99%A8%EF%BC%88%E6%97%A0%E7%AC%A6%E5%8F%B7%EF%BC%89/"><img class="prev-cover" src="https://img.paulzzh.tech/touhou/random" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">八位右移位乘法器（无符号）</div></div></a></div><div class="next-post pull-right"><a href="/2020/%E8%BF%9C%E7%A8%8B%E6%8E%A7%E5%88%B6%E2%80%94%E2%80%94%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E7%AF%87/"><img class="next-cover" src="https://api.yimian.xyz/img" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">远程控制——内网穿透篇</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2019/verilog%E8%AE%BE%E8%AE%A1%E4%B9%98%E6%B3%95%E5%99%A8/" title="verilog设计乘法器"><img class="cover" src="https://img.paulzzh.tech/touhou/random" alt="cover"><div class="content is-center"><div class="date"><i class="fas fa-history fa-fw"></i> 2022-09-19</div><div class="title">verilog设计乘法器</div></div></a></div><div><a href="/2020/%E5%85%AB%E4%BD%8D%E5%8F%B3%E7%A7%BB%E4%BD%8D%E4%B9%98%E6%B3%95%E5%99%A8%EF%BC%88%E6%97%A0%E7%AC%A6%E5%8F%B7%EF%BC%89/" title="八位右移位乘法器（无符号）"><img class="cover" src="https://img.paulzzh.tech/touhou/random" alt="cover"><div class="content is-center"><div class="date"><i class="fas fa-history fa-fw"></i> 2022-09-19</div><div class="title">八位右移位乘法器（无符号）</div></div></a></div><div><a href="/2020/Verilog%E5%85%A5%E9%97%A8/" title="Verilog入门"><img class="cover" src="https://api.ixiaowai.cn/api/api.php" alt="cover"><div class="content is-center"><div class="date"><i class="fas fa-history fa-fw"></i> 2022-09-19</div><div class="title">Verilog入门</div></div></a></div><div><a href="/2019/verilog%E8%AE%BE%E8%AE%BE%E8%AE%A1%E5%8A%A0%E6%B3%95%E5%99%A8/" title="verilog设计加法器"><img class="cover" src="https://img.paulzzh.tech/touhou/random" alt="cover"><div class="content is-center"><div class="date"><i class="fas fa-history fa-fw"></i> 2022-09-19</div><div class="title">verilog设计加法器</div></div></a></div><div><a href="/2019/vivado%E4%B8%89%E4%BA%BA%E8%A1%A8%E5%86%B3%E4%BB%BF%E7%9C%9F/" title="vivado三人表决仿真"><img class="cover" src="https://api.ixiaowai.cn/api/api.php" alt="cover"><div class="content is-center"><div class="date"><i class="fas fa-history fa-fw"></i> 2022-09-19</div><div class="title">vivado三人表决仿真</div></div></a></div><div><a href="/2020/%E5%85%AB%E4%BD%8D%E8%B6%85%E5%89%8D%E8%BF%9B%E4%BD%8D%E5%8A%A0%E6%B3%95%E5%99%A8/" title="八位超前进位加法器&八位行波进位加法器"><img class="cover" src="https://api.xhofe.top/img/api/bing" alt="cover"><div class="content is-center"><div class="date"><i class="fas fa-history fa-fw"></i> 2022-09-19</div><div class="title">八位超前进位加法器&八位行波进位加法器</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%AB%E4%BD%8D%E2%80%9CBooth%E4%BA%8C%E4%BD%8D%E4%B9%98%E7%AE%97%E6%B3%95%E2%80%9D%E4%B9%98%E6%B3%95%E5%99%A8"><span class="toc-number">1.</span> <span class="toc-text">八位“Booth二位乘算法”乘法器</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8E%9F%E7%90%86"><span class="toc-number">1.1.</span> <span class="toc-text">原理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A1%A5%E7%A0%81%E4%B9%98%E6%B3%95%E5%99%A8"><span class="toc-number">1.1.1.</span> <span class="toc-text">补码乘法器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Booth%E4%B8%80%E4%BD%8D%E4%B9%98"><span class="toc-number">1.1.2.</span> <span class="toc-text">Booth一位乘</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Booth%E4%BA%8C%E4%BD%8D%E4%B9%98"><span class="toc-number">1.1.3.</span> <span class="toc-text">Booth二位乘</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BE%E8%AE%A1%E6%80%9D%E8%B7%AF"><span class="toc-number">1.2.</span> <span class="toc-text">设计思路</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%8F%E6%B3%95%E5%8F%98%E5%8A%A0%E6%B3%95"><span class="toc-number">1.2.1.</span> <span class="toc-text">减法变加法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#vivado%E7%89%B9%E6%80%A7"><span class="toc-number">1.2.2.</span> <span class="toc-text">vivado特性</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BE%E8%AE%A1%E6%96%87%E4%BB%B6"><span class="toc-number">1.3.</span> <span class="toc-text">设计文件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%BC%E5%90%88%E7%94%B5%E8%B7%AF"><span class="toc-number">1.3.1.</span> <span class="toc-text">综合电路</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95%E6%96%87%E4%BB%B6"><span class="toc-number">1.4.</span> <span class="toc-text">测试文件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%BF%E7%9C%9F%E6%B3%A2%E5%BD%A2"><span class="toc-number">1.4.1.</span> <span class="toc-text">仿真波形</span></a></li></ol></li></ol></li></ol></div></div></div></div></main><footer id="footer" style="background-color: transparent;"><div id="footer-wrap"><div class="copyright">&copy;2021 - 2022 By Mxdon</div><div class="footer_custom_text">Hi, welcome to Mxdon's blog</div></div><div class="container" id="jsi-flying-fish-container"><script src="js/fish.js"></script></div><style>   @media only screen and (max-width: 767px){
+   #sidebar_search_box input[type=text]{width:calc(100% - 24px)}
+}</style></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="font-plus" type="button" title="放大字体"><i class="fas fa-plus"></i></button><button id="font-minus" type="button" title="缩小字体"><i class="fas fa-minus"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="chat_btn" type="button" title="rightside.chat_btn"><i class="fas fa-sms"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/medium-zoom/dist/medium-zoom.min.js"></script><script src="/js/search/local-search.js"></script><script async="async">var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())
+setTimeout(function(){preloader.endLoading();}, 5000);</script><div class="js-pjax"><script>(()=>{
+  const $countDom = document.getElementById('twikoo-count')
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: 'https://blog-comment-eiv9e480i-mxdongit.vercel.app',
+      region: 'eastasia'
+    }, null))
+  }
+
+  const getCount = () => {
+    twikoo.getCommentsCount({
+      envId: 'https://blog-comment-eiv9e480i-mxdongit.vercel.app',
+      region: 'eastasia',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(function (res) {
+      $countDom.innerText = res[0].count
+    }).catch(function (err) {
+      console.error(err);
+    });
+  }
+
+  const loadTwikoo = (bool = false) => {
+    if (typeof twikoo === 'object') {
+      init()
+      bool && $countDom && setTimeout(getCount,0)
+    } else {
+      getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(()=> {
+        init()
+        bool && $countDom && setTimeout(getCount,0)
+      })
+    }
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo(true)
+  } else {
+    window.loadOtherComment = () => {
+      loadTwikoo()
+    }
+  }
+})()</script></div><script>window.addEventListener('load', () => {
+  const changeContent = (content) => {
+    if (content === '') return content
+
+    content = content.replace(/<img.*?src="(.*?)"?[^\>]+>/ig, '[图片]') // replace image link
+    content = content.replace(/<a[^>]+?href=["']?([^"']+)["']?[^>]*>([^<]+)<\/a>/gi, '[链接]') // replace url
+    content = content.replace(/<pre><code>.*?<\/pre>/gi, '[代码]') // replace code
+    content = content.replace(/<[^>]+>/g,"") // remove html tag
+
+    if (content.length > 150) {
+      content = content.substring(0,150) + '...'
+    }
+    return content
+  }
+
+  const getComment = () => {
+    const runTwikoo = () => {
+      twikoo.getRecentComments({
+        envId: 'https://blog-comment-eiv9e480i-mxdongit.vercel.app',
+        region: 'eastasia',
+        pageSize: 6,
+        includeReply: true
+      }).then(function (res) {
+        const twikooArray = res.map(e => {
+          return {
+            'content': changeContent(e.comment),
+            'avatar': e.avatar,
+            'nick': e.nick,
+            'url': e.url + '#' + e.id,
+            'date': new Date(e.created).toISOString()
+          }
+        })
+
+        saveToLocal.set('twikoo-newest-comments', JSON.stringify(twikooArray), 10/(60*24))
+        generateHtml(twikooArray)
+      }).catch(function (err) {
+        const $dom = document.querySelector('#card-newest-comments .aside-list')
+        $dom.innerHTML= "无法获取评论，请确认相关配置是否正确"
+      })
+    }
+
+    if (typeof twikoo === 'object') {
+      runTwikoo()
+    } else {
+      getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(runTwikoo)
+    }
+  }
+
+  const generateHtml = array => {
+    let result = ''
+
+    if (array.length) {
+      for (let i = 0; i < array.length; i++) {
+        result += '<div class=\'aside-list-item\'>'
+
+        if (true) {
+          const name = 'src'
+          result += `<a href='${array[i].url}' class='thumbnail'><img ${name}='${array[i].avatar}' alt='${array[i].nick}'></a>`
+        }
+        
+        result += `<div class='content'>
+        <a class='comment' href='${array[i].url}'>${array[i].content}</a>
+        <div class='name'><span>${array[i].nick} / </span><time datetime="${array[i].date}">${btf.diffDate(array[i].date, true)}</time></div>
+        </div></div>`
+      }
+    } else {
+      result += '没有评论'
+    }
+
+    let $dom = document.querySelector('#card-newest-comments .aside-list')
+    $dom.innerHTML= result
+    window.lazyLoadInstance && window.lazyLoadInstance.update()
+    window.pjax && window.pjax.refresh($dom)
+  }
+
+  const newestCommentInit = () => {
+    if (document.querySelector('#card-newest-comments .aside-list')) {
+      const data = saveToLocal.get('twikoo-newest-comments')
+      if (data) {
+        generateHtml(JSON.parse(data))
+      } else {
+        getComment()
+      }
+    }
+  }
+
+  newestCommentInit()
+  document.addEventListener('pjax:complete', newestCommentInit)
+})</script><script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/gh/xiabo2/CDN@latest/fish.js"></script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-nest.min.js"></script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-heart.min.js" async="async" mobile="false"></script><script src="//code.tidio.co/tajf1h7dq4euas8t8jusi0x28q74d8av.js" async="async"></script><script>function onTidioChatApiReady() {
+  window.tidioChatApi.hide();
+  window.tidioChatApi.on("close", function() {
+    window.tidioChatApi.hide();
+  });
+}
+if (window.tidioChatApi) {
+  window.tidioChatApi.on("ready", onTidioChatApiReady);
+} else {
+  document.addEventListener("tidioChat-ready", onTidioChatApiReady);
+}
+
+var chatBtnFn = () => {
+  document.getElementById("chat_btn").addEventListener("click", function(){
+    window.tidioChatApi.show();
+    window.tidioChatApi.open();
+  });
+}
+chatBtnFn()
+</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/gh/metowolf/MetingJS@1.2/dist/Meting.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = [
+  'title',
+  '#config-diff',
+  '#body-wrap',
+  '#rightside-config-hide',
+  '#rightside-config-show',
+  '.js-pjax'
+]
+
+if (false) {
+  pjaxSelectors.unshift('meta[property="og:image"]', 'meta[property="og:title"]', 'meta[property="og:url"]')
+}
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.removeEventListener('scroll', window.tocScrollFn)
+  window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // Analytics
+  if (false) {
+    MtaH5.pgv()
+  }
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

@@ -1,0 +1,1006 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>磁盘格式及其ID信息 | Mxdon</title><meta name="keywords" content="磁盘,GPT,MBR"><meta name="author" content="Mxdon,mxdongit@126.com"><meta name="copyright" content="Mxdon"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="磁盘格式及其ID信息GPT   序号 名称 ID    1 EFI System C12A7328-F81F-11D2-BA4B-00A0C93EC93B   2 MBR partition scheme 024DEE41-33E7-11D3-9D69-0008C781F39F   3 Intel Fast Flash D3BFE2DE-3DAF-11DF-BA40-E3A556D89593">
+<meta property="og:type" content="article">
+<meta property="og:title" content="磁盘格式及其ID信息">
+<meta property="og:url" content="http://blog.mxdon.cool/2020/%E7%A3%81%E7%9B%98%E6%A0%BC%E5%BC%8F%E5%8F%8A%E5%85%B6ID%E4%BF%A1%E6%81%AF/index.html">
+<meta property="og:site_name" content="Mxdon">
+<meta property="og:description" content="磁盘格式及其ID信息GPT   序号 名称 ID    1 EFI System C12A7328-F81F-11D2-BA4B-00A0C93EC93B   2 MBR partition scheme 024DEE41-33E7-11D3-9D69-0008C781F39F   3 Intel Fast Flash D3BFE2DE-3DAF-11DF-BA40-E3A556D89593">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/mxdon/img/raw/master/2020/image-20201209230345560.png">
+<meta property="article:published_time" content="2020-12-09T14:58:16.000Z">
+<meta property="article:modified_time" content="2022-09-19T15:35:38.524Z">
+<meta property="article:author" content="Mxdon">
+<meta property="article:tag" content="磁盘">
+<meta property="article:tag" content="GPT">
+<meta property="article:tag" content="MBR">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/mxdon/img/raw/master/2020/image-20201209230345560.png"><link rel="shortcut icon" href="/img/mxdon.png"><link rel="canonical" href="http://blog.mxdon.cool/2020/%E7%A3%81%E7%9B%98%E6%A0%BC%E5%BC%8F%E5%8F%8A%E5%85%B6ID%E4%BF%A1%E6%81%AF/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta/><meta/><meta/><meta/><meta/><meta/><meta/><meta/><meta/><meta/><meta/><meta/><meta/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: Mxdon","link":"链接: ","source":"来源: Mxdon","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'mediumZoom',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: true,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '磁盘格式及其ID信息',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-09-19 23:35:38'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const fontSizeVal = saveToLocal.get('global-font-size')
+    if (fontSizeVal !== undefined) {
+      document.documentElement.style.setProperty('--global-font-size', fontSizeVal + 'px')
+    }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    document.addEventListener('pjax:complete', detectApple)})(window)</script><meta name="generator" content="Hexo 5.4.2"></head><body><a href="javascript:void(0);" onclick="preloader.endLoading();" title="点击跳过动画"><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="wizard-scene"><div class="wizard-objects"><div class="wizard-square"></div><div class="wizard-circle"></div><div class="wizard-triangle"></div></div><div class="wizard"><div class="wizard-body"></div><div class="wizard-right-arm"><div class="wizard-right-hand"></div></div><div class="wizard-left-arm"><div class="wizard-left-hand"></div></div><div class="wizard-head"><div class="wizard-beard"></div><div class="wizard-face"><div class="wizard-adds"></div></div><div class="wizard-hat"><div class="wizard-hat-of-the-hat"></div><div class="wizard-four-point-star --first"></div><div class="wizard-four-point-star --second"></div><div class="wizard-four-point-star --third"></div></div></div></div></div></div></a><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/mxdon.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">43</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">50</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">20</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://gitee.com/mxdon/img/raw/master/2020/image-20201209230345560.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Mxdon</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">磁盘格式及其ID信息</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2020-12-09T14:58:16.000Z" title="发表于 2020-12-09 22:58:16">2020-12-09</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-09-19T15:35:38.524Z" title="更新于 2022-09-19 23:35:38">2022-09-19</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%A1%AC%E4%BB%B6%E8%AE%BE%E8%AE%A1/">硬件设计</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%A1%AC%E4%BB%B6%E8%AE%BE%E8%AE%A1/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">基础知识</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">960</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>5分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="磁盘格式及其ID信息"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="磁盘格式及其ID信息"><a href="#磁盘格式及其ID信息" class="headerlink" title="磁盘格式及其ID信息"></a>磁盘格式及其ID信息</h1><h2 id="GPT"><a href="#GPT" class="headerlink" title="GPT"></a>GPT</h2><table>
+<thead>
+<tr>
+<th align="center">序号</th>
+<th align="left">名称</th>
+<th align="left">ID</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">1</td>
+<td align="left">EFI System</td>
+<td align="left">C12A7328-F81F-11D2-BA4B-00A0C93EC93B</td>
+</tr>
+<tr>
+<td align="center">2</td>
+<td align="left">MBR partition scheme</td>
+<td align="left">024DEE41-33E7-11D3-9D69-0008C781F39F</td>
+</tr>
+<tr>
+<td align="center">3</td>
+<td align="left">Intel Fast Flash</td>
+<td align="left">D3BFE2DE-3DAF-11DF-BA40-E3A556D89593</td>
+</tr>
+<tr>
+<td align="center">4</td>
+<td align="left">BIOS boot</td>
+<td align="left">21686148-6449-6E6F-744E-656564454649</td>
+</tr>
+<tr>
+<td align="center">5</td>
+<td align="left">Microsoft reserved</td>
+<td align="left">E3C9E316-0B5C-4DB8-817D-F92DF00215AE</td>
+</tr>
+<tr>
+<td align="center">6</td>
+<td align="left">Microsoft basic data</td>
+<td align="left">EBD0A0A2-B9E5-4433-87C0-68B6B72699C7</td>
+</tr>
+<tr>
+<td align="center">7</td>
+<td align="left">Microsoft LDM metadata</td>
+<td align="left">5808C8AA-7E8F-42E0-85D2-E1E90434CFB3</td>
+</tr>
+<tr>
+<td align="center">8</td>
+<td align="left">Microsoft LDM data</td>
+<td align="left">AF9B60A0-1431-4F62-BC68-3311714A69AD</td>
+</tr>
+<tr>
+<td align="center">9</td>
+<td align="left">Windows recovery environment</td>
+<td align="left">DE94BBA4-06D1-4D40-A16A-BFD50179D6AC</td>
+</tr>
+<tr>
+<td align="center">10</td>
+<td align="left">IBM General Parallel Fs</td>
+<td align="left">37AFFC90-EF7D-4E96-91C3-2D7AE055B174</td>
+</tr>
+<tr>
+<td align="center">11</td>
+<td align="left">Microsoft Storage Spaces</td>
+<td align="left">E75CAF8F-F680-4CEE-AFA3-B001E56EFC2D</td>
+</tr>
+<tr>
+<td align="center">12</td>
+<td align="left">HP-UX data</td>
+<td align="left">75894C1E-3AEB-11D3-B7C1-7B03A0000000</td>
+</tr>
+<tr>
+<td align="center">13</td>
+<td align="left">HP-UX service</td>
+<td align="left">E2A1E728-32E3-11D6-A682-7B03A0000000</td>
+</tr>
+<tr>
+<td align="center">14</td>
+<td align="left">Linux swap</td>
+<td align="left">0657FD6D-A4AB-43C4-84E5-0933C84B4F4F</td>
+</tr>
+<tr>
+<td align="center">15</td>
+<td align="left">Linux filesystem</td>
+<td align="left">0FC63DAF-8483-4772-8E79-3D69D8477DE4</td>
+</tr>
+<tr>
+<td align="center">16</td>
+<td align="left">Linux server data</td>
+<td align="left">3B8F8425-20E0-4F3B-907F-1A25A76F98E8</td>
+</tr>
+<tr>
+<td align="center">17</td>
+<td align="left">Linux root (x86)</td>
+<td align="left">44479540-F297-41B2-9AF7-D131D5F0458A</td>
+</tr>
+<tr>
+<td align="center">18</td>
+<td align="left">Linux root (x86-64)</td>
+<td align="left">4F68BCE3-E8CD-4DB1-96E7-FBCAF984B709</td>
+</tr>
+<tr>
+<td align="center">19</td>
+<td align="left">Linux reserved</td>
+<td align="left">8DA63339-0007-60C0-C436-083AC8230908</td>
+</tr>
+<tr>
+<td align="center">20</td>
+<td align="left">Linux home</td>
+<td align="left">933AC7E1-2EB4-4F13-B844-0E14E2AEF915</td>
+</tr>
+<tr>
+<td align="center">21</td>
+<td align="left">Linux RAID</td>
+<td align="left">A19D880F-05FC-4D3B-A006-743F0F84911E</td>
+</tr>
+<tr>
+<td align="center">22</td>
+<td align="left">Linux extended boot</td>
+<td align="left">BC13C2FF-59E6-4262-A352-B275FD6F7172</td>
+</tr>
+<tr>
+<td align="center">23</td>
+<td align="left">Linux LVM</td>
+<td align="left">E6D6D379-F507-44C2-A23C-238F2A3DF928</td>
+</tr>
+<tr>
+<td align="center">24</td>
+<td align="left">FreeBSD data</td>
+<td align="left">516E7CB4-6ECF-11D6-8FF8-00022D09712B</td>
+</tr>
+<tr>
+<td align="center">25</td>
+<td align="left">FreeBSD boot</td>
+<td align="left">83BD6B9D-7F41-11DC-BE0B-001560B84F0F</td>
+</tr>
+<tr>
+<td align="center">26</td>
+<td align="left">FreeBSD swap</td>
+<td align="left">516E7CB5-6ECF-11D6-8FF8-00022D09712B</td>
+</tr>
+<tr>
+<td align="center">27</td>
+<td align="left">FreeBSD UFS</td>
+<td align="left">516E7CB6-6ECF-11D6-8FF8-00022D09712B</td>
+</tr>
+<tr>
+<td align="center">28</td>
+<td align="left">FreeBSD ZFS</td>
+<td align="left">516E7CBA-6ECF-11D6-8FF8-00022D09712B</td>
+</tr>
+<tr>
+<td align="center">29</td>
+<td align="left">FreeBSD Vinum</td>
+<td align="left">516E7CB8-6ECF-11D6-8FF8-00022D09712B</td>
+</tr>
+<tr>
+<td align="center">30</td>
+<td align="left">Apple HFS/HFS+</td>
+<td align="left">48465300-0000-11AA-AA11-00306543ECAC</td>
+</tr>
+<tr>
+<td align="center">31</td>
+<td align="left">Apple UFS</td>
+<td align="left">55465300-0000-11AA-AA11-00306543ECAC</td>
+</tr>
+<tr>
+<td align="center">32</td>
+<td align="left">Apple RAID</td>
+<td align="left">52414944-0000-11AA-AA11-00306543ECAC</td>
+</tr>
+<tr>
+<td align="center">33</td>
+<td align="left">Apple RAID offline</td>
+<td align="left">52414944-5F4F-11AA-AA11-00306543ECAC</td>
+</tr>
+<tr>
+<td align="center">34</td>
+<td align="left">Apple boot</td>
+<td align="left">426F6F74-0000-11AA-AA11-00306543ECAC</td>
+</tr>
+<tr>
+<td align="center">35</td>
+<td align="left">Apple label</td>
+<td align="left">4C616265-6C00-11AA-AA11-00306543ECAC</td>
+</tr>
+<tr>
+<td align="center">36</td>
+<td align="left">Apple TV recovery</td>
+<td align="left">5265636F-7665-11AA-AA11-00306543ECAC</td>
+</tr>
+<tr>
+<td align="center">37</td>
+<td align="left">Apple Core storage</td>
+<td align="left">53746F72-6167-11AA-AA11-00306543ECAC</td>
+</tr>
+<tr>
+<td align="center">38</td>
+<td align="left">Solaris boot</td>
+<td align="left">6A82CB45-1DD2-11B2-99A6-080020736631</td>
+</tr>
+<tr>
+<td align="center">39</td>
+<td align="left">Solaris root</td>
+<td align="left">6A85CF4D-1DD2-11B2-99A6-080020736631</td>
+</tr>
+<tr>
+<td align="center">40</td>
+<td align="left">Solaris /usr &amp; Apple ZFS</td>
+<td align="left">6A898CC3-1DD2-11B2-99A6-080020736631</td>
+</tr>
+<tr>
+<td align="center">41</td>
+<td align="left">Solaris swap</td>
+<td align="left">6A87C46F-1DD2-11B2-99A6-080020736631</td>
+</tr>
+<tr>
+<td align="center">42</td>
+<td align="left">Solaris backup</td>
+<td align="left">6A8B642B-1DD2-11B2-99A6-080020736631</td>
+</tr>
+<tr>
+<td align="center">43</td>
+<td align="left">Solaris /var</td>
+<td align="left">6A8EF2E9-1DD2-11B2-99A6-080020736631</td>
+</tr>
+<tr>
+<td align="center">44</td>
+<td align="left">Solaris /home</td>
+<td align="left">6A90BA39-1DD2-11B2-99A6-080020736631</td>
+</tr>
+<tr>
+<td align="center">45</td>
+<td align="left">Solaris alternate sector</td>
+<td align="left">6A9283A5-1DD2-11B2-99A6-080020736631</td>
+</tr>
+<tr>
+<td align="center">46</td>
+<td align="left">Solaris reserved 1</td>
+<td align="left">6A945A3B-1DD2-11B2-99A6-080020736631</td>
+</tr>
+<tr>
+<td align="center">47</td>
+<td align="left">Solaris reserved 2</td>
+<td align="left">6A9630D1-1DD2-11B2-99A6-080020736631</td>
+</tr>
+<tr>
+<td align="center">48</td>
+<td align="left">Solaris reserved 3</td>
+<td align="left">6A980767-1DD2-11B2-99A6-080020736631</td>
+</tr>
+<tr>
+<td align="center">49</td>
+<td align="left">Solaris reserved 4</td>
+<td align="left">6A96237F-1DD2-11B2-99A6-080020736631</td>
+</tr>
+<tr>
+<td align="center">50</td>
+<td align="left">Solaris reserved 5</td>
+<td align="left">6A8D2AC7-1DD2-11B2-99A6-080020736631</td>
+</tr>
+<tr>
+<td align="center">51</td>
+<td align="left">NetBSD swap</td>
+<td align="left">49F48D32-B10E-11DC-B99B-0019D1879648</td>
+</tr>
+<tr>
+<td align="center">52</td>
+<td align="left">NetBSD FFS</td>
+<td align="left">49F48D5A-B10E-11DC-B99B-0019D1879648</td>
+</tr>
+<tr>
+<td align="center">53</td>
+<td align="left">NetBSD LFS</td>
+<td align="left">49F48D82-B10E-11DC-B99B-0019D1879648</td>
+</tr>
+<tr>
+<td align="center">54</td>
+<td align="left">NetBSD concatenated</td>
+<td align="left">2DB519C4-B10E-11DC-B99B-0019D1879648</td>
+</tr>
+<tr>
+<td align="center">55</td>
+<td align="left">NetBSD encrypted</td>
+<td align="left">2DB519EC-B10E-11DC-B99B-0019D1879648</td>
+</tr>
+<tr>
+<td align="center">56</td>
+<td align="left">NetBSD RAID</td>
+<td align="left">49F48DAA-B10E-11DC-B99B-0019D1879648</td>
+</tr>
+<tr>
+<td align="center">57</td>
+<td align="left">ChromeOS kernel</td>
+<td align="left">FE3A2A5D-4F32-41A7-B725-ACCC3285A309</td>
+</tr>
+<tr>
+<td align="center">58</td>
+<td align="left">ChromeOS root fs</td>
+<td align="left">3CB8E202-3B7E-47DD-8A3C-7FF2A13CFCEC</td>
+</tr>
+<tr>
+<td align="center">59</td>
+<td align="left">ChromeOS reserved</td>
+<td align="left">2E0A753D-9E48-43B0-8337-B15192CB1B5E</td>
+</tr>
+<tr>
+<td align="center">60</td>
+<td align="left">MidnightBSD data</td>
+<td align="left">85D5E45A-237C-11E1-B4B3-E89A8F7FC3A7</td>
+</tr>
+<tr>
+<td align="center">61</td>
+<td align="left">MidnightBSD boot</td>
+<td align="left">85D5E45E-237C-11E1-B4B3-E89A8F7FC3A7</td>
+</tr>
+<tr>
+<td align="center">62</td>
+<td align="left">MidnightBSD swap</td>
+<td align="left">85D5E45B-237C-11E1-B4B3-E89A8F7FC3A7</td>
+</tr>
+<tr>
+<td align="center">63</td>
+<td align="left">MidnightBSD UFS</td>
+<td align="left">0394Ef8B-237C-11E1-B4B3-E89A8F7FC3A7</td>
+</tr>
+<tr>
+<td align="center">64</td>
+<td align="left">MidnightBSD ZFS</td>
+<td align="left">85D5E45D-237C-11E1-B4B3-E89A8F7FC3A7</td>
+</tr>
+<tr>
+<td align="center">65</td>
+<td align="left">MidnightBSD Vinum</td>
+<td align="left">85D5E45C-237C-11E1-B4B3-E89A8F7FC3A7</td>
+</tr>
+</tbody></table>
+<h2 id="MBR"><a href="#MBR" class="headerlink" title="MBR"></a>MBR</h2><table>
+<thead>
+<tr>
+<th align="center">序号</th>
+<th align="left">名称</th>
+<th align="center">序号</th>
+<th align="left">名称</th>
+<th align="center">序号</th>
+<th align="left">名称</th>
+<th align="center">序号</th>
+<th align="left">名称</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">0</td>
+<td align="left">空</td>
+<td align="center">24</td>
+<td align="left">NEC DOS</td>
+<td align="center">81</td>
+<td align="left">Minix / 旧 Linu</td>
+<td align="center">bf</td>
+<td align="left">Solaris</td>
+</tr>
+<tr>
+<td align="center">1</td>
+<td align="left">FAT12</td>
+<td align="center">27</td>
+<td align="left">隐藏的 NTFS Win</td>
+<td align="center">82</td>
+<td align="left">Linux 交换 / So</td>
+<td align="center">c1</td>
+<td align="left">DRDOS/sec (FAT-</td>
+</tr>
+<tr>
+<td align="center">2</td>
+<td align="left">XENIX root</td>
+<td align="center">39</td>
+<td align="left">Plan 9</td>
+<td align="center">83</td>
+<td align="left">Linux</td>
+<td align="center">c4</td>
+<td align="left">DRDOS/sec (FAT-</td>
+</tr>
+<tr>
+<td align="center">3</td>
+<td align="left">XENIX usr</td>
+<td align="center">3c</td>
+<td align="left">PartitionMagic</td>
+<td align="center">84</td>
+<td align="left">OS/2 隐藏的 C:</td>
+<td align="center">c6</td>
+<td align="left">DRDOS/sec (FAT-</td>
+</tr>
+<tr>
+<td align="center">4</td>
+<td align="left">FAT16 &lt;32M</td>
+<td align="center">40</td>
+<td align="left">Venix 80286</td>
+<td align="center">85</td>
+<td align="left">Linux 扩展</td>
+<td align="center">c7</td>
+<td align="left">Syrinx</td>
+</tr>
+<tr>
+<td align="center">5</td>
+<td align="left">扩展</td>
+<td align="center">41</td>
+<td align="left">PPC PReP Boot</td>
+<td align="center">86</td>
+<td align="left">NTFS 卷集</td>
+<td align="center">da</td>
+<td align="left">非文件系统数据</td>
+</tr>
+<tr>
+<td align="center">6</td>
+<td align="left">FAT16</td>
+<td align="center">42</td>
+<td align="left">SFS</td>
+<td align="center">87</td>
+<td align="left">NTFS 卷集</td>
+<td align="center">db</td>
+<td align="left">CP/M / CTOS / .</td>
+</tr>
+<tr>
+<td align="center">7</td>
+<td align="left">HPFS/NTFS/exFAT</td>
+<td align="center">4d</td>
+<td align="left">QNX4.x</td>
+<td align="center">88</td>
+<td align="left">Linux 纯文本</td>
+<td align="center">de</td>
+<td align="left">Dell 工具</td>
+</tr>
+<tr>
+<td align="center">8</td>
+<td align="left">AIX</td>
+<td align="center">4e</td>
+<td align="left">QNX4.x 第2部分</td>
+<td align="center">8e</td>
+<td align="left">Linux LVM</td>
+<td align="center">df</td>
+<td align="left">BootIt</td>
+</tr>
+<tr>
+<td align="center">9</td>
+<td align="left">AIX 可启动</td>
+<td align="center">4f</td>
+<td align="left">QNX4.x 第3部分</td>
+<td align="center">93</td>
+<td align="left">Amoeba</td>
+<td align="center">e1</td>
+<td align="left">DOS 访问</td>
+</tr>
+<tr>
+<td align="center">a</td>
+<td align="left">OS/2 启动管理器</td>
+<td align="center">50</td>
+<td align="left">OnTrack DM</td>
+<td align="center">94</td>
+<td align="left">Amoeba BBT</td>
+<td align="center">e3</td>
+<td align="left">DOS R/O</td>
+</tr>
+<tr>
+<td align="center">b</td>
+<td align="left">W95 FAT32</td>
+<td align="center">51</td>
+<td align="left">OnTrack DM6 Aux</td>
+<td align="center">9f</td>
+<td align="left">BSD/OS</td>
+<td align="center">e4</td>
+<td align="left">SpeedStor</td>
+</tr>
+<tr>
+<td align="center">c</td>
+<td align="left">W95 FAT32 (LBA)</td>
+<td align="center">52</td>
+<td align="left">CP/M</td>
+<td align="center">a0</td>
+<td align="left">IBM Thinkpad 休</td>
+<td align="center">eb</td>
+<td align="left">BeOS fs</td>
+</tr>
+<tr>
+<td align="center">e</td>
+<td align="left">W95 FAT16 (LBA)</td>
+<td align="center">53</td>
+<td align="left">OnTrack DM6 Aux</td>
+<td align="center">a5</td>
+<td align="left">FreeBSD</td>
+<td align="center">ee</td>
+<td align="left">GPT</td>
+</tr>
+<tr>
+<td align="center">f</td>
+<td align="left">W95 扩展 (LBA)</td>
+<td align="center">54</td>
+<td align="left">OnTrackDM6</td>
+<td align="center">a6</td>
+<td align="left">OpenBSD</td>
+<td align="center">ef</td>
+<td align="left">EFI (FAT-12/16/</td>
+</tr>
+<tr>
+<td align="center">10</td>
+<td align="left">OPUS</td>
+<td align="center">55</td>
+<td align="left">EZ-Drive</td>
+<td align="center">a7</td>
+<td align="left">NeXTSTEP</td>
+<td align="center">f0</td>
+<td align="left">Linux/PA-RISC</td>
+</tr>
+<tr>
+<td align="center">11</td>
+<td align="left">隐藏的 FAT12</td>
+<td align="center">56</td>
+<td align="left">Golden Bow</td>
+<td align="center">a8</td>
+<td align="left">Darwin UFS</td>
+<td align="center">f1</td>
+<td align="left">SpeedStor</td>
+</tr>
+<tr>
+<td align="center">12</td>
+<td align="left">Compaq 诊断</td>
+<td align="center">5c</td>
+<td align="left">Priam Edisk</td>
+<td align="center">a9</td>
+<td align="left">NetBSD</td>
+<td align="center">f4</td>
+<td align="left">SpeedStor</td>
+</tr>
+<tr>
+<td align="center">14</td>
+<td align="left">隐藏的 FAT16 &lt;3</td>
+<td align="center">61</td>
+<td align="left">SpeedStor</td>
+<td align="center">ab</td>
+<td align="left">Darwin 启动</td>
+<td align="center">f2</td>
+<td align="left">DOS 次要</td>
+</tr>
+<tr>
+<td align="center">16</td>
+<td align="left">隐藏的 FAT16</td>
+<td align="center">63</td>
+<td align="left">GNU HURD or Sys</td>
+<td align="center">af</td>
+<td align="left">HFS / HFS+</td>
+<td align="center">fb</td>
+<td align="left">VMware VMFS</td>
+</tr>
+<tr>
+<td align="center">17</td>
+<td align="left">隐藏的 HPFS/NTF</td>
+<td align="center">64</td>
+<td align="left">Novell Netware</td>
+<td align="center">b7</td>
+<td align="left">BSDI fs</td>
+<td align="center">fc</td>
+<td align="left">VMware VMKCORE</td>
+</tr>
+<tr>
+<td align="center">18</td>
+<td align="left">AST 智能睡眠</td>
+<td align="center">65</td>
+<td align="left">Novell Netware</td>
+<td align="center">b8</td>
+<td align="left">BSDI swap</td>
+<td align="center">fd</td>
+<td align="left">Linux raid 自动</td>
+</tr>
+<tr>
+<td align="center">1b</td>
+<td align="left">隐藏的 W95 FAT3</td>
+<td align="center">70</td>
+<td align="left">DiskSecure 多启</td>
+<td align="center">bb</td>
+<td align="left">Boot Wizard 隐</td>
+<td align="center">fe</td>
+<td align="left">LANstep</td>
+</tr>
+<tr>
+<td align="center">1c</td>
+<td align="left">隐藏的 W95 FAT3</td>
+<td align="center">75</td>
+<td align="left">PC/IX</td>
+<td align="center">be</td>
+<td align="left">Solaris 启动</td>
+<td align="center">ff</td>
+<td align="left">BBT</td>
+</tr>
+<tr>
+<td align="center">1e</td>
+<td align="left">隐藏的 W95 FAT1</td>
+<td align="center">80</td>
+<td align="left">旧 Minix</td>
+<td align="center"></td>
+<td align="left"></td>
+<td align="center"></td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+<h2 id="最后，点个关注不迷路"><a href="#最后，点个关注不迷路" class="headerlink" title="最后，点个关注不迷路"></a>最后，点个关注不迷路</h2><blockquote>
+<p>公众号：<a target="_blank" rel="noopener" href="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/8a089ae12bfb4ca9a9e5d9ac82f58d43~tplv-k3u1fbpfcp-zoom-1.image">孟游先生的旅游笔记</a></p>
+</blockquote>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:mxdongit@126.com">Mxdon</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://blog.mxdon.cool/2020/%E7%A3%81%E7%9B%98%E6%A0%BC%E5%BC%8F%E5%8F%8A%E5%85%B6ID%E4%BF%A1%E6%81%AF/">http://blog.mxdon.cool/2020/%E7%A3%81%E7%9B%98%E6%A0%BC%E5%BC%8F%E5%8F%8A%E5%85%B6ID%E4%BF%A1%E6%81%AF/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://blog.mxdon.cool" target="_blank">Mxdon</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E7%A3%81%E7%9B%98/">磁盘</a><a class="post-meta__tags" href="/tags/GPT/">GPT</a><a class="post-meta__tags" href="/tags/MBR/">MBR</a></div><div class="post_share"><div class="social-share" data-image="https://gitee.com/mxdon/img/raw/master/2020/image-20201209230345560.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button button--animated"><i class="fas fa-qrcode"></i> 鼓励一下</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechatpay.jpg" target="_blank"><img class="post-qr-code-img" src="/img/wechatpay.jpg" alt="wechat"/></a><div class="post-qr-code-desc">wechat</div></li><li class="reward-item"><a href="/img/alipay.jpg" target="_blank"><img class="post-qr-code-img" src="/img/alipay.jpg" alt="alipay"/></a><div class="post-qr-code-desc">alipay</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2020/%E8%BF%9C%E7%A8%8B%E6%8E%A7%E5%88%B6%E2%80%94%E2%80%94%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E7%AF%87/"><img class="prev-cover" src="https://api.yimian.xyz/img" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">远程控制——内网穿透篇</div></div></a></div><div class="next-post pull-right"><a href="/2020/%E6%A0%91%E8%8E%93%E6%B4%BE-02%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E6%9C%8D%E5%8A%A1%E5%99%A8/"><img class="next-cover" src="https://api.likepoems.com/img/sina/nature" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">树莓派入门--在Linux下搭建开发环境</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%A3%81%E7%9B%98%E6%A0%BC%E5%BC%8F%E5%8F%8A%E5%85%B6ID%E4%BF%A1%E6%81%AF"><span class="toc-number">1.</span> <span class="toc-text">磁盘格式及其ID信息</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#GPT"><span class="toc-number">1.1.</span> <span class="toc-text">GPT</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MBR"><span class="toc-number">1.2.</span> <span class="toc-text">MBR</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%80%E5%90%8E%EF%BC%8C%E7%82%B9%E4%B8%AA%E5%85%B3%E6%B3%A8%E4%B8%8D%E8%BF%B7%E8%B7%AF"><span class="toc-number">1.3.</span> <span class="toc-text">最后，点个关注不迷路</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer" style="background-color: transparent;"><div id="footer-wrap"><div class="copyright">&copy;2021 - 2022 By Mxdon</div><div class="footer_custom_text">Hi, welcome to Mxdon's blog</div></div><div class="container" id="jsi-flying-fish-container"><script src="js/fish.js"></script></div><style>   @media only screen and (max-width: 767px){
+   #sidebar_search_box input[type=text]{width:calc(100% - 24px)}
+}</style></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="font-plus" type="button" title="放大字体"><i class="fas fa-plus"></i></button><button id="font-minus" type="button" title="缩小字体"><i class="fas fa-minus"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="chat_btn" type="button" title="rightside.chat_btn"><i class="fas fa-sms"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/medium-zoom/dist/medium-zoom.min.js"></script><script src="/js/search/local-search.js"></script><script async="async">var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())
+setTimeout(function(){preloader.endLoading();}, 5000);</script><div class="js-pjax"><script>(()=>{
+  const $countDom = document.getElementById('twikoo-count')
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: 'https://blog-comment-eiv9e480i-mxdongit.vercel.app',
+      region: 'eastasia'
+    }, null))
+  }
+
+  const getCount = () => {
+    twikoo.getCommentsCount({
+      envId: 'https://blog-comment-eiv9e480i-mxdongit.vercel.app',
+      region: 'eastasia',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(function (res) {
+      $countDom.innerText = res[0].count
+    }).catch(function (err) {
+      console.error(err);
+    });
+  }
+
+  const loadTwikoo = (bool = false) => {
+    if (typeof twikoo === 'object') {
+      init()
+      bool && $countDom && setTimeout(getCount,0)
+    } else {
+      getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(()=> {
+        init()
+        bool && $countDom && setTimeout(getCount,0)
+      })
+    }
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo(true)
+  } else {
+    window.loadOtherComment = () => {
+      loadTwikoo()
+    }
+  }
+})()</script></div><script>window.addEventListener('load', () => {
+  const changeContent = (content) => {
+    if (content === '') return content
+
+    content = content.replace(/<img.*?src="(.*?)"?[^\>]+>/ig, '[图片]') // replace image link
+    content = content.replace(/<a[^>]+?href=["']?([^"']+)["']?[^>]*>([^<]+)<\/a>/gi, '[链接]') // replace url
+    content = content.replace(/<pre><code>.*?<\/pre>/gi, '[代码]') // replace code
+    content = content.replace(/<[^>]+>/g,"") // remove html tag
+
+    if (content.length > 150) {
+      content = content.substring(0,150) + '...'
+    }
+    return content
+  }
+
+  const getComment = () => {
+    const runTwikoo = () => {
+      twikoo.getRecentComments({
+        envId: 'https://blog-comment-eiv9e480i-mxdongit.vercel.app',
+        region: 'eastasia',
+        pageSize: 6,
+        includeReply: true
+      }).then(function (res) {
+        const twikooArray = res.map(e => {
+          return {
+            'content': changeContent(e.comment),
+            'avatar': e.avatar,
+            'nick': e.nick,
+            'url': e.url + '#' + e.id,
+            'date': new Date(e.created).toISOString()
+          }
+        })
+
+        saveToLocal.set('twikoo-newest-comments', JSON.stringify(twikooArray), 10/(60*24))
+        generateHtml(twikooArray)
+      }).catch(function (err) {
+        const $dom = document.querySelector('#card-newest-comments .aside-list')
+        $dom.innerHTML= "无法获取评论，请确认相关配置是否正确"
+      })
+    }
+
+    if (typeof twikoo === 'object') {
+      runTwikoo()
+    } else {
+      getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(runTwikoo)
+    }
+  }
+
+  const generateHtml = array => {
+    let result = ''
+
+    if (array.length) {
+      for (let i = 0; i < array.length; i++) {
+        result += '<div class=\'aside-list-item\'>'
+
+        if (true) {
+          const name = 'src'
+          result += `<a href='${array[i].url}' class='thumbnail'><img ${name}='${array[i].avatar}' alt='${array[i].nick}'></a>`
+        }
+        
+        result += `<div class='content'>
+        <a class='comment' href='${array[i].url}'>${array[i].content}</a>
+        <div class='name'><span>${array[i].nick} / </span><time datetime="${array[i].date}">${btf.diffDate(array[i].date, true)}</time></div>
+        </div></div>`
+      }
+    } else {
+      result += '没有评论'
+    }
+
+    let $dom = document.querySelector('#card-newest-comments .aside-list')
+    $dom.innerHTML= result
+    window.lazyLoadInstance && window.lazyLoadInstance.update()
+    window.pjax && window.pjax.refresh($dom)
+  }
+
+  const newestCommentInit = () => {
+    if (document.querySelector('#card-newest-comments .aside-list')) {
+      const data = saveToLocal.get('twikoo-newest-comments')
+      if (data) {
+        generateHtml(JSON.parse(data))
+      } else {
+        getComment()
+      }
+    }
+  }
+
+  newestCommentInit()
+  document.addEventListener('pjax:complete', newestCommentInit)
+})</script><script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/gh/xiabo2/CDN@latest/fish.js"></script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-nest.min.js"></script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-heart.min.js" async="async" mobile="false"></script><script src="//code.tidio.co/tajf1h7dq4euas8t8jusi0x28q74d8av.js" async="async"></script><script>function onTidioChatApiReady() {
+  window.tidioChatApi.hide();
+  window.tidioChatApi.on("close", function() {
+    window.tidioChatApi.hide();
+  });
+}
+if (window.tidioChatApi) {
+  window.tidioChatApi.on("ready", onTidioChatApiReady);
+} else {
+  document.addEventListener("tidioChat-ready", onTidioChatApiReady);
+}
+
+var chatBtnFn = () => {
+  document.getElementById("chat_btn").addEventListener("click", function(){
+    window.tidioChatApi.show();
+    window.tidioChatApi.open();
+  });
+}
+chatBtnFn()
+</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/gh/metowolf/MetingJS@1.2/dist/Meting.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = [
+  'title',
+  '#config-diff',
+  '#body-wrap',
+  '#rightside-config-hide',
+  '#rightside-config-show',
+  '.js-pjax'
+]
+
+if (false) {
+  pjaxSelectors.unshift('meta[property="og:image"]', 'meta[property="og:title"]', 'meta[property="og:url"]')
+}
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.removeEventListener('scroll', window.tocScrollFn)
+  window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // Analytics
+  if (false) {
+    MtaH5.pgv()
+  }
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

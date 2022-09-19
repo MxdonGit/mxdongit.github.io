@@ -1,0 +1,454 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>UEFI的编译细节 | Mxdon</title><meta name="keywords" content="UEFI,BIOS,BootLoader"><meta name="author" content="Mxdon,mxdongit@126.com"><meta name="copyright" content="Mxdon"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="UEFI的编译细节UEFI编译uefi的常规编译方式为：build -t CompilerName -A Arch -p PkgName -j logfile UEFI的编译细节展开通常UEFI的编译包括以下三个步骤： 123. edksetup.shmake -C BaseToolsbuild -t CompilerName -A Arch -p PkgName -j logfile  edks">
+<meta property="og:type" content="article">
+<meta property="og:title" content="UEFI的编译细节">
+<meta property="og:url" content="http://blog.mxdon.cool/2022/UEFI%E7%9A%84%E7%BC%96%E8%AF%91%E7%BB%86%E8%8A%82/index.html">
+<meta property="og:site_name" content="Mxdon">
+<meta property="og:description" content="UEFI的编译细节UEFI编译uefi的常规编译方式为：build -t CompilerName -A Arch -p PkgName -j logfile UEFI的编译细节展开通常UEFI的编译包括以下三个步骤： 123. edksetup.shmake -C BaseToolsbuild -t CompilerName -A Arch -p PkgName -j logfile  edks">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://api.mtyqx.cn/tapi/random.php">
+<meta property="article:published_time" content="2022-04-19T14:58:16.000Z">
+<meta property="article:modified_time" content="2022-09-19T15:31:20.322Z">
+<meta property="article:author" content="Mxdon">
+<meta property="article:tag" content="UEFI">
+<meta property="article:tag" content="BIOS">
+<meta property="article:tag" content="BootLoader">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://api.mtyqx.cn/tapi/random.php"><link rel="shortcut icon" href="/img/mxdon.png"><link rel="canonical" href="http://blog.mxdon.cool/2022/UEFI%E7%9A%84%E7%BC%96%E8%AF%91%E7%BB%86%E8%8A%82/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta/><meta/><meta/><meta/><meta/><meta/><meta/><meta/><meta/><meta/><meta/><meta/><meta/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: Mxdon","link":"链接: ","source":"来源: Mxdon","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'mediumZoom',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: true,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'UEFI的编译细节',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-09-19 23:31:20'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const fontSizeVal = saveToLocal.get('global-font-size')
+    if (fontSizeVal !== undefined) {
+      document.documentElement.style.setProperty('--global-font-size', fontSizeVal + 'px')
+    }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    document.addEventListener('pjax:complete', detectApple)})(window)</script><meta name="generator" content="Hexo 5.4.2"></head><body><a href="javascript:void(0);" onclick="preloader.endLoading();" title="点击跳过动画"><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="wizard-scene"><div class="wizard-objects"><div class="wizard-square"></div><div class="wizard-circle"></div><div class="wizard-triangle"></div></div><div class="wizard"><div class="wizard-body"></div><div class="wizard-right-arm"><div class="wizard-right-hand"></div></div><div class="wizard-left-arm"><div class="wizard-left-hand"></div></div><div class="wizard-head"><div class="wizard-beard"></div><div class="wizard-face"><div class="wizard-adds"></div></div><div class="wizard-hat"><div class="wizard-hat-of-the-hat"></div><div class="wizard-four-point-star --first"></div><div class="wizard-four-point-star --second"></div><div class="wizard-four-point-star --third"></div></div></div></div></div></div></a><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/mxdon.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">43</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">50</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">20</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://api.mtyqx.cn/tapi/random.php')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Mxdon</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">UEFI的编译细节</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-04-19T14:58:16.000Z" title="发表于 2022-04-19 22:58:16">2022-04-19</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-09-19T15:31:20.322Z" title="更新于 2022-09-19 23:31:20">2022-09-19</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%B5%8C%E5%85%A5%E5%BC%8F/">嵌入式</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%B5%8C%E5%85%A5%E5%BC%8F/UEFI/">UEFI</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>11分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="UEFI的编译细节"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="UEFI的编译细节"><a href="#UEFI的编译细节" class="headerlink" title="UEFI的编译细节"></a>UEFI的编译细节</h1><h2 id="UEFI编译"><a href="#UEFI编译" class="headerlink" title="UEFI编译"></a>UEFI编译</h2><p>uefi的常规编译方式为：build -t CompilerName -A Arch -p PkgName -j logfile</p>
+<h2 id="UEFI的编译细节展开"><a href="#UEFI的编译细节展开" class="headerlink" title="UEFI的编译细节展开"></a>UEFI的编译细节展开</h2><p>通常UEFI的编译包括以下三个步骤：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">. edksetup.sh</span><br><span class="line">make -C BaseTools</span><br><span class="line">build -t CompilerName -A Arch -p PkgName -j logfile</span><br></pre></td></tr></table></figure>
+
+<h2 id="edksetup-sh"><a href="#edksetup-sh" class="headerlink" title="edksetup.sh"></a>edksetup.sh</h2><p>上述准备过程中,edksetup.sh的工作是准备工作的核心,具体来看一下:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br></pre></td><td class="code"><pre><span class="line">SCRIPTNAME=&quot;edksetup.sh&quot;</span><br><span class="line">RECONFIG=FALSE</span><br><span class="line"></span><br><span class="line">#使用帮助</span><br><span class="line">function HelpMsg()</span><br><span class="line">&#123;</span><br><span class="line">  echo &quot;Usage: $SCRIPTNAME [Options]&quot;</span><br><span class="line">  echo</span><br><span class="line">  echo &quot;The system environment variable, WORKSPACE, is always set to the current&quot;</span><br><span class="line">  echo &quot;working directory.&quot;</span><br><span class="line">  echo</span><br><span class="line">  echo &quot;Options: &quot;</span><br><span class="line">  echo &quot;  --help, -h, -?        Print this help screen and exit.&quot;</span><br><span class="line">  echo</span><br><span class="line">  echo &quot;  --reconfig            Overwrite the WORKSPACE/Conf/*.txt files with the&quot;</span><br><span class="line">  echo &quot;                        template files from the BaseTools/Conf directory.&quot;</span><br><span class="line">  echo</span><br><span class="line">  echo Please note: This script must be \&#x27;sourced\&#x27; so the environment can be changed.</span><br><span class="line">  echo &quot;. $SCRIPTNAME&quot;</span><br><span class="line">  echo &quot;source $SCRIPTNAME&quot;</span><br><span class="line">&#125;</span><br><span class="line"># 设定工作目录</span><br><span class="line">function SetWorkspace()</span><br><span class="line">&#123;</span><br><span class="line">  #</span><br><span class="line">  # If WORKSPACE is already set, then we can return right now</span><br><span class="line">  #</span><br><span class="line">  if [ -n &quot;$WORKSPACE&quot; ]</span><br><span class="line">  then</span><br><span class="line">    return 0</span><br><span class="line">  fi</span><br><span class="line"></span><br><span class="line">  if [ ! $&#123;BASH_SOURCE[0]&#125; -ef ./edksetup.sh ] &amp;&amp; [ -z &quot;$PACKAGES_PATH&quot; ]</span><br><span class="line">  then</span><br><span class="line">    echo Run this script from the base of your tree.  For example:</span><br><span class="line">    echo &quot;  cd /Path/To/Edk/Root&quot;</span><br><span class="line">    echo &quot;  . edksetup.sh&quot;</span><br><span class="line">    return 1</span><br><span class="line">  fi</span><br><span class="line"></span><br><span class="line">  #</span><br><span class="line">  # Check for BaseTools/BuildEnv before dirtying the user&#x27;s environment.</span><br><span class="line">  #</span><br><span class="line">  if [ ! -f BaseTools/BuildEnv ] &amp;&amp; [ -z &quot;$EDK_TOOLS_PATH&quot; ]</span><br><span class="line">  then</span><br><span class="line">    echo BaseTools not found in your tree, and EDK_TOOLS_PATH is not set.</span><br><span class="line">    echo Please point EDK_TOOLS_PATH at the directory that contains</span><br><span class="line">    echo the EDK2 BuildEnv script.</span><br><span class="line">    return 1</span><br><span class="line">  fi</span><br><span class="line"></span><br><span class="line">  #</span><br><span class="line">  # Set $WORKSPACE</span><br><span class="line">  #</span><br><span class="line">  export WORKSPACE=`pwd`</span><br><span class="line"></span><br><span class="line">  return 0</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"># 设定环境变量</span><br><span class="line">function SetupEnv()</span><br><span class="line">&#123;</span><br><span class="line">  # !!环境变量的重要内容在BuildEnv里面!!</span><br><span class="line">  if [ -n &quot;$EDK_TOOLS_PATH&quot; ]</span><br><span class="line">  then</span><br><span class="line">    . $EDK_TOOLS_PATH/BuildEnv</span><br><span class="line">  elif [ -f &quot;$WORKSPACE/BaseTools/BuildEnv&quot; ]</span><br><span class="line">  then</span><br><span class="line">    . $WORKSPACE/BaseTools/BuildEnv</span><br><span class="line">  elif [ -n &quot;$PACKAGES_PATH&quot; ]</span><br><span class="line">  then </span><br><span class="line">    PATH_LIST=$PACKAGES_PATH</span><br><span class="line">    PATH_LIST=$&#123;PATH_LIST//:/ &#125;</span><br><span class="line">    for DIR in $PATH_LIST</span><br><span class="line">    do</span><br><span class="line">      if [ -f &quot;$DIR/BaseTools/BuildEnv&quot; ]</span><br><span class="line">      then</span><br><span class="line">        export EDK_TOOLS_PATH=$DIR/BaseTools</span><br><span class="line">        . $DIR/BaseTools/BuildEnv</span><br><span class="line">        break</span><br><span class="line">      fi</span><br><span class="line">    done</span><br><span class="line">  else</span><br><span class="line">    echo BaseTools not found in your tree, and EDK_TOOLS_PATH is not set.</span><br><span class="line">    echo Please check that WORKSPACE or PACKAGES_PATH is not set incorrectly</span><br><span class="line">    echo in your shell, or point EDK_TOOLS_PATH at the directory that contains</span><br><span class="line">    echo the EDK2 BuildEnv script.</span><br><span class="line">    return 1</span><br><span class="line">  fi</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"># 设定环境变量和工作目录的入口</span><br><span class="line">function SourceEnv()</span><br><span class="line">&#123;</span><br><span class="line">  SetWorkspace &amp;&amp;</span><br><span class="line">  SetupEnv</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"># 文件运行的入口,获取运行参数并按需执行</span><br><span class="line">I=$#</span><br><span class="line">while [ $I -gt 0 ]</span><br><span class="line">do</span><br><span class="line">  case &quot;$1&quot; in</span><br><span class="line">    BaseTools)</span><br><span class="line">      # Ignore argument for backwards compatibility</span><br><span class="line">      shift</span><br><span class="line">    ;;</span><br><span class="line">    --reconfig)</span><br><span class="line">      RECONFIG=TRUE</span><br><span class="line">      shift</span><br><span class="line">    ;;</span><br><span class="line">    -?|-h|--help|*)</span><br><span class="line">      HelpMsg</span><br><span class="line">      break</span><br><span class="line">    ;;</span><br><span class="line">  esac</span><br><span class="line">  I=$(($I - 1))</span><br><span class="line">done</span><br><span class="line"></span><br><span class="line">if [ $I -gt 0 ]</span><br><span class="line">then</span><br><span class="line">  return 1</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">SourceEnv</span><br><span class="line"></span><br><span class="line">unset SCRIPTNAME RECONFIG</span><br><span class="line"></span><br><span class="line">return $?</span><br></pre></td></tr></table></figure>
+
+<h2 id="上面核心的内容在BuildEnv里"><a href="#上面核心的内容在BuildEnv里" class="headerlink" title="上面核心的内容在BuildEnv里"></a>上面核心的内容在BuildEnv里</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br></pre></td><td class="code"><pre><span class="line"># 同样在设置环境变量</span><br><span class="line">SetWorkspace() &#123;</span><br><span class="line"></span><br><span class="line">  #</span><br><span class="line">  # If WORKSPACE is already set, then we can return right now</span><br><span class="line">  #</span><br><span class="line">  if [ -n &quot;$WORKSPACE&quot; ]</span><br><span class="line">  then</span><br><span class="line">    return 0</span><br><span class="line">  fi</span><br><span class="line"></span><br><span class="line">  #</span><br><span class="line">  # Set $WORKSPACE</span><br><span class="line">  #</span><br><span class="line">  export WORKSPACE=`pwd`</span><br><span class="line"></span><br><span class="line">  return 0</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"># 恢复配置</span><br><span class="line">RestorePreviousConfiguration() &#123;</span><br><span class="line">  #</span><br><span class="line">  # Restore previous configuration</span><br><span class="line">  #</span><br><span class="line">  if [ -z &quot;$CONF_PATH&quot; ]</span><br><span class="line">  then</span><br><span class="line">    export CONF_PATH=$WORKSPACE/Conf</span><br><span class="line">    if [ ! -d $WORKSPACE/Conf ] &amp;&amp; [ -n &quot;$PACKAGES_PATH&quot; ]</span><br><span class="line">    then</span><br><span class="line">      PATH_LIST=$&#123;PACKAGES_PATH//:/ &#125;</span><br><span class="line">      for DIR in $PATH_LIST</span><br><span class="line">      do</span><br><span class="line">        if [ -d $DIR/Conf ]</span><br><span class="line">        then</span><br><span class="line">          export CONF_PATH=$DIR/Conf</span><br><span class="line">          break</span><br><span class="line">        fi</span><br><span class="line">      done</span><br><span class="line">    fi</span><br><span class="line">  fi</span><br><span class="line">  </span><br><span class="line">  PREVIOUS_CONF_FILE=$CONF_PATH/BuildEnv.sh</span><br><span class="line">  if [ -e $PREVIOUS_CONF_FILE ]</span><br><span class="line">  then</span><br><span class="line">    echo Loading previous configuration from $PREVIOUS_CONF_FILE</span><br><span class="line">    . $PREVIOUS_CONF_FILE</span><br><span class="line">  fi</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"># 生成Shell脚本去设置变量</span><br><span class="line">GenerateShellCodeToSetVariable() &#123;</span><br><span class="line">  VARIABLE=$1</span><br><span class="line">  OUTPUT_FILE=$2</span><br><span class="line">  VAR_VALUE=&quot;echo \$&#123;$&#123;VARIABLE&#125;&#125;&quot;</span><br><span class="line">  VAR_VALUE=`eval $VAR_VALUE`</span><br><span class="line">  echo &quot;if [ -z \&quot;\$$&#123;VARIABLE&#125;\&quot; ]&quot;             &gt;&gt; $OUTPUT_FILE</span><br><span class="line">  echo &quot;then&quot;                                    &gt;&gt; $OUTPUT_FILE</span><br><span class="line">  echo &quot;  export $&#123;VARIABLE&#125;=$&#123;VAR_VALUE&#125;&quot;       &gt;&gt; $OUTPUT_FILE</span><br><span class="line">  echo &quot;fi&quot;                                      &gt;&gt; $OUTPUT_FILE</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"># 生成shell脚本去更新环境变量</span><br><span class="line">GenerateShellCodeToUpdatePath() &#123;</span><br><span class="line">  OUTPUT_FILE=$1</span><br><span class="line">  echo &quot;if [ -e $EDK_TOOLS_PATH_BIN ]&quot;                        &gt;&gt; $OUTPUT_FILE</span><br><span class="line">  echo &quot;then&quot;                                                 &gt;&gt; $OUTPUT_FILE</span><br><span class="line">  echo &quot;  if [ &quot;\$&#123;PATH/$EDK_TOOLS_PATH_BIN/&#125;&quot; == &quot;\$PATH&quot; ]&quot; &gt;&gt; $OUTPUT_FILE</span><br><span class="line">  echo &quot;  then&quot;                                               &gt;&gt; $OUTPUT_FILE</span><br><span class="line">  echo &quot;    export PATH=$EDK_TOOLS_PATH_BIN:\$PATH&quot;           &gt;&gt; $OUTPUT_FILE</span><br><span class="line">  echo &quot;  fi&quot;                                                 &gt;&gt; $OUTPUT_FILE</span><br><span class="line">  echo &quot;fi&quot;                                                   &gt;&gt; $OUTPUT_FILE</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"># 存储当前配置信息</span><br><span class="line">StoreCurrentConfiguration() &#123;</span><br><span class="line">  #</span><br><span class="line">  # Write configuration to a shell script to allow for configuration to be</span><br><span class="line">  # easily reloaded.</span><br><span class="line">  #</span><br><span class="line">  OUTPUT_FILE=$CONF_PATH/BuildEnv.sh</span><br><span class="line">  #echo Storing current configuration into $OUTPUT_FILE</span><br><span class="line">  echo &quot;# Auto-generated by $&#123;BASH_SOURCE[0]&#125;&quot; &gt;| $OUTPUT_FILE</span><br><span class="line">  GenerateShellCodeToSetVariable WORKSPACE $OUTPUT_FILE</span><br><span class="line">  GenerateShellCodeToSetVariable EDK_TOOLS_PATH $OUTPUT_FILE</span><br><span class="line">  GenerateShellCodeToUpdatePath $OUTPUT_FILE</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"># 设定配置信息的目录</span><br><span class="line">SetEdkToolsPath() &#123;</span><br><span class="line"></span><br><span class="line">  #</span><br><span class="line">  # If EDK_TOOLS_PATH is already set, then we can return right now</span><br><span class="line">  #</span><br><span class="line">  if [ -n &quot;$EDK_TOOLS_PATH&quot; ]</span><br><span class="line">  then</span><br><span class="line">    return 0</span><br><span class="line">  fi</span><br><span class="line"></span><br><span class="line">  #</span><br><span class="line">  # Try $CONF_PATH/EdkTools</span><br><span class="line">  #</span><br><span class="line">  if [ -e $CONF_PATH/EdkTools ]</span><br><span class="line">  then</span><br><span class="line">    export EDK_TOOLS_PATH=$CONF_PATH/EdkTools</span><br><span class="line">    return 0</span><br><span class="line">  fi</span><br><span class="line"></span><br><span class="line">  #</span><br><span class="line">  # Try $CONF_PATH/BaseToolsSource</span><br><span class="line">  #</span><br><span class="line">  if [ -e $CONF_PATH/BaseToolsSource ]</span><br><span class="line">  then</span><br><span class="line">    export EDK_TOOLS_PATH=$CONF_PATH/BaseToolsSource</span><br><span class="line">    return 0</span><br><span class="line">  fi</span><br><span class="line"></span><br><span class="line">  #</span><br><span class="line">  # Try $WORKSPACE/BaseTools</span><br><span class="line">  #</span><br><span class="line">  if [ -e $WORKSPACE/BaseTools ]</span><br><span class="line">  then</span><br><span class="line">    export EDK_TOOLS_PATH=$WORKSPACE/BaseTools</span><br><span class="line">    return 0</span><br><span class="line">  fi</span><br><span class="line"></span><br><span class="line">  #</span><br><span class="line">  # Try $PACKAGES_PATH</span><br><span class="line">  #</span><br><span class="line">  if [ -n &quot;$PACKAGES_PATH&quot;]</span><br><span class="line">  then</span><br><span class="line">    PATH_LIST=$&#123;PACKAGES_PATH//:/ &#125;</span><br><span class="line">    for DIR in $PATH_LIST</span><br><span class="line">    do</span><br><span class="line">      if [ -d $DIR/BaseTools ]</span><br><span class="line">      then</span><br><span class="line">        export EDK_TOOLS_PATH=$DIR/BaseTools</span><br><span class="line">        return 0</span><br><span class="line">      fi</span><br><span class="line">    done</span><br><span class="line">  fi</span><br><span class="line"></span><br><span class="line">  echo &quot;Unable to determine EDK_TOOLS_PATH&quot;</span><br><span class="line">  echo</span><br><span class="line">  echo &quot;You may need to download the &#x27;BaseTools&#x27; from buildtools.tianocore.org.&quot;</span><br><span class="line">  echo &quot;After downloading, either create a symbolic link to the source at&quot;</span><br><span class="line">  echo &quot;\$WORKSPACE/Conf/BaseToolsSource, or set the EDK_TOOLS_PATH environment&quot;</span><br><span class="line">  echo &quot;variable.&quot;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"># 由系统类型,获取相关的子文件夹名称</span><br><span class="line">GetBaseToolsBinSubDir() &#123;</span><br><span class="line">  #</span><br><span class="line">  # Figure out a uniq directory name from the uname command</span><br><span class="line">  #</span><br><span class="line">  UNAME_DIRNAME=`uname -sm`</span><br><span class="line">  UNAME_DIRNAME=$&#123;UNAME_DIRNAME// /-&#125;</span><br><span class="line">  UNAME_DIRNAME=$&#123;UNAME_DIRNAME//\//-&#125;</span><br><span class="line">  echo $UNAME_DIRNAME</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"># 结合上一个函数,得到edk下二进制存放目录</span><br><span class="line">GetEdkToolsPathBinDirectory() &#123;</span><br><span class="line">  #</span><br><span class="line">  # Figure out a uniq directory name from the uname command</span><br><span class="line">  #</span><br><span class="line">  BIN_SUB_DIR=`GetBaseToolsBinSubDir`</span><br><span class="line"></span><br><span class="line">  if [ -e $EDK_TOOLS_PATH/BinWrappers/$BIN_SUB_DIR ]</span><br><span class="line">  then</span><br><span class="line">    EDK_TOOLS_PATH_BIN=$EDK_TOOLS_PATH/BinWrappers/$BIN_SUB_DIR</span><br><span class="line">  else</span><br><span class="line">    EDK_TOOLS_PATH_BIN=$EDK_TOOLS_PATH/Bin/$BIN_SUB_DIR</span><br><span class="line">  fi</span><br><span class="line"></span><br><span class="line">  echo $EDK_TOOLS_PATH_BIN</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"># 还是环境变量</span><br><span class="line">AddDirToStartOfPath() &#123;</span><br><span class="line">  DIRNAME=$1</span><br><span class="line">  PATH=$DIRNAME:$DIRNAME:$DIRNAME:$PATH</span><br><span class="line">  PATH=$&#123;PATH//$DIRNAME:/&#125;</span><br><span class="line">  PATH=$DIRNAME:$PATH</span><br><span class="line">  export PATH</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">AddEdkToolsToPath() &#123;</span><br><span class="line"></span><br><span class="line">  #</span><br><span class="line">  # If EDK_TOOLS_PATH is not set, then we cannot update PATH</span><br><span class="line">  #</span><br><span class="line">  if [ -z &quot;$EDK_TOOLS_PATH&quot; ]</span><br><span class="line">  then</span><br><span class="line">    return 1</span><br><span class="line">  fi</span><br><span class="line"></span><br><span class="line">  EDK_TOOLS_PATH_BIN=`GetEdkToolsPathBinDirectory`</span><br><span class="line"></span><br><span class="line">  AddDirToStartOfPath $EDK_TOOLS_PATH/BinWrappers/PosixLike</span><br><span class="line">  AddDirToStartOfPath $EDK_TOOLS_PATH_BIN</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"># !!拷贝配置文件模板!!</span><br><span class="line"># 把BaseTools/Conf下的模板文件,拷贝到Conf下</span><br><span class="line"># 拷贝的模板文件为:build_rule, tools_def, target</span><br><span class="line">CopySingleTemplateFile() &#123;</span><br><span class="line"></span><br><span class="line">  SRC_FILENAME=Conf/$1.template</span><br><span class="line">  DST_FILENAME=$CONF_PATH/$1.txt</span><br><span class="line"></span><br><span class="line">  if [ -e $DST_FILENAME ]</span><br><span class="line">  then</span><br><span class="line">    [ $RECONFIG != TRUE ] &amp;&amp; return</span><br><span class="line">  fi</span><br><span class="line"></span><br><span class="line">  echo &quot;Copying \$EDK_TOOLS_PATH/$SRC_FILENAME&quot;</span><br><span class="line">  echo &quot;     to $DST_FILENAME&quot;</span><br><span class="line">  SRC_FILENAME=$EDK_TOOLS_PATH/$SRC_FILENAME</span><br><span class="line">  cp $SRC_FILENAME $DST_FILENAME</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">CopyTemplateFiles() &#123;</span><br><span class="line"></span><br><span class="line">  CopySingleTemplateFile build_rule</span><br><span class="line">  CopySingleTemplateFile tools_def</span><br><span class="line">  CopySingleTemplateFile target</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"># 脚本入口</span><br><span class="line">ScriptMain() &#123;</span><br><span class="line"></span><br><span class="line">  SetWorkspace</span><br><span class="line">  if [ -z $WORKSPACE ]</span><br><span class="line">  then</span><br><span class="line">    echo &quot;Failure setting WORKSPACE&quot;</span><br><span class="line">    return 1</span><br><span class="line">  fi</span><br><span class="line"></span><br><span class="line">  RestorePreviousConfiguration</span><br><span class="line"></span><br><span class="line">  SetEdkToolsPath</span><br><span class="line">  if [ -z $EDK_TOOLS_PATH ]</span><br><span class="line">  then</span><br><span class="line">    return 1</span><br><span class="line">  fi</span><br><span class="line"></span><br><span class="line">  AddEdkToolsToPath</span><br><span class="line">  if [ $? -ne 0 ]</span><br><span class="line">  then</span><br><span class="line">    echo &quot;Failure adding EDK Tools into PATH!&quot;</span><br><span class="line">    return 1</span><br><span class="line">  fi</span><br><span class="line"></span><br><span class="line">  StoreCurrentConfiguration</span><br><span class="line"></span><br><span class="line">  echo WORKSPACE: $WORKSPACE</span><br><span class="line">  echo EDK_TOOLS_PATH: $EDK_TOOLS_PATH</span><br><span class="line">  echo CONF_PATH: $CONF_PATH</span><br><span class="line"></span><br><span class="line">  CopyTemplateFiles</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">#</span><br><span class="line"># Run the main function</span><br><span class="line">#</span><br><span class="line">ScriptMain</span><br></pre></td></tr></table></figure>
+
+<h2 id="make-C-BaseTools"><a href="#make-C-BaseTools" class="headerlink" title="make -C BaseTools"></a>make -C BaseTools</h2><p>上面所述编译前的准备中,Basetools会在edksetup.sh没有生效时执行,也稍作分析吧</p>
+<p>来看一眼其中的的Makefile</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">!IFNDEF BASE_TOOLS_PATH</span><br><span class="line">!ERROR &quot;BASE_TOOLS_PATH is not set! Please run toolsetup.bat first!&quot;</span><br><span class="line">!ENDIF</span><br><span class="line"></span><br><span class="line">SUBDIRS = $(BASE_TOOLS_PATH)\Source\C $(BASE_TOOLS_PATH)\Source\Python</span><br><span class="line"></span><br><span class="line">//#编译依赖项是c和python</span><br><span class="line">all: c python</span><br><span class="line"></span><br><span class="line">c :</span><br><span class="line">  @$(BASE_TOOLS_PATH)\Source\C\Makefiles\NmakeSubdirs.bat all $(BASE_TOOLS_PATH)\Source\C</span><br><span class="line"></span><br><span class="line">python:</span><br><span class="line">  @$(BASE_TOOLS_PATH)\Source\C\Makefiles\NmakeSubdirs.bat all $(BASE_TOOLS_PATH)\Source\Python</span><br><span class="line"></span><br><span class="line">subdirs: $(SUBDIRS)</span><br><span class="line">  @$(BASE_TOOLS_PATH)\Source\C\Makefiles\NmakeSubdirs.bat all $**</span><br><span class="line"></span><br><span class="line">.PHONY: clean</span><br><span class="line">clean:</span><br><span class="line">  @$(BASE_TOOLS_PATH)\Source\C\Makefiles\NmakeSubdirs.bat clean $(SUBDIRS)</span><br><span class="line"></span><br><span class="line">.PHONY: cleanall</span><br><span class="line">cleanall:</span><br><span class="line">  @$(BASE_TOOLS_PATH)\Source\C\Makefiles\NmakeSubdirs.bat cleanall $(SUBDIRS)</span><br></pre></td></tr></table></figure>
+
+<p><strong>需要编译相应的C和Python库,但是使用的是bat脚本,真正make输出的log确是正常的shell输出,这点还不知道怎么处理的,先分析到这,之后继续吧TODO</strong></p>
+<h2 id="Build"><a href="#Build" class="headerlink" title="Build"></a>Build</h2><p>build才是真正编译的开始!</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">build -a ARM64 -p /home/mxdon/clone/UEFI/uefi-arm/ArmCodePkg/SampleCode/Desktop/Script/Arm.dsc -t GCC83 -b DEBUG -j log.txt</span><br></pre></td></tr></table></figure>
+
+<p>显然,执行者是build,所以看看build的实质</p>
+<p>先找到build在哪</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">[mxdon@5 uefi-arm]$ cat `which build`</span><br><span class="line">#!/usr/bin/env bash</span><br><span class="line">#python `dirname $0`/RunToolFromSource.py `basename $0` $*</span><br><span class="line"></span><br><span class="line"># If a python2 command is available, use it in preference to python</span><br><span class="line">if command -v python2 &gt;/dev/null 2&gt;&amp;1; then</span><br><span class="line">    python_exe=python2</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">full_cmd=$&#123;BASH_SOURCE:-$0&#125; # see http://mywiki.wooledge.org/BashFAQ/028 for a discussion of why $0 is not a good choice here</span><br><span class="line">dir=$(dirname &quot;$full_cmd&quot;)</span><br><span class="line">cmd=$&#123;full_cmd##*/&#125;</span><br><span class="line"></span><br><span class="line">export PYTHONPATH=&quot;$dir/../../Source/Python&quot;</span><br><span class="line">exec &quot;$&#123;python_exe:-python&#125;&quot; &quot;$dir/../../Source/Python/$cmd/$cmd.py&quot; &quot;$@&quot;</span><br></pre></td></tr></table></figure>
+
+<p>可以看到，先是设置了环境，然后执行<code>$cmd.py $@</code>来执行build</p>
+<p>所以再找到$cmd.py,同时可以发现，$cmd在Source/Python下面，所以执行什么命令，就是在运行该命令名称下的以该命令命名的py文件。</p>
+<p>所以执行build的时候是执行的build.py，AutoGen执行AutoGen.py以此类推，由于python文件较长，此后选择性展开。</p>
+<p>如果查看打印log的话，也可以发现入口是build.py</p>
+<p>ok,继续看，在编译的log中,首先打印的是:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Build environment: Linux-4.18.0-305.10.2.el8_4.x86_64-x86_64-with-centos-8.4.2105</span><br><span class="line">Build start time: 15:00:53, Jan.04 2022</span><br></pre></td></tr></table></figure>
+
+<p>对应于build.py中:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">EdkLogger.quiet(&quot;Build environment: %s&quot; % platform.platform())</span><br><span class="line">EdkLogger.quiet(time.strftime(&quot;Build start time: %H:%M:%S, %b.%d %Y\n&quot;, time.localtime()));</span><br></pre></td></tr></table></figure>
+
+<p>相关变量在之前获取.</p>
+<p>类似的分析,log中设定环境变量:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">WORKSPACE        = /home/mxdon/clone/UEFI/uefi-arm</span><br><span class="line">ECP_SOURCE       = /home/mxdon/clone/UEFI/uefi-arm/EdkCompatibilityPkg</span><br><span class="line">EDK_SOURCE       = /home/mxdon/clone/UEFI/uefi-arm/EdkCompatibilityPkg</span><br><span class="line">EFI_SOURCE       = /home/mxdon/clone/UEFI/uefi-arm/EdkCompatibilityPkg</span><br><span class="line">EDK_TOOLS_PATH   = /home/mxdon/clone/UEFI/uefi-arm/BaseTools/</span><br><span class="line">CONF_PATH        = /home/mxdon/clone/UEFI/uefi-arm/Conf</span><br><span class="line">Architecture(s)  = ARM64</span><br><span class="line">Build target     = DEBUG</span><br><span class="line">Toolchain        = GCC83</span><br><span class="line">Active Platform          = /home/mxdon/clone/UEFI/uefi-arm/ArmCodePkg/SampleCode/Desktop/Script/Arm.dsc</span><br><span class="line">Flash Image Definition   = /home/mxdon/clone/UEFI/uefi-arm/ArmCodePkg/SampleCode/Desktop/Script/Arm.fdf</span><br></pre></td></tr></table></figure>
+
+<p>对应build.py中的则是:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">CheckEnvVariable()  -&gt;</span><br><span class="line">    MyBuild = Build(Target, Workspace, Option)  -&gt;</span><br><span class="line">            __init__()  -&gt;</span><br><span class="line">                EdkLogger.quiet(...)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>类似的分析不再赘述,简要说明如下:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">main-&gt;MyBuild-&gt;Build-&gt;__init__-&gt;...                                        #设定及检验用于build的环境,包括加载target.txt中的编译器,dsc文件中的描述等,用于生成最终的编译规则.</span><br><span class="line">                    -&gt;_BuildPlatform-&gt;WorkspaceAutoGen-&gt;PlatformAutoGen #通过解析FDF文件和INF文件,生成相应的C代码(宏变量)和Makefile(编译规则)</span><br><span class="line">                                    -&gt;_BuildPa-&gt;_GenFfsCmd                #编译模块</span><br><span class="line">                                    -&gt;_CollectModuleMapBuffer            #根据PCD修改EFI的内存分布,并获取modules的内存分布,用于重定位modules,链接生成最终的FD文件</span><br><span class="line">                                    -&gt;_Build                            #编译模块</span><br><span class="line">                                    -&gt;_CollectFvMapBuffer                #获取重定位FV的信息</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>大概流程如上,其中重定位相关的内容调用_RebaseModule-&gt;LaunchCommand[GenFw…],其中LaunchCommand也是在Build中执行make的途径.</p>
+<p>从前面知道,执行的命令与其文件名相同,GenFw所用到的文件不是Python,而是C/GenFw/GenFw.c,其中具体细节暂不展开.</p>
+<h2 id="重定位"><a href="#重定位" class="headerlink" title="重定位"></a>重定位</h2><h3 id="TODO"><a href="#TODO" class="headerlink" title="TODO"></a>TODO</h3><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>UEFI是像一个魔改的Kernel,图形化,文字功能,网络功能都具备,在一定条件下可以变成内核,具有学习的价值和意义.</p>
+<p>尤其,UEFI比内核简单许多,作为一个嵌入式C的大型项目来说是非常不错的,基于此,再看上述分析过程,整个UEFI的核心也无非就是C,Python,Shell(Makefile)这三种语言.也竟然有这三种语言.</p>
+<p>我的意思是,项目开发中,只会一种语言可能越来越不够了,技多不压身,多学吧~</p>
+<h2 id="最后，点个关注不迷路"><a href="#最后，点个关注不迷路" class="headerlink" title="最后，点个关注不迷路"></a>最后，点个关注不迷路</h2><blockquote>
+<p>公众号：<a target="_blank" rel="noopener" href="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/8a089ae12bfb4ca9a9e5d9ac82f58d43~tplv-k3u1fbpfcp-zoom-1.image">孟游先生的旅游笔记</a></p>
+</blockquote>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:mxdongit@126.com">Mxdon</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://blog.mxdon.cool/2022/UEFI%E7%9A%84%E7%BC%96%E8%AF%91%E7%BB%86%E8%8A%82/">http://blog.mxdon.cool/2022/UEFI%E7%9A%84%E7%BC%96%E8%AF%91%E7%BB%86%E8%8A%82/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://blog.mxdon.cool" target="_blank">Mxdon</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/UEFI/">UEFI</a><a class="post-meta__tags" href="/tags/BIOS/">BIOS</a><a class="post-meta__tags" href="/tags/BootLoader/">BootLoader</a></div><div class="post_share"><div class="social-share" data-image="https://api.mtyqx.cn/tapi/random.php" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button button--animated"><i class="fas fa-qrcode"></i> 鼓励一下</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechatpay.jpg" target="_blank"><img class="post-qr-code-img" src="/img/wechatpay.jpg" alt="wechat"/></a><div class="post-qr-code-desc">wechat</div></li><li class="reward-item"><a href="/img/alipay.jpg" target="_blank"><img class="post-qr-code-img" src="/img/alipay.jpg" alt="alipay"/></a><div class="post-qr-code-desc">alipay</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-full"><a href="/2022/Linux%E5%85%A5%E9%97%A8%E7%9A%84%E6%96%B0%E6%96%B9%E5%BC%8F/"><img class="prev-cover" src="https://api.likepoems.com/img/sina/nature" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Linux入门的新方式</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2020/BIOS%E3%80%81UEFI%E3%80%81Boot-Loader%E9%83%BD%E6%98%AF%E4%BA%9B%E4%BB%80%E4%B9%88/" title="BIOS、UEFI、Boot Loader都是些什么"><img class="cover" src="https://gitee.com/mxdon/img/raw/master/2020/image-20201209230345560.png" alt="cover"><div class="content is-center"><div class="date"><i class="fas fa-history fa-fw"></i> 2022-09-19</div><div class="title">BIOS、UEFI、Boot Loader都是些什么</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#UEFI%E7%9A%84%E7%BC%96%E8%AF%91%E7%BB%86%E8%8A%82"><span class="toc-number">1.</span> <span class="toc-text">UEFI的编译细节</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#UEFI%E7%BC%96%E8%AF%91"><span class="toc-number">1.1.</span> <span class="toc-text">UEFI编译</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#UEFI%E7%9A%84%E7%BC%96%E8%AF%91%E7%BB%86%E8%8A%82%E5%B1%95%E5%BC%80"><span class="toc-number">1.2.</span> <span class="toc-text">UEFI的编译细节展开</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#edksetup-sh"><span class="toc-number">1.3.</span> <span class="toc-text">edksetup.sh</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8A%E9%9D%A2%E6%A0%B8%E5%BF%83%E7%9A%84%E5%86%85%E5%AE%B9%E5%9C%A8BuildEnv%E9%87%8C"><span class="toc-number">1.4.</span> <span class="toc-text">上面核心的内容在BuildEnv里</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#make-C-BaseTools"><span class="toc-number">1.5.</span> <span class="toc-text">make -C BaseTools</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Build"><span class="toc-number">1.6.</span> <span class="toc-text">Build</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%87%8D%E5%AE%9A%E4%BD%8D"><span class="toc-number">1.7.</span> <span class="toc-text">重定位</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#TODO"><span class="toc-number">1.7.1.</span> <span class="toc-text">TODO</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">1.8.</span> <span class="toc-text">总结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%80%E5%90%8E%EF%BC%8C%E7%82%B9%E4%B8%AA%E5%85%B3%E6%B3%A8%E4%B8%8D%E8%BF%B7%E8%B7%AF"><span class="toc-number">1.9.</span> <span class="toc-text">最后，点个关注不迷路</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer" style="background-color: transparent;"><div id="footer-wrap"><div class="copyright">&copy;2021 - 2022 By Mxdon</div><div class="footer_custom_text">Hi, welcome to Mxdon's blog</div></div><div class="container" id="jsi-flying-fish-container"><script src="js/fish.js"></script></div><style>   @media only screen and (max-width: 767px){
+   #sidebar_search_box input[type=text]{width:calc(100% - 24px)}
+}</style></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="font-plus" type="button" title="放大字体"><i class="fas fa-plus"></i></button><button id="font-minus" type="button" title="缩小字体"><i class="fas fa-minus"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="chat_btn" type="button" title="rightside.chat_btn"><i class="fas fa-sms"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/medium-zoom/dist/medium-zoom.min.js"></script><script src="/js/search/local-search.js"></script><script async="async">var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())
+setTimeout(function(){preloader.endLoading();}, 5000);</script><div class="js-pjax"><script>(()=>{
+  const $countDom = document.getElementById('twikoo-count')
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: 'https://blog-comment-eiv9e480i-mxdongit.vercel.app',
+      region: 'eastasia'
+    }, null))
+  }
+
+  const getCount = () => {
+    twikoo.getCommentsCount({
+      envId: 'https://blog-comment-eiv9e480i-mxdongit.vercel.app',
+      region: 'eastasia',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(function (res) {
+      $countDom.innerText = res[0].count
+    }).catch(function (err) {
+      console.error(err);
+    });
+  }
+
+  const loadTwikoo = (bool = false) => {
+    if (typeof twikoo === 'object') {
+      init()
+      bool && $countDom && setTimeout(getCount,0)
+    } else {
+      getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(()=> {
+        init()
+        bool && $countDom && setTimeout(getCount,0)
+      })
+    }
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo(true)
+  } else {
+    window.loadOtherComment = () => {
+      loadTwikoo()
+    }
+  }
+})()</script></div><script>window.addEventListener('load', () => {
+  const changeContent = (content) => {
+    if (content === '') return content
+
+    content = content.replace(/<img.*?src="(.*?)"?[^\>]+>/ig, '[图片]') // replace image link
+    content = content.replace(/<a[^>]+?href=["']?([^"']+)["']?[^>]*>([^<]+)<\/a>/gi, '[链接]') // replace url
+    content = content.replace(/<pre><code>.*?<\/pre>/gi, '[代码]') // replace code
+    content = content.replace(/<[^>]+>/g,"") // remove html tag
+
+    if (content.length > 150) {
+      content = content.substring(0,150) + '...'
+    }
+    return content
+  }
+
+  const getComment = () => {
+    const runTwikoo = () => {
+      twikoo.getRecentComments({
+        envId: 'https://blog-comment-eiv9e480i-mxdongit.vercel.app',
+        region: 'eastasia',
+        pageSize: 6,
+        includeReply: true
+      }).then(function (res) {
+        const twikooArray = res.map(e => {
+          return {
+            'content': changeContent(e.comment),
+            'avatar': e.avatar,
+            'nick': e.nick,
+            'url': e.url + '#' + e.id,
+            'date': new Date(e.created).toISOString()
+          }
+        })
+
+        saveToLocal.set('twikoo-newest-comments', JSON.stringify(twikooArray), 10/(60*24))
+        generateHtml(twikooArray)
+      }).catch(function (err) {
+        const $dom = document.querySelector('#card-newest-comments .aside-list')
+        $dom.innerHTML= "无法获取评论，请确认相关配置是否正确"
+      })
+    }
+
+    if (typeof twikoo === 'object') {
+      runTwikoo()
+    } else {
+      getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(runTwikoo)
+    }
+  }
+
+  const generateHtml = array => {
+    let result = ''
+
+    if (array.length) {
+      for (let i = 0; i < array.length; i++) {
+        result += '<div class=\'aside-list-item\'>'
+
+        if (true) {
+          const name = 'src'
+          result += `<a href='${array[i].url}' class='thumbnail'><img ${name}='${array[i].avatar}' alt='${array[i].nick}'></a>`
+        }
+        
+        result += `<div class='content'>
+        <a class='comment' href='${array[i].url}'>${array[i].content}</a>
+        <div class='name'><span>${array[i].nick} / </span><time datetime="${array[i].date}">${btf.diffDate(array[i].date, true)}</time></div>
+        </div></div>`
+      }
+    } else {
+      result += '没有评论'
+    }
+
+    let $dom = document.querySelector('#card-newest-comments .aside-list')
+    $dom.innerHTML= result
+    window.lazyLoadInstance && window.lazyLoadInstance.update()
+    window.pjax && window.pjax.refresh($dom)
+  }
+
+  const newestCommentInit = () => {
+    if (document.querySelector('#card-newest-comments .aside-list')) {
+      const data = saveToLocal.get('twikoo-newest-comments')
+      if (data) {
+        generateHtml(JSON.parse(data))
+      } else {
+        getComment()
+      }
+    }
+  }
+
+  newestCommentInit()
+  document.addEventListener('pjax:complete', newestCommentInit)
+})</script><script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/gh/xiabo2/CDN@latest/fish.js"></script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-nest.min.js"></script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-heart.min.js" async="async" mobile="false"></script><script src="//code.tidio.co/tajf1h7dq4euas8t8jusi0x28q74d8av.js" async="async"></script><script>function onTidioChatApiReady() {
+  window.tidioChatApi.hide();
+  window.tidioChatApi.on("close", function() {
+    window.tidioChatApi.hide();
+  });
+}
+if (window.tidioChatApi) {
+  window.tidioChatApi.on("ready", onTidioChatApiReady);
+} else {
+  document.addEventListener("tidioChat-ready", onTidioChatApiReady);
+}
+
+var chatBtnFn = () => {
+  document.getElementById("chat_btn").addEventListener("click", function(){
+    window.tidioChatApi.show();
+    window.tidioChatApi.open();
+  });
+}
+chatBtnFn()
+</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/gh/metowolf/MetingJS@1.2/dist/Meting.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = [
+  'title',
+  '#config-diff',
+  '#body-wrap',
+  '#rightside-config-hide',
+  '#rightside-config-show',
+  '.js-pjax'
+]
+
+if (false) {
+  pjaxSelectors.unshift('meta[property="og:image"]', 'meta[property="og:title"]', 'meta[property="og:url"]')
+}
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.removeEventListener('scroll', window.tocScrollFn)
+  window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // Analytics
+  if (false) {
+    MtaH5.pgv()
+  }
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
