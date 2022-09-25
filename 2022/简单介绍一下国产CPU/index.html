@@ -1,0 +1,567 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>复制链接，将正文的html转markdown | Mxdon</title><meta name="keywords" content="国产CPU"><meta name="author" content="Mxdon,mxdongit@126.com"><meta name="copyright" content="Mxdon"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="简单介绍一下国产CPU基本知识 先介绍一下相关概念   指令集: 众所周知, 计算机的本质是由0和1组成的, 而这些0和1的排列规则就是指令集的本质, 比如以001101开头的32个0和1组成的数, 就是mips的一条指令格式, 许多条这种格式在一起, 就是指令集. 目前比较常听到的指令集包括arm64, amd64, x86_64, riscv, sw64, mips, loongarch等.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="复制链接，将正文的html转markdown">
+<meta property="og:url" content="http://blog.mxdon.cool/2022/%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D%E4%B8%80%E4%B8%8B%E5%9B%BD%E4%BA%A7CPU/index.html">
+<meta property="og:site_name" content="Mxdon">
+<meta property="og:description" content="简单介绍一下国产CPU基本知识 先介绍一下相关概念   指令集: 众所周知, 计算机的本质是由0和1组成的, 而这些0和1的排列规则就是指令集的本质, 比如以001101开头的32个0和1组成的数, 就是mips的一条指令格式, 许多条这种格式在一起, 就是指令集. 目前比较常听到的指令集包括arm64, amd64, x86_64, riscv, sw64, mips, loongarch等.">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img.paulzzh.tech/touhou/random">
+<meta property="article:published_time" content="2022-09-24T16:16:15.000Z">
+<meta property="article:modified_time" content="2022-09-24T17:30:34.290Z">
+<meta property="article:author" content="Mxdon">
+<meta property="article:tag" content="国产CPU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img.paulzzh.tech/touhou/random"><link rel="shortcut icon" href="/img/mxdon.png"><link rel="canonical" href="http://blog.mxdon.cool/2022/%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D%E4%B8%80%E4%B8%8B%E5%9B%BD%E4%BA%A7CPU/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta/><meta/><meta/><meta/><meta/><meta/><meta/><meta/><meta/><meta/><meta/><meta/><meta/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: Mxdon","link":"链接: ","source":"来源: Mxdon","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'mediumZoom',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: true,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '复制链接，将正文的html转markdown',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-09-25 01:30:34'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const fontSizeVal = saveToLocal.get('global-font-size')
+    if (fontSizeVal !== undefined) {
+      document.documentElement.style.setProperty('--global-font-size', fontSizeVal + 'px')
+    }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    document.addEventListener('pjax:complete', detectApple)})(window)</script><meta name="generator" content="Hexo 5.4.2"></head><body><a href="javascript:void(0);" onclick="preloader.endLoading();" title="点击跳过动画"><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="wizard-scene"><div class="wizard-objects"><div class="wizard-square"></div><div class="wizard-circle"></div><div class="wizard-triangle"></div></div><div class="wizard"><div class="wizard-body"></div><div class="wizard-right-arm"><div class="wizard-right-hand"></div></div><div class="wizard-left-arm"><div class="wizard-left-hand"></div></div><div class="wizard-head"><div class="wizard-beard"></div><div class="wizard-face"><div class="wizard-adds"></div></div><div class="wizard-hat"><div class="wizard-hat-of-the-hat"></div><div class="wizard-four-point-star --first"></div><div class="wizard-four-point-star --second"></div><div class="wizard-four-point-star --third"></div></div></div></div></div></div></a><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/mxdon.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">48</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">55</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">20</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://img.paulzzh.tech/touhou/random')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Mxdon</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">复制链接，将正文的html转markdown</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-09-24T16:16:15.000Z" title="发表于 2022-09-25 00:16:15">2022-09-25</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-09-24T17:30:34.290Z" title="更新于 2022-09-25 01:30:34">2022-09-25</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%BB%8F%E9%AA%8C/">经验</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%BB%8F%E9%AA%8C/%E7%A1%AC%E4%BB%B6/">硬件</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">6.7k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>20分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="复制链接，将正文的html转markdown"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="简单介绍一下国产CPU"><a href="#简单介绍一下国产CPU" class="headerlink" title="简单介绍一下国产CPU"></a>简单介绍一下国产CPU</h1><h2 id="基本知识"><a href="#基本知识" class="headerlink" title="基本知识"></a>基本知识</h2><blockquote>
+<p>先介绍一下相关概念</p>
+</blockquote>
+<ol>
+<li><p>指令集: 众所周知, 计算机的本质是由0和1组成的, 而这些0和1的排列规则就是指令集的本质, 比如以001101开头的32个0和1组成的数, 就是mips的一条指令格式, 许多条这种格式在一起, 就是指令集. 目前比较常听到的指令集包括arm64, amd64, x86_64, riscv, sw64, mips, loongarch等. 这些指令集具有相关专利, 指令集可控通常认为使用此指令集无需付费, 可以随意修改指令格式.</p>
+</li>
+<li><p>指令集架构: 上述许多指令形成了的指令集, 足够多的指令之间互相配合形成一种结构, 也就是指令集架构, 与指令集自主可控的区别是, 指令集架构自主可控仍然需要满足其对外提供的接口, 也就是ABI不能变. 就像人一只手拿一个苹果, 指令集架构可控可以让人在手肘处长出一个篮子, 装很多苹果, 但是一只手还是只能拿一个苹果.</p>
+</li>
+<li><p>ip内核: 指令集只是一团数字, 而用在我们的电脑上, 还需要由程序员将其写成代码, 程序员最终写成的代码, 就是ip核, 全称:intellectual property core. 而所谓的ip核架构自主可控就是使用这个ip核无需付费, 可以任意的去组装, 但是里面的东西不可以修改.</p>
+</li>
+<li><p>通用CPU: 一般指的是服务器用和桌面计算用CPU芯片, 我们常用的电脑芯片, 还有超星学习通服务器使用的芯片, 都属于通用CPU</p>
+</li>
+<li><p>超算: 即超级计算机, 可以有很多个CPU和GPU, 通常用于大型复杂项目的处理.</p>
+</li>
+<li><p>精简指令集: 指令的格式看着整齐的是精简指令集, 如riscv, alpha, arm, mips</p>
+</li>
+<li><p>复杂指令集: 指令集格式看着不那么整齐的是复杂指令集, 如x86</p>
+</li>
+<li><p>生态: 生存状态, x86的电脑到处都是, 软件数不胜数, 生态强大, sw64用于超算, 软件很少. 在计算机方面生态可以指软件的数量. 两大生态联盟: Windows+Intel, 简称Wintel体系, Android+Arm, 简称AA体系.</p>
+</li>
+</ol>
+<h2 id="国产CPU"><a href="#国产CPU" class="headerlink" title="国产CPU"></a>国产CPU</h2><blockquote>
+<p>本文只介绍国产CPU信息, 至于SOC, FPGA, FLASH等芯片不进行说明.</p>
+</blockquote>
+<p>数据参考<a target="_blank" rel="noopener" href="https://www.eet-china.com/news/202102221235.html" title="30家国产数字芯片(CPU/FPGA/存储)厂商调研报告">30家国产数字芯片(CPU/FPGA/存储)厂商调研报告</a></p>
+<p>目前国产CPU厂商主要有<code>龙芯</code>、<code>飞腾</code>、<code>兆芯</code>、<code>海光</code>、<code>申威</code>、<code>华为鲲鹏</code>这六家, 在自媒体平台上通常以”<strong>六大国产CPU</strong>“做横向对比. 但在介绍这六大国产CPU之前, 我想再提一下汉芯的事. 防止读者把汉芯代入其中.</p>
+<h2 id="0-造假的是汉芯"><a href="#0-造假的是汉芯" class="headerlink" title="0. 造假的是汉芯"></a>0. 造假的是汉芯</h2><p>1986年3月3日，王大珩、王淦昌、杨嘉墀、陈芳允四位科学家向国家提出要跟踪世界先进水平，发展中国高技术的建议。经过邓小平批示，国务院批准了《高技术研究发展计划（“863”计划）纲要》.</p>
+<p>在此背景下, 国家有关部门将集成电路设计产业化基地的建设，集成电路人才培养计划都摆上了国家重大科技专项的位置。</p>
+<p>2003年，陈进宣称一款世界一流的芯片已经被他完全自主研发出来了。当时, 芯片的研发事关重大，为了验证真伪，这块芯片被数名中科院院士和国家高技术研究发展计划负责人反复研究，经过再三验证，确认是由陈进自主研发出来的……</p>
+<p>而事实是, 陈进曾在摩托罗拉工作，就托以前的同事买了芯片，将芯片上摩托罗拉的字眼打磨之后换上汉芯一号四个字。而打磨工作是由为陈进的办公室进行装修的公司承办的，这家公司甚至堂而皇之的将芯片打磨工作说成造型设计挂在公司的官网上作为介绍。</p>
+<p><img src="https://tse4-mm.cn.bing.net/th/id/OIP-C.3H-mTltGsGDDtBJChx2-cQHaEa?pid=ImgDet&rs=1"></p>
+<p>汉芯瞒天过海, 骗取了国家十多亿的科研资金, 是我国的芯片产业多年停滞不前重大原因之一. 其无耻程度也算是空前绝后, 具体不再重复了, 有兴趣的可以自行查阅相关百科:<br><a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E6%B1%89%E8%8A%AF%E4%BA%8B%E4%BB%B6/3675593" title="https://baike.baidu.com/item/%E6%B1%89%E8%8A%AF%E4%BA%8B%E4%BB%B6/3675593">https://baike.baidu.com/item/%E6%B1%89%E8%8A%AF%E4%BA%8B%E4%BB%B6/3675593</a></p>
+<blockquote>
+<p>其实相比于汉芯造假这件事的原委, 多名院士专家的审核通过难免令人有些唏嘘, 当然这也怨不得多位大家的专业性不高, 毕竟术业有专攻, 只是有些感慨, 高层的决策失误, 也是历史无法进步的原因之一.</p>
+</blockquote>
+<h2 id="1-中科院-龙芯"><a href="#1-中科院-龙芯" class="headerlink" title="1. 中科院~龙芯"></a>1. 中科院~龙芯</h2><blockquote>
+<p>由于龙芯初期常常被人认为是汉芯, 其实并不一样, 所以写在汉芯之后, 以此顺便说明一下国产CPU已经今非昔比, 呈百花齐放之态.</p>
+</blockquote>
+<p>中国的第一代计算机人是夏培肃院士一代, 第二代人是李国杰所长一代, 第三代计算机人是胡伟武老师一代. 这是在龙芯创始人《龙芯的足迹》中所定义的三代计算机人, 相当于是中科院关于计算机发展的三个阶段代表人物.</p>
+<p>本节重点介绍的龙芯, 就是这第三代人所作的.</p>
+<p><img src="https://www.loongson.cn/uploads/product/202109//de972c7751d02957270a25934858077a.png"></p>
+<p>龙芯原先是基于MIPS指令集做的通用CPU, 在《龙芯的足迹》中, 也有对为什么选择MIPS的说明, 因为胡伟武老师认为, 选择x86或者选择arm都是在为别人扩展生态, 而要做成中国人自己的CPU, 就不能在别人的生态基础上发展, 否则会被人轻易限制. 之后为了从指令集程度摆脱国外控制, 龙芯推出了loongarch的指令集, 已经通过了第三方专利认证, 从这个角度说, 龙芯也实现了指令集的自由. 而且由于此前长期MIPS生产线的经验积累, 龙芯称loongarch可百分百兼容MIPS应用, 于是龙芯便实现了指令集自主可控.</p>
+<p>那究竟是不是真的呢? 在”中国芯吧”和”龙芯吧”这两个百度贴吧论坛中, 对于龙芯这样的说法有着不同的理解, 主要分为两种:</p>
+<blockquote>
+<ol>
+<li>龙芯选择MIPS, 为MIPS扩展微乎其微的生态, 还要每五年交5万美元的保护费, 哪怕最新发布的loongarch指令集, 还有芯连芯在打官司, 恐怕有专利纠纷, 夸大宣传, 是自欺欺人, 欺骗用户, 也欺骗国家.</li>
+<li>龙芯选择MIPS, 借助MIPS的生态发展自己的生态, 再借机完成自主指令集去兼容吞并MIPS的生态, 一举两得, 成就自己的生态, 完成真正的自主可控.</li>
+</ol>
+</blockquote>
+<p>龙芯的口碑不算好, 因为龙芯经常踩别的厂商, 说其是洋买办, 因为龙芯经常虚无宣传, 把22年用户才复现的分值在19年就发布出去了, 因为偏要使用mips和loongarch指令集, 可用软件太少, 开发困难, 因为依赖计算所, 白嫖计算所学生劳动力……</p>
+<p>龙芯的口碑还算好, 因为龙芯的售后服务还不错, 有问题基本都会努力解决, 因为龙芯的适配, 在教育方面给学生很大帮助, 因为龙芯的从cpu做到操作系统, 符合行动派的教条, 也因为龙芯出身计算所, 培养了很多人才……</p>
+<blockquote>
+<p>龙芯是国产CPU中争议较大的, 讨论起龙芯经常会惹的各家粉丝争吵, 通常也就是因为上述几个问题. </p>
+</blockquote>
+<p>龙芯原先获得是指令集架构授权, 由于MIPS公司自身没有强劲的IP核, 所以我会认为龙芯的芯片是自主设计的, 包括现在的loongarch, 完全自主设计的指令集, 完全的自主可控. 值得一提的是, 除了cpu的ip核自主设计, 龙芯还有ddr, pcie等外设ip核也是自主设计, 软件上还自制操作系统, 图形驱动, 编译器等, 前几天又推出了自研GPU, 虽然性能尚且难以言表, 但这么看确实称得上是自主研发.</p>
+<p><img src="https://www.loongson.cn/uploads/tinymce/images/fe5df232cafa4c4e0f1a0294418e566061e9cb7ab1c02.jpg"></p>
+<p>但是在loongarch的第三方专利认证公布之前, 我始终会对loongarch指令集的知识产权持观望态度, 不过在龙芯的上市听证会上称其指令专利已通过第三方评审机构. 期待早日见到.</p>
+<h2 id="2-国防科大-飞腾"><a href="#2-国防科大-飞腾" class="headerlink" title="2. 国防科大~飞腾"></a>2. 国防科大~飞腾</h2><p>飞腾CPU由国防科技大学研究团队创造，起步于1999年。目前是国资比例最高（CEC通过中国长城控股）的国产CPU企业，是聚焦国家战略需求和重大项目的CPU国家队。</p>
+<p>在以往信创项目中具有较强的实战经验。曾先后尝试X86、Epic、SPARC、ARM四个指令集，并以SPARC开源代码为基础设计了FT-1000、FT-1000A、FT-1500等CPU。</p>
+<p>之后出于生态考虑，获得了ARM指令集授权，集成全自主处理器内核，形成了覆盖桌面、服务器和嵌入式等领域的完整产品线。</p>
+<p><img src="https://www.phytium.com.cn/Site/theme/Uploads/20220317/CPU-D2000-%E7%AB%8B%E9%9D%A2.png"></p>
+<blockquote>
+<p>“其实在2011年的时候，飞腾就已经开始了针对Arm架构的研究，当2012年Arm 64位指令集正式推出之后，我们就找到了Arm，希望做基于Arm架构的服务器CPU。因为Arm的生态非常的丰富，授权模式也很清晰，不仅有IP核授权，也有指令集架构授权。当时Arm也希望能够有芯片厂商能够帮助他们进入服务器市场，于是双方一拍即合，我们也顺利的拿到了ARMv8指令集授权来开发自己的CPU。”窦强解释到。</p>
+</blockquote>
+<p>飞腾由于多次变更指令集, 也多次被质疑是设计能力不足, 但就目前的信创市场来说, 飞腾的产品更加受欢迎.</p>
+<p>飞腾的也曾做过超算, 并因此登上了“帝国广告”——美国禁令名单.</p>
+<p>飞腾获得的是Arm的指令集架构授权, 也就是说飞腾的产品必须要满足Arm设计的规范, 也就是说只要没有直接使用Arm给的ip核, 就是完全自主设计可控的. 而且由于Arm多年的发展, 其指令规范包括生态系统, 都比龙芯和申威的基础踏实许多, 所以ip核的设计相对于龙芯和申威其实是要简单一些的, 从飞腾窦强博士的解释来看, ip核大概也是自主设计的.</p>
+<p><img src="https://d.ifengimg.com/w1080_h588_q90_webp/x0.ifengimg.com/res/2021/7581081DFCF1A2DDE075122D823FD2A9FCA95B6D_size66_w1080_h588.jpeg"></p>
+<p>但是至于pcie, gmac等设备的ip核, 却并没有宣称或解释过是自主设计的. 单就CPU而言, 待日后不再买ARM授权后, 不得已衍生发展自己的”特色ARM”, 飞腾可以说是和龙芯同级别的自主可控, 但飞腾若是继续跟进ARMv9的授权, v9过气又去跟v10, 子子孙孙无穷尽, 何时能够做一方巨头? </p>
+<p>再考虑到外设ip核的设计问题, 虽然外设不在CPU的讨论范围, 但如果这些外设的设计能力不行, 那么CPU和外设之间的磨合度相比也不会多么高, 我认为, 这也就是飞腾使用更成熟的ARM指令集, 有更丰富的生态, 但性能上和龙芯水平差不多的原因.</p>
+<h2 id="3-魔都-兆芯"><a href="#3-魔都-兆芯" class="headerlink" title="3. 魔都~兆芯"></a>3. 魔都~兆芯</h2><blockquote>
+<p>由于兆芯没什么人文背景, 只好加一个魔都, 用以和上文对称, 毕竟, 兆芯的资本应该是最多的, 用钱砸出来的富家子弟, 当然比的了穷学生十年苦读.(羡慕并非嘲讽)</p>
+</blockquote>
+<p>2010年 美国FTC（联邦贸易委员会）发布了 FTC 和解针对英特尔的垄断行为指控–旨在促进计算机芯片业务竞争的规定。FTC 于 2009 年 12 月起诉英特尔，指控该公司使用反竞争策略切断竞争对手的市场准入，并剥夺了消费者对计算机中央处理器或 （CPU ）的微芯片的选择和创新的权利。</p>
+<p>所以在2010年后威盛(VIA)把目光投向了中国大陆，以成立兆芯的形式卖掉Centaur，他们出资4970万(rmb还是美刀忘了)，上海市政府出资2亿。也就是威盛出技术，上海市政府出钱去成立兆芯。</p>
+<p>2013年兆芯成立后，兆芯购买了大量原属于VIA的中央处理器、芯片组、图形处理器等相关专利与其他的知识产权，从而获得了生产x86芯片的法律支持。</p>
+<p><img src="http://mianbaoban-assets.oss-cn-shenzhen.aliyuncs.com/xinyu-images/MBXY-CR-c0a5183c8f48fcfb4717b3557f2b65e9.png"></p>
+<p>于是, 兆芯从上海政府获得海量资本支持, 从VIA获取相关的技术支持, 在几年内借助VIA早先研究的硬件加密功能和相关技术, 发布ZX-A/B/C系列芯片, 获取上海政府约近百亿元资金, 成就了曾经的兆芯, 那时ZX-A/B可看作VIA剩余产品更新, 直至ZX-C自带核显惊艳一方, 此时是不是兆芯亲自设计, 也不得而知.</p>
+<p>再后来2021年英特尔公司以1.25亿美元收购VIA麾下Centaur公司的x86业务, 我认为兆芯才算真正开始独立, 设计自己的芯片组架构, 至于最新的芯片组架构, 有多少自研部分, 仍然是不得而知.</p>
+<p>兆芯是x86指令ip内核层级授权, 也就是说从前获取的ip核并不能修改, 只能够组装, 从而叫做自研芯片组架构, 同样由于ip核无法修改, ip核内有什么bug也无法从根本上解决.</p>
+<p><img src="http://mianbaoban-assets.oss-cn-shenzhen.aliyuncs.com/xinyu-images/MBXY-CR-72cb59f68d8b3b57cc3445c414f2d8e8.png"></p>
+<p>但由于兆芯可以使用的是x86的指令集, 在软件生态方面有了最强硬的靠山, 所以早先市场占有率也比龙芯飞腾要强.</p>
+<p>虽然兆芯没有龙芯和飞腾的自主程度高, 但是兆芯做X86芯片的目的是为了支撑国家产业信息安全，助力国家数字化转型的战略部署。意思就是如果美帝让AMD、Intel这些企业断供停止授权，也能让国内用上自己生产的可替代的x86芯片。</p>
+<blockquote>
+<p>相比于龙芯飞腾的自主发展方式和理念, 兆芯的意思是不是可以理解为: 如果美国制裁或断供, 咱们也有备胎可以用, 不用管法律, 也不管反对, 劳资就要用! 就像如今的俄罗斯一样.</p>
+</blockquote>
+<p>其实这种方案我倒是挺喜欢的, 对付美国这种恶意制裁, <del>只有无赖才能打败无赖</del></p>
+<p><del>这样一想, 龙芯像憨厚老实, 飞腾是像处事圆滑, 兆芯则像地主老赖</del></p>
+<h2 id="4-中科曙光-海光"><a href="#4-中科曙光-海光" class="headerlink" title="4. 中科曙光~海光"></a>4. 中科曙光~海光</h2><p>成立于2014年的海光信息，与另一家国产CPU龙头龙芯中科同属中科系公司。该公司刚刚成立，就获得了中科曙光、国科控股等参投的天使轮融资。其中，中科曙光是中国科学院旗下的上市公司，发展20余年，在技术和市场份额上处于领先地位。</p>
+<p>AMD于2016年与中国天津海光先进技术投资有限公司（THATIC）签订技术许可协议，授权其x86和SoC IP用于芯片开发，AMD获得了价值2.93亿美元的现金注入（含特许权使用费）。</p>
+<p><img src="https://n.sinaimg.cn/sinakd10121/137/w554h383/20201108/d873-kcpxnww6423097.jpg"></p>
+<p>2019年5月，AMD首席执行官Lisa Su在Computex 2019向Tom’s Hardware证实，该公司并未向其中国的合资企业授权进一步的芯片设计。这意味着AMD在中国的芯片生产合资企业将仅限于在第一代Ryzen和EPYC的Zen架构，但不会推进基于AMD新推出的Zen 2微架构的设计。</p>
+<p>所以, 海光目前仍然是基于AMD Zen1的微架构发展. 相较于获得同样获得微架构授权的飞腾, 其研发经历更显年轻, 但同样是基于x86所以其发展的态势仍然比飞腾和龙芯要好太多了. </p>
+<p>而跟同样基于x86的兆芯相比, 海光的发展像是有了buf加成, 海光买到x86的架构授权, 而兆芯是内核层级授权, 海光获得了技术指导和代码, 兆芯获得的是半人马的技术转让……</p>
+<p><img src="https://hangyan-prod.s3.pek3b.qingstor.com/charts/c7/c71fc1a0a097a276ed8b3183aa03b8dc94b829c4b5e302516bed4ec3deeeef99-p-23-c-0.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=KBGPAMPSEKACTISCKYQR/20220924/pek3b/s3/aws4_request&X-Amz-Date=20220924T142312Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=39d84480dadced1cb22bc43498d364442486ddc8f15f312cdad7986171dd26bd"></p>
+<p>倘若海光真的能消化掉AMD Zen1架构的核心技术精华, 再进一步发展, 那还是相当令人期待的. <del>希望不要走兆芯的定位路线</del></p>
+<blockquote>
+<p>这里提到了中科曙光, 就再顺便提一嘴八卦, 据说在从前龙芯中科也叫做中科龙芯, 好像正是由于曙光上市, 给中科院带来了不小的非议, 于是中科院就不允许龙芯以中科龙芯的名字继续发展了……</p>
+</blockquote>
+<h2 id="5-江南计算所-申威"><a href="#5-江南计算所-申威" class="headerlink" title="5. 江南计算所~申威"></a>5. 江南计算所~申威</h2><p>为解决在超算和国防、信息安全无“芯”可用的困境。总参谋部第五十六研究所（无锡江南计算技术研究所）于2003年开始着手设计中国人自己的高性能芯片。申威从此踏上了征途。</p>
+<p>江南计算所的荣耀不比中科院差, 所发起的项目自然也不落其后.</p>
+<p>申威是做超算的, 与桌面CPU的设计初衷并不相同, 市面上几乎没人买超算, 但是在核聚变模拟, 石油勘探等大型科学研究项目中是非常重要的项目.</p>
+<p><img src="https://pic4.zhimg.com/v2-22e17d78648715e9a71d9dfc83979075_r.jpg"></p>
+<p>然后说说申威的自主之路. </p>
+<blockquote>
+<p>申威的技术来源是于DEC的Alpha 21164。DEC的技术实力很强，Alpha性能更是惊艳，AMD就曾经购买了Alpha 21264的技术资料，挖走了部分DEC的技术人员后，开发出自己的K7微结构。</p>
+</blockquote>
+<blockquote>
+<p>DEC是技术实力比人强，但商业模式不如人而失败的典型例子，Alpha也被几经转手，先被康柏收购，后被惠普雪藏。目前Alpha已经被束之高阁，指令集和微结构都已经不再更新，技术专利大多已过期或快过期了。申威是目前Alpha阵营中仅存的硕果，拥有自主扩展指令和发展路线的自主权。</p>
+</blockquote>
+<p>alpha也是一种精简指令集, 申威出身alpha, 后形成了自己的sw64指令集, 完成了指令集层次上的自主可控. 其产品代表”<strong>神威-太湖之光</strong>“(<del>总会脑补到宇智波鼬</del>)曾在2016年以超过第二名近三倍的运算速度夺得第一，1分钟的计算能力，相当于全球72亿人同时用计算器不间断计算32年. </p>
+<p>超算并非我们常人所需, 申威解决了我国的超算问题, 但是在个人电脑方面, 申威的指令集决定了他只能使用sw64格式的机器码, 而我们日常用的是x86格式的机器码, 所以x86上的软件, 要在sw64上运行是相当困难的, 所以sw64一直以来在桌面端几乎就是透明人的角色.</p>
+<p><img src="https://www.sgpjbg.com/FileUpload/ueditor_s/upload/2022-8/16/6379625992162736996295818.png"></p>
+<p>申威的口碑比龙芯好多了, 同样是先引进, 后发展, 申威没有像龙芯一样高调宣传, 反而做出了举世的超算, 明显的缺点, 大概只能说他生态差. 不过让一个定位在超算的CPU去做生态, 也实在是强人所难了.</p>
+<p>从指令集层面的自主设计, 到操作系统方面的研发, 申威算是我国自主化程度最高的CPU了, 这点在中国芯吧和龙芯吧中也少有反驳.</p>
+<h2 id="6-华为-鲲鹏"><a href="#6-华为-鲲鹏" class="headerlink" title="6. 华为~鲲鹏"></a>6. 华为~鲲鹏</h2><p>鲲鹏芯片于 2019 年 1 月 7 日 在华为深圳发布会上正式对外发布，基于 ARM 架构开发，是华为继移动麒麟芯 片、AI 昇腾芯片后，第三款自研芯片。</p>
+<p><img src="https://ts1.cn.mm.bing.net/th/id/R-C.9689035be0c4eaa2a8cfab8e86e5d98d?rik=mwMtIBTnYvUF3A&riu=http://upload.techweb.com.cn/s/640/2020/0421/1587461186367.jpg&ehk=uKrG67uKe3nId+WyLdVcGgb2/jGhhzeNp/zu2M4dfDY=&risl=&pid=ImgRaw&r=0&sres=1&sresct=1"></p>
+<p>华为作为鲲鹏计算产业的一员，已经掌握 Arm64 处理器核、微架构及芯片设计相关技术，并拥有 Armv8 永久架构授权，在此基础上发展了鲲鹏 系列处理器。</p>
+<p>说起来国产芯的概念真正比较活跃的起点就是华为等受到贸易战制裁的事件之后, 而其中的风云人物华为, 也广为人知了. 所以鲲鹏使用华为ARM v8永久授权也就是理所当然的事了. </p>
+<p>华为获得是架构层级的永久授权, 也就是可以基于其进行自研, 但是目前来说, 相较于定位在中低端处理器的龙芯飞腾兆芯一类, 华为的芯片是定位在中高端的, 这一点又不像苹果长久以来自研发展出的swift架构, 华为的芯片自研阶段显得没有那么深厚, 不知道其在国际市场角逐的过程中, 还有没有藏着的自研成果, 倘若获得授权只是维持目前的设计性能的话, 那就有些显得黔驴技穷了……</p>
+<p>鲲鹏相当于是华为的产品替代方案, 用于云计算, 相较于海光和飞腾的云服务器, 有爱好者做了相关的性能对比测试, 下图是unixBench 5.1.3 性能对比, 数据来源<a target="_blank" rel="noopener" href="https://plantegg.github.io/" title="https://plantegg.github.io/">https://plantegg.github.io/</a></p>
+<p><img src="https://pic2.zhimg.com/80/v2-efa4e1d8e159ec947dfe1639c2790559_720w.jpg" alt="测试命令： ./Run -c 1 -c 4"></p>
+<p>这结果又不禁让人思考, 华为19年发布的同架构芯片为什么比飞腾12年开始自研的技术并在20年才发布的d2000性能还要好呢?……</p>
+<ol start="7">
+<li>阿里RV~玄铁</li>
+</ol>
+<blockquote>
+<p>刚好玄铁也上了几天热门, 就顺便说一下吧</p>
+</blockquote>
+<p>2019年7月25日，阿里云上海峰会，平头哥半导体发布新品玄铁910，最高支持16核，2.5GHz，7.1 Coremark/MHz。阿里平头哥，走出了万里长征第一步。</p>
+<p><img src="https://pic3.zhimg.com/80/v2-001fd955ff8ba4a5438c689cb9caee1e_720w.jpg"></p>
+<p>“目前，玄铁系列处理器出货超25亿颗，拥有150余家客户、超500个授权数，已成为国内应用规模最大的国产CPU。” 在一篇报道中我看到这个说法, 25亿, 150家, 那么平均每家就要接收1666万颗, 这是很可怕的, 2021年信创第一的飞腾出货量也才200万, 新兴的玄铁如何达到25亿? </p>
+<p>我又看到了这么一句话”2025年RISC-V CPU内核出货量将达624亿个”, CPU内核, 如果这里指的是ip核的话, 一个服务器通常搭载64-256核都是不夸张的, 取128核计算, 那就是1953万片, 这样经过几年倒是可以合理实现的. 当然也有可能是贫穷限制了我的想象力.</p>
+<p>玄铁基于riscv, 设计性能常常令人眼前一亮, 不过生态甚至比mips更要割裂, 所以现在也只能看个乐, 真正投入实际使用, 估计还有一段时间的试错期.</p>
+<p>不论如何, rvNB!</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><blockquote>
+<p>总结部分是个人看法, 不赞同就不用看啦, 求轻喷~</p>
+</blockquote>
+<p>申威的超算举世闻名, 海光的服务器在国内也算首屈一指, 鲲鹏可以理解为华为自产自销. 这种对大众影响无感的就暂且不谈论了, 我单独想谈一谈国产桌面端的问题.</p>
+<p>论性能的话, 国产都是垃圾, 龙芯, 飞腾, 兆芯, 都是电子垃圾, 同价位买intel和amd总是不会失望的, 但是谁让他们挂了国产的名头呢? 据相关测评, 龙芯的3A5000在同级产品中跑分较高, 但是生态上龙芯又远不及x86和arm, 使用体验不及兆芯, 所以又出现了”娱乐跑分”的说法. 所以在这一点上我就当作打平. 不说性能, 谈自主.</p>
+<p>论自主, 龙芯虽然夸张宣传贬低友商, 但是从技术角度看, 其宣称的是从cpu到os全自主开发,并且有相关产品, 一旦指令集专利完全公布, 就可以实锤自主开发了. 飞腾呢, 宣传的是自主设计, 但是仅限于cpu, 外设一类可能还是攒ip, 不过就cpu而言, 我是认为飞腾跟龙芯属于同档次的自主水平, 至于兆芯, 对不起, 实在爱不起来, 纯资本产物, 一年拿这么多钱钱性能也不能比飞腾龙芯更高. 市场需要的是无脑的产品, 拥有x86优势的兆芯刚好无脑对口罢了. 且不说中美闹掰, 哪怕以后如果x86不再兼容, 兆芯恐怕都无立身之地.</p>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p><a target="_blank" rel="noopener" href="https://www.eet-china.com/news/202102221235.html" title="30家国产数字芯片(CPU/FPGA/存储)厂商调研报告-电子工程专辑">30家国产数字芯片(CPU/FPGA/存储)厂商调研报告-电子工程专辑</a>                                                               </p>
+<p><a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E6%B1%89%E8%8A%AF%E4%BA%8B%E4%BB%B6/3675593" title="汉芯事件_百度百科">汉芯事件_百度百科</a></p>
+<p><a target="_blank" rel="noopener" href="https://news.xidian.edu.cn/info/1012/23055.htm" title="404错误提示">404错误提示</a></p>
+<p><a target="_blank" rel="noopener" href="https://wiki.mbalib.com/wiki/863%E8%AE%A1%E5%88%92" title="863计划 - MBA智库百科">863计划 - MBA智库百科</a></p>
+<p><a target="_blank" rel="noopener" href="https://user.guancha.cn/main/content?id=541705" title="为了整出自主的CPU，他们死磕了20年。_风闻">为了整出自主的CPU，他们死磕了20年。_风闻</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/140417634" title="国产CPU艰难起步 各家实力大盘点 - 知乎">国产CPU艰难起步 各家实力大盘点 - 知乎</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.163.com/dy/article/G7MNIDTO0511RIVP.html" title="【芯观点】中国超算“制裁史”更是“逆袭史”|申威|top|超级计算机|巨型机_网易订阅">【芯观点】中国超算“制裁史”更是“逆袭史”|申威|top|超级计算机|巨型机_网易订阅</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.leiphone.com/category/zhuanlan/4UuKYwbzr7ZB4Dj4.html" title="相比龙芯，申威的“芯”路历程为什么平坦很多？ | 雷峰网">相比龙芯，申威的“芯”路历程为什么平坦很多？ | 雷峰网</a></p>
+<p><a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E9%80%9A%E7%94%A8%E5%BE%AE%E5%A4%84%E7%90%86%E5%99%A8/9963878" title="通用微处理器_百度百科">通用微处理器_百度百科</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/81413053" title="超算并不神秘，研究生都可能用到！一文读懂超级计算机的应用、架构和软件基础知识 - 知乎">超算并不神秘，研究生都可能用到！一文读懂超级计算机的应用、架构和软件基础知识 - 知乎</a></p>
+<p><a target="_blank" rel="noopener" href="https://yun.8miu.com/read-21605.html" title="计算机体系结构.指令集架构">计算机体系结构.指令集架构</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/Pieces_thinking/article/details/118586703" title="国产CPU概括_碎碎思的博客-CSDN博客_飞腾2000相当于酷睿几代">国产CPU概括_碎碎思的博客-CSDN博客_飞腾2000相当于酷睿几代</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.sohu.com/a/361951689_128469" title="一文看懂国产CPU的“飞腾”之路！_架构">一文看懂国产CPU的“飞腾”之路！_架构</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.expreview.com/63233.html" title="天津飞腾回应处理器造假：没有采用ARM的内核，内核自主设计 ... - 超能网">天津飞腾回应处理器造假：没有采用ARM的内核，内核自主设计 … - 超能网</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/532115524" title="兆芯X86 CPU架构的发展（国产CPU系列） - 知乎">兆芯X86 CPU架构的发展（国产CPU系列） - 知乎</a></p>
+<p><a target="_blank" rel="noopener" href="https://new.qq.com/omn/20211115/20211115A0478K00.html" title="英特尔收购威盛X86业务 兆芯何去何从_腾讯新闻">英特尔收购威盛X86业务 兆芯何去何从_腾讯新闻</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/read/cv282706" title="国产兆芯的一些历史 - 哔哩哔哩">国产兆芯的一些历史 - 哔哩哔哩</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/554982266" title="海光，国产CPU之光 - 知乎">海光，国产CPU之光 - 知乎</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.eet-china.com/mp/a106960.html" title="使用GCC编译器实测兆芯KX-U6780A的SPECCPU2006成绩-面包板社区        ">使用GCC编译器实测兆芯KX-U6780A的SPECCPU2006成绩-面包板社区        </a></p>
+<p><a target="_blank" rel="noopener" href="https://finance.sina.com.cn/chanjing/cyxw/2021-06-30/doc-ikqcfnca4196454.shtml" title="全球超级计算机排行榜前十榜单 中国神威太湖之光居第四_新浪财经_新浪网">全球超级计算机排行榜前十榜单 中国神威太湖之光居第四_新浪财经_新浪网</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.vzkoo.com/read/2022061616489274a88dcd54b68372cc.html" title="2022年CPU行业发展现状及竞争格局分析 指令集是CPU产品生态体系的基石 - 报告精读 - 未来智库">2022年CPU行业发展现状及竞争格局分析 指令集是CPU产品生态体系的基石 - 报告精读 - 未来智库</a></p>
+<p><a target="_blank" rel="noopener" href="https://plantegg.github.io/2021/06/18/%E5%87%A0%E6%AC%BECPU%E6%80%A7%E8%83%BD%E5%AF%B9%E6%AF%94/" title="Intel、海光、鲲鹏920、飞腾2500 CPU性能对比 | plantegg">Intel、海光、鲲鹏920、飞腾2500 CPU性能对比 | plantegg</a></p>
+<p><a target="_blank" rel="noopener" href="https://news.mydrivers.com/1/733/733160.htm" title="飞腾2021年出货预计超200万！国产CPU将迎来春天-飞腾,CPU ——快科技(驱动之家旗下媒体)--科技改变未来">飞腾2021年出货预计超200万！国产CPU将迎来春天-飞腾,CPU ——快科技(驱动之家旗下媒体)–科技改变未来</a></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:mxdongit@126.com">Mxdon</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://blog.mxdon.cool/2022/%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D%E4%B8%80%E4%B8%8B%E5%9B%BD%E4%BA%A7CPU/">http://blog.mxdon.cool/2022/%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D%E4%B8%80%E4%B8%8B%E5%9B%BD%E4%BA%A7CPU/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://blog.mxdon.cool" target="_blank">Mxdon</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%9B%BD%E4%BA%A7CPU/">国产CPU</a></div><div class="post_share"><div class="social-share" data-image="https://img.paulzzh.tech/touhou/random" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button button--animated"><i class="fas fa-qrcode"></i> 鼓励一下</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechatpay.jpg" target="_blank"><img class="post-qr-code-img" src="/img/wechatpay.jpg" alt="wechat"/></a><div class="post-qr-code-desc">wechat</div></li><li class="reward-item"><a href="/img/alipay.jpg" target="_blank"><img class="post-qr-code-img" src="/img/alipay.jpg" alt="alipay"/></a><div class="post-qr-code-desc">alipay</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2022/%E5%B0%8F%E8%AF%B4%E9%98%85%E8%AF%BB%E6%96%B9%E5%BC%8F%E6%8E%A8%E8%8D%90/"><img class="prev-cover" src="https://api.xhofe.top/img/api" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">小说阅读方式推荐</div></div></a></div><div class="next-post pull-right"><a href="/2022/%E4%B8%80%E6%AC%BEPDF%E7%BF%BB%E8%AF%91%E8%BD%AF%E4%BB%B6/"><img class="next-cover" src="https://api.ixiaowai.cn/api/api.php" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info"></div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D%E4%B8%80%E4%B8%8B%E5%9B%BD%E4%BA%A7CPU"><span class="toc-number">1.</span> <span class="toc-text">简单介绍一下国产CPU</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E7%9F%A5%E8%AF%86"><span class="toc-number">1.1.</span> <span class="toc-text">基本知识</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%BD%E4%BA%A7CPU"><span class="toc-number">1.2.</span> <span class="toc-text">国产CPU</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0-%E9%80%A0%E5%81%87%E7%9A%84%E6%98%AF%E6%B1%89%E8%8A%AF"><span class="toc-number">1.3.</span> <span class="toc-text">0. 造假的是汉芯</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E4%B8%AD%E7%A7%91%E9%99%A2-%E9%BE%99%E8%8A%AF"><span class="toc-number">1.4.</span> <span class="toc-text">1. 中科院~龙芯</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E5%9B%BD%E9%98%B2%E7%A7%91%E5%A4%A7-%E9%A3%9E%E8%85%BE"><span class="toc-number">1.5.</span> <span class="toc-text">2. 国防科大~飞腾</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E9%AD%94%E9%83%BD-%E5%85%86%E8%8A%AF"><span class="toc-number">1.6.</span> <span class="toc-text">3. 魔都~兆芯</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E4%B8%AD%E7%A7%91%E6%9B%99%E5%85%89-%E6%B5%B7%E5%85%89"><span class="toc-number">1.7.</span> <span class="toc-text">4. 中科曙光~海光</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E6%B1%9F%E5%8D%97%E8%AE%A1%E7%AE%97%E6%89%80-%E7%94%B3%E5%A8%81"><span class="toc-number">1.8.</span> <span class="toc-text">5. 江南计算所~申威</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-%E5%8D%8E%E4%B8%BA-%E9%B2%B2%E9%B9%8F"><span class="toc-number">1.9.</span> <span class="toc-text">6. 华为~鲲鹏</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">1.10.</span> <span class="toc-text">总结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE"><span class="toc-number">1.11.</span> <span class="toc-text">参考文献</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer" style="background-color: transparent;"><div id="footer-wrap"><div class="copyright">&copy;2021 - 2022 By Mxdon</div><div class="footer_custom_text">Hi, welcome to Mxdon's blog</div></div><div class="container" id="jsi-flying-fish-container"><script src="js/fish.js"></script></div><style>   @media only screen and (max-width: 767px){
+   #sidebar_search_box input[type=text]{width:calc(100% - 24px)}
+}</style></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="font-plus" type="button" title="放大字体"><i class="fas fa-plus"></i></button><button id="font-minus" type="button" title="缩小字体"><i class="fas fa-minus"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="chat_btn" type="button" title="rightside.chat_btn"><i class="fas fa-sms"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/medium-zoom/dist/medium-zoom.min.js"></script><script src="/js/search/local-search.js"></script><script async="async">var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())
+setTimeout(function(){preloader.endLoading();}, 5000);</script><div class="js-pjax"><script>(()=>{
+  const $countDom = document.getElementById('twikoo-count')
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: 'https://blog-comment-eiv9e480i-mxdongit.vercel.app',
+      region: 'eastasia'
+    }, null))
+  }
+
+  const getCount = () => {
+    twikoo.getCommentsCount({
+      envId: 'https://blog-comment-eiv9e480i-mxdongit.vercel.app',
+      region: 'eastasia',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(function (res) {
+      $countDom.innerText = res[0].count
+    }).catch(function (err) {
+      console.error(err);
+    });
+  }
+
+  const loadTwikoo = (bool = false) => {
+    if (typeof twikoo === 'object') {
+      init()
+      bool && $countDom && setTimeout(getCount,0)
+    } else {
+      getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(()=> {
+        init()
+        bool && $countDom && setTimeout(getCount,0)
+      })
+    }
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo(true)
+  } else {
+    window.loadOtherComment = () => {
+      loadTwikoo()
+    }
+  }
+})()</script></div><script>window.addEventListener('load', () => {
+  const changeContent = (content) => {
+    if (content === '') return content
+
+    content = content.replace(/<img.*?src="(.*?)"?[^\>]+>/ig, '[图片]') // replace image link
+    content = content.replace(/<a[^>]+?href=["']?([^"']+)["']?[^>]*>([^<]+)<\/a>/gi, '[链接]') // replace url
+    content = content.replace(/<pre><code>.*?<\/pre>/gi, '[代码]') // replace code
+    content = content.replace(/<[^>]+>/g,"") // remove html tag
+
+    if (content.length > 150) {
+      content = content.substring(0,150) + '...'
+    }
+    return content
+  }
+
+  const getComment = () => {
+    const runTwikoo = () => {
+      twikoo.getRecentComments({
+        envId: 'https://blog-comment-eiv9e480i-mxdongit.vercel.app',
+        region: 'eastasia',
+        pageSize: 6,
+        includeReply: true
+      }).then(function (res) {
+        const twikooArray = res.map(e => {
+          return {
+            'content': changeContent(e.comment),
+            'avatar': e.avatar,
+            'nick': e.nick,
+            'url': e.url + '#' + e.id,
+            'date': new Date(e.created).toISOString()
+          }
+        })
+
+        saveToLocal.set('twikoo-newest-comments', JSON.stringify(twikooArray), 10/(60*24))
+        generateHtml(twikooArray)
+      }).catch(function (err) {
+        const $dom = document.querySelector('#card-newest-comments .aside-list')
+        $dom.innerHTML= "无法获取评论，请确认相关配置是否正确"
+      })
+    }
+
+    if (typeof twikoo === 'object') {
+      runTwikoo()
+    } else {
+      getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(runTwikoo)
+    }
+  }
+
+  const generateHtml = array => {
+    let result = ''
+
+    if (array.length) {
+      for (let i = 0; i < array.length; i++) {
+        result += '<div class=\'aside-list-item\'>'
+
+        if (true) {
+          const name = 'src'
+          result += `<a href='${array[i].url}' class='thumbnail'><img ${name}='${array[i].avatar}' alt='${array[i].nick}'></a>`
+        }
+        
+        result += `<div class='content'>
+        <a class='comment' href='${array[i].url}'>${array[i].content}</a>
+        <div class='name'><span>${array[i].nick} / </span><time datetime="${array[i].date}">${btf.diffDate(array[i].date, true)}</time></div>
+        </div></div>`
+      }
+    } else {
+      result += '没有评论'
+    }
+
+    let $dom = document.querySelector('#card-newest-comments .aside-list')
+    $dom.innerHTML= result
+    window.lazyLoadInstance && window.lazyLoadInstance.update()
+    window.pjax && window.pjax.refresh($dom)
+  }
+
+  const newestCommentInit = () => {
+    if (document.querySelector('#card-newest-comments .aside-list')) {
+      const data = saveToLocal.get('twikoo-newest-comments')
+      if (data) {
+        generateHtml(JSON.parse(data))
+      } else {
+        getComment()
+      }
+    }
+  }
+
+  newestCommentInit()
+  document.addEventListener('pjax:complete', newestCommentInit)
+})</script><script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/gh/xiabo2/CDN@latest/fish.js"></script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-nest.min.js"></script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-heart.min.js" async="async" mobile="false"></script><script src="//code.tidio.co/tajf1h7dq4euas8t8jusi0x28q74d8av.js" async="async"></script><script>function onTidioChatApiReady() {
+  window.tidioChatApi.hide();
+  window.tidioChatApi.on("close", function() {
+    window.tidioChatApi.hide();
+  });
+}
+if (window.tidioChatApi) {
+  window.tidioChatApi.on("ready", onTidioChatApiReady);
+} else {
+  document.addEventListener("tidioChat-ready", onTidioChatApiReady);
+}
+
+var chatBtnFn = () => {
+  document.getElementById("chat_btn").addEventListener("click", function(){
+    window.tidioChatApi.show();
+    window.tidioChatApi.open();
+  });
+}
+chatBtnFn()
+</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/gh/metowolf/MetingJS@1.2/dist/Meting.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = [
+  'title',
+  '#config-diff',
+  '#body-wrap',
+  '#rightside-config-hide',
+  '#rightside-config-show',
+  '.js-pjax'
+]
+
+if (false) {
+  pjaxSelectors.unshift('meta[property="og:image"]', 'meta[property="og:title"]', 'meta[property="og:url"]')
+}
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.removeEventListener('scroll', window.tocScrollFn)
+  window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // Analytics
+  if (false) {
+    MtaH5.pgv()
+  }
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
