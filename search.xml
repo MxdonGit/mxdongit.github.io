@@ -4,19 +4,6 @@
   
     
     <entry>
-      <title></title>
-      <link href="/2022/%E4%B8%80%E6%AC%BEPDF%E7%BF%BB%E8%AF%91%E8%BD%AF%E4%BB%B6/"/>
-      <url>/2022/%E4%B8%80%E6%AC%BEPDF%E7%BF%BB%E8%AF%91%E8%BD%AF%E4%BB%B6/</url>
-      
-        <content type="html"><![CDATA[<h1 id="一款PDF翻译软件"><a href="#一款PDF翻译软件" class="headerlink" title="一款PDF翻译软件"></a>一款PDF翻译软件</h1><blockquote><p>最近在看英文文献，看的头疼，于是我决定放弃……</p></blockquote><p>放弃学习英语，所以找了一款软件，用起来还不错，水一篇文章～</p><p>选择这款软件的原因是——该软件在复制的时候自动处理换行符，使翻译出来的文字更自然。</p><p>支持Windows、MacOS、Linux的下载，详情看下面链接。</p><p>项目主页：<code>https://copytranslator.gitee.io/</code></p><p>下载链接：<code>https://copytranslator.gitee.io/download/</code></p>]]></content>
-      
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>复制链接，将正文的html转markdown</title>
       <link href="/2022/%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D%E4%B8%80%E4%B8%8B%E5%9B%BD%E4%BA%A7CPU/"/>
       <url>/2022/%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D%E4%B8%80%E4%B8%8B%E5%9B%BD%E4%BA%A7CPU/</url>
@@ -36,6 +23,33 @@
         <tags>
             
             <tag> 国产CPU </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>一款PDF翻译软件</title>
+      <link href="/2022/%E4%B8%80%E6%AC%BEPDF%E7%BF%BB%E8%AF%91%E8%BD%AF%E4%BB%B6/"/>
+      <url>/2022/%E4%B8%80%E6%AC%BEPDF%E7%BF%BB%E8%AF%91%E8%BD%AF%E4%BB%B6/</url>
+      
+        <content type="html"><![CDATA[<h1 id="一款PDF翻译软件"><a href="#一款PDF翻译软件" class="headerlink" title="一款PDF翻译软件"></a>一款PDF翻译软件</h1><blockquote><p>最近在看英文文献，看的头疼，于是我决定放弃……</p></blockquote><p>放弃学习英语，所以找了一款软件，用起来还不错，水一篇文章～</p><p>选择这款软件的原因是——该软件在复制的时候自动处理换行符，使翻译出来的文字更自然。</p><p>支持Windows、MacOS、Linux的下载，详情看下面链接。</p><p>项目主页：<code>https://copytranslator.gitee.io/</code></p><p>下载链接：<code>https://copytranslator.gitee.io/download/</code></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 教程 </category>
+          
+          <category> 工具 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 翻译 </tag>
             
         </tags>
       
