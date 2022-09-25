@@ -1,0 +1,441 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>hvml01-在龙芯平台搭建hvml运行环境 | Mxdon</title><meta name="keywords" content="图形化,教程,Loongarch,Hvml"><meta name="author" content="Mxdon,mxdongit@126.com"><meta name="copyright" content="Mxdon"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="hvml01-在龙芯平台搭建hvml运行环境1. 准备环境根据Hvml社区介绍: PurC 的目标是用 C 语言实现HVML 规范 V1.0定义的所有特性和HVML 预定义变量 V1.0 定义的所有预定义动态对象。 To build PurC, make sure that the following tools or libraries are available on your Linux o">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hvml01-在龙芯平台搭建hvml运行环境">
+<meta property="og:url" content="http://blog.mxdon.cool/2022/hvml01-env-prepare-on-loongarch/index.html">
+<meta property="og:site_name" content="Mxdon">
+<meta property="og:description" content="hvml01-在龙芯平台搭建hvml运行环境1. 准备环境根据Hvml社区介绍: PurC 的目标是用 C 语言实现HVML 规范 V1.0定义的所有特性和HVML 预定义变量 V1.0 定义的所有预定义动态对象。 To build PurC, make sure that the following tools or libraries are available on your Linux o">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://api.xhofe.top/img/api/bing">
+<meta property="article:published_time" content="2022-09-25T13:08:55.000Z">
+<meta property="article:modified_time" content="2022-09-25T15:24:29.771Z">
+<meta property="article:author" content="Mxdon">
+<meta property="article:tag" content="图形化">
+<meta property="article:tag" content="教程">
+<meta property="article:tag" content="Loongarch">
+<meta property="article:tag" content="Hvml">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://api.xhofe.top/img/api/bing"><link rel="shortcut icon" href="/img/mxdon.png"><link rel="canonical" href="http://blog.mxdon.cool/2022/hvml01-env-prepare-on-loongarch/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta/><meta/><meta/><meta/><meta/><meta/><meta/><meta/><meta/><meta/><meta/><meta/><meta/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: Mxdon","link":"链接: ","source":"来源: Mxdon","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'mediumZoom',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: true,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'hvml01-在龙芯平台搭建hvml运行环境',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-09-25 23:24:29'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const fontSizeVal = saveToLocal.get('global-font-size')
+    if (fontSizeVal !== undefined) {
+      document.documentElement.style.setProperty('--global-font-size', fontSizeVal + 'px')
+    }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    document.addEventListener('pjax:complete', detectApple)})(window)</script><meta name="generator" content="Hexo 5.4.2"></head><body><a href="javascript:void(0);" onclick="preloader.endLoading();" title="点击跳过动画"><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="wizard-scene"><div class="wizard-objects"><div class="wizard-square"></div><div class="wizard-circle"></div><div class="wizard-triangle"></div></div><div class="wizard"><div class="wizard-body"></div><div class="wizard-right-arm"><div class="wizard-right-hand"></div></div><div class="wizard-left-arm"><div class="wizard-left-hand"></div></div><div class="wizard-head"><div class="wizard-beard"></div><div class="wizard-face"><div class="wizard-adds"></div></div><div class="wizard-hat"><div class="wizard-hat-of-the-hat"></div><div class="wizard-four-point-star --first"></div><div class="wizard-four-point-star --second"></div><div class="wizard-four-point-star --third"></div></div></div></div></div></div></a><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/mxdon.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">51</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">58</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">23</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://api.xhofe.top/img/api/bing')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Mxdon</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">hvml01-在龙芯平台搭建hvml运行环境</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-09-25T13:08:55.000Z" title="发表于 2022-09-25 21:08:55">2022-09-25</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-09-25T15:24:29.771Z" title="更新于 2022-09-25 23:24:29">2022-09-25</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Hvml/">Hvml</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">980</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>5分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="hvml01-在龙芯平台搭建hvml运行环境"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="hvml01-在龙芯平台搭建hvml运行环境"><a href="#hvml01-在龙芯平台搭建hvml运行环境" class="headerlink" title="hvml01-在龙芯平台搭建hvml运行环境"></a>hvml01-在龙芯平台搭建hvml运行环境</h1><h2 id="1-准备环境"><a href="#1-准备环境" class="headerlink" title="1. 准备环境"></a>1. 准备环境</h2><p>根据Hvml社区介绍:</p>
+<p>PurC 的目标是用 C 语言实现HVML 规范 V1.0定义的所有特性和HVML 预定义变量 V1.0 定义的所有预定义动态对象。</p>
+<p>To build PurC, make sure that the following tools or libraries are available on your Linux or macOS system:</p>
+<ol>
+<li>cmake</li>
+<li>A C11 and CXX17 compliant complier: GCC 8+ or Clang 6+</li>
+<li>glib 2.44.0 or later</li>
+<li>Python 3</li>
+<li>BISON 3.0 or later</li>
+<li>FLEX 2.6.4 or later</li>
+</ol>
+<p>我使用的是龙芯发布的Loongnix系统:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">mxdon@mxdon-la:~/hvml$ cat /etc/os-release</span><br><span class="line">PRETTY_NAME=&quot;Loongnix GNU/Linux 20 (DaoXiangHu)&quot;</span><br><span class="line">NAME=&quot;Loongnix GNU/Linux&quot;</span><br><span class="line">VERSION_ID=&quot;20&quot;</span><br><span class="line">VERSION=&quot;20 (DaoXiangHu)&quot;</span><br><span class="line">VERSION_CODENAME=DaoXiangHu</span><br><span class="line">ID=Loongnix</span><br><span class="line">HOME_URL=&quot;https://www.loongnix.cn/&quot;</span><br><span class="line">SUPPORT_URL=&quot;https://www.loongnix.cn/&quot;</span><br><span class="line">BUG_REPORT_URL=&quot;http://www.loongnix.cn/&quot;</span><br></pre></td></tr></table></figure>
+
+<p>其中系统自带的gcc, glibc, python3是满足需求的, 需要手动安装的bison, flex默认版本也都是满足需求的, 安装命令如下:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install bison flex -y</span><br></pre></td></tr></table></figure>
+
+<p>其中只有cmake的环境有一点问题, 但也很好解决.</p>
+<p>系统默认不带有cmake, <code>sudo apt install cmake</code>所安装的cmake版本是3.13.4, 编译PurC时提示需要3.15以上的cmake:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">mxdon@mxdon-la:~/hvml/PurC$ cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo -DPORT=Linux -B build &amp;&amp; cmake --build build &amp;&amp; sudo cmake --install build</span><br><span class="line">CMake Error at CMakeLists.txt:11 (cmake_minimum_required):</span><br><span class="line">  CMake 3.15 or higher is required.  You are running version 3.13.4</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">-- Configuring incomplete, errors occurred!</span><br><span class="line">See also &quot;/home/mxdon/hvml/PurC/build/CMakeFiles/CMakeOutput.log&quot;.</span><br><span class="line">See also &quot;/home/mxdon/hvml/PurC/build/CMakeFiles/CMakeError.log&quot;.</span><br></pre></td></tr></table></figure>
+
+<p>所以手动编译一个cmake3.15.3, 其他版本应该是类似的:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">mxdon@mxdon-la:~/hvml/cmake-3.15.3$ ./bootstrap --prefix=/home/mxdon/hvml/cmake-3.15.3/build/</span><br><span class="line">---------------------------------------------</span><br><span class="line">CMake 3.15.3, Copyright 2000-2019 Kitware, Inc. and Contributors</span><br><span class="line">Found GNU toolchain</span><br><span class="line">C compiler on this system is: gcc</span><br><span class="line">C++ compiler on this system is: g++</span><br><span class="line">Makefile processor on this system is: make</span><br><span class="line">g++ has setenv</span><br><span class="line">g++ has unsetenv</span><br><span class="line">g++ does not have environ in stdlib.h</span><br><span class="line">g++ has stl wstring</span><br><span class="line">g++ has &lt;ext/stdio_filebuf.h&gt;</span><br><span class="line">---------------------------------------------</span><br><span class="line">g++              -I/home/mxdon/hvml/cmake-3.15.3/Bootstrap.cmk   -I/home/mxdon/hvml/cmake-3.15.3/Source   -I/home/mxdon/hvml/cmake-3.15.3/Source/LexerParser   -I/home/mxdon/hvml/cmake-3.15.3/Utilities  -c /home/mxdon/hvml/cmake-3.15.3/Source/cmAddCustomCommandCommand.cxx -o cmAddCustomCommandCommand.o</span><br><span class="line">In file included from /home/mxdon/hvml/cmake-3.15.3/Utilities/cm_kwiml.h:12,</span><br><span class="line">                 from /home/mxdon/hvml/cmake-3.15.3/Source/cmAlgorithms.h:10,</span><br><span class="line">                 from /home/mxdon/hvml/cmake-3.15.3/Source/cmGlobalGenerator.h:16,</span><br><span class="line">                 from /home/mxdon/hvml/cmake-3.15.3/Source/cmAddCustomCommandCommand.cxx:11:</span><br><span class="line">/home/mxdon/hvml/cmake-3.15.3/Utilities/KWIML/include/kwiml/abi.h:476:3: error: #error &quot;Byte order of target CPU unknown.&quot;</span><br><span class="line"><span class="meta"> #</span><span class="bash"> error <span class="string">&quot;Byte order of target CPU unknown.&quot;</span></span></span><br><span class="line">   ^~~~~</span><br><span class="line">make: *** [Makefile:4：cmAddCustomCommandCommand.o] 错误 1</span><br><span class="line">---------------------------------------------</span><br><span class="line">Error when bootstrapping CMake:</span><br><span class="line">Problem while running make</span><br><span class="line">---------------------------------------------</span><br><span class="line">Log of errors: /home/mxdon/hvml/cmake-3.15.3/Bootstrap.cmk/cmake_bootstrap.log</span><br><span class="line">---------------------------------------------</span><br></pre></td></tr></table></figure>
+
+<p>这个问题很好解决, 只是在<code>Utilities/KWIML/include/kwiml/abi.h</code>缺少一个大小端的定义, 所以就直接加个小端定义好了.</p>
+<figure class="highlight patch"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"> /* Unknown CPU */</span><br><span class="line"> #elif !defined(KWIML_ABI_NO_ERROR_ENDIAN)</span><br><span class="line"><span class="deletion">-# error &quot;Byte order of target CPU unknown.&quot;</span></span><br><span class="line"><span class="addition">+//# error &quot;Byte order of target CPU unknown.&quot;</span></span><br><span class="line"><span class="addition">+# define KWIML_ABI_ENDIAN_ID KWIML_ABI_ENDIAN_ID_LITTLE</span></span><br><span class="line"> #endif</span><br></pre></td></tr></table></figure>
+
+<p>将cmake-3.15.3添加至环境变量中, 然后就可以编译PurC了:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">root@mxdon-la:/home/mxdon/hvml/PurC# export PATH=/home/mxdon/hvml/cmake-3.15.3/build/bin/:$PATH                       </span><br><span class="line">root@mxdon-la:/home/mxdon/hvml/PurC# cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo -DPORT=Linux -B build &amp;&amp; cmake --build build &amp;&amp; sudo /home/mxdon/hvml/cmake-3.15.3/build/bin/cmake --install build</span><br><span class="line">-- The CMake build type is: RelWithDebInfo</span><br><span class="line">-- Enabling ccache: Couldn&#x27;t find ccache program. Not enabling it.</span><br><span class="line">-- Performing Test C_COMPILER_SUPPORTS_-fmax-errors=10</span><br><span class="line">-- Performing Test C_COMPILER_SUPPORTS_-fmax-errors=10 - Success</span><br><span class="line">-- Performing Test CXX_COMPILER_SUPPORTS_-fmax-errors=10</span><br><span class="line">-- Performing Test CXX_COMPILER_SUPPORTS_-fmax-errors=10 - Success</span><br><span class="line">......</span><br><span class="line">-- Installing: /usr/local/include/purc/purc.h</span><br><span class="line">-- Installing: /usr/local/lib/purc-0.8/libpurc-dvobj-FS.so</span><br><span class="line">-- Set runtime path of &quot;/usr/local/lib/purc-0.8/libpurc-dvobj-FS.so&quot; to &quot;&quot;</span><br><span class="line">-- Installing: /usr/local/lib/purc-0.8/libpurc-dvobj-MATH.so</span><br><span class="line">-- Set runtime path of &quot;/usr/local/lib/purc-0.8/libpurc-dvobj-MATH.so&quot; to &quot;&quot;</span><br><span class="line">-- Installing: /usr/local/bin/purc</span><br><span class="line">-- Set runtime path of &quot;/usr/local/bin/purc&quot; to &quot;&quot;</span><br></pre></td></tr></table></figure>
+
+<p>之后需要将PurC用到的链接库增加至系统链接路径, 修改<code>/etc/ld.so.conf</code>:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mxdon@mxdon-la:~/hvml$ cat /etc/ld.so.conf</span><br><span class="line">include /etc/ld.so.conf.d/*.conf</span><br><span class="line">/usr/local/lib/</span><br><span class="line"></span><br><span class="line">mxdon@mxdon-la:~/hvml$ sudo ldconfig</span><br></pre></td></tr></table></figure>
+
+<p>然后执行demo程序:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">mxdon@mxdon-la:~/hvml/PurC$ cat demo.hvml</span><br><span class="line">&lt;!DOCTYPE hvml&gt;</span><br><span class="line">&lt;hvml target=&quot;void&quot;&gt;</span><br><span class="line"></span><br><span class="line">    $STREAM.stdout.writelines(&#x27;Hello, world!&#x27;)</span><br><span class="line"></span><br><span class="line">&lt;/hvml&gt;</span><br><span class="line">mxdon@mxdon-la:~/hvml/PurC$ purc demo.hvml</span><br><span class="line">Hello, world!</span><br></pre></td></tr></table></figure>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:mxdongit@126.com">Mxdon</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://blog.mxdon.cool/2022/hvml01-env-prepare-on-loongarch/">http://blog.mxdon.cool/2022/hvml01-env-prepare-on-loongarch/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://blog.mxdon.cool" target="_blank">Mxdon</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%9B%BE%E5%BD%A2%E5%8C%96/">图形化</a><a class="post-meta__tags" href="/tags/%E6%95%99%E7%A8%8B/">教程</a><a class="post-meta__tags" href="/tags/Loongarch/">Loongarch</a><a class="post-meta__tags" href="/tags/Hvml/">Hvml</a></div><div class="post_share"><div class="social-share" data-image="https://api.xhofe.top/img/api/bing" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button button--animated"><i class="fas fa-qrcode"></i> 鼓励一下</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechatpay.jpg" target="_blank"><img class="post-qr-code-img" src="/img/wechatpay.jpg" alt="wechat"/></a><div class="post-qr-code-desc">wechat</div></li><li class="reward-item"><a href="/img/alipay.jpg" target="_blank"><img class="post-qr-code-img" src="/img/alipay.jpg" alt="alipay"/></a><div class="post-qr-code-desc">alipay</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2022/%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D%E4%B8%80%E4%B8%8B%E5%9B%BD%E4%BA%A7CPU/"><img class="prev-cover" src="https://api.xhofe.top/img/api" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">复制链接，将正文的html转markdown</div></div></a></div><div class="next-post pull-right"><a href="/2022/public/workbox-b019fb00/"><img class="next-cover" src="https://img.paulzzh.tech/touhou/random" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info"></div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2019/JAVA%E5%8F%AF%E8%A7%86%E5%8C%96%E9%97%B9%E9%92%9F%E6%BA%90%E7%A0%81/" title="JAVA可视化闹钟源码"><img class="cover" src="https://api.yimian.xyz/img" alt="cover"><div class="content is-center"><div class="date"><i class="fas fa-history fa-fw"></i> 2022-09-19</div><div class="title">JAVA可视化闹钟源码</div></div></a></div><div><a href="/2020/Python%E5%AE%9E%E7%8E%B0%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91/" title="Python实现最小生成树--Prim算法和Kruskal算法"><img class="cover" src="https://api.mtyqx.cn/tapi/random.php" alt="cover"><div class="content is-center"><div class="date"><i class="fas fa-history fa-fw"></i> 2022-09-19</div><div class="title">Python实现最小生成树--Prim算法和Kruskal算法</div></div></a></div><div><a href="/2020/web%E7%BB%93%E8%AF%BE%E8%AE%BA%E6%96%87/" title="React实现五子棋游戏"><img class="cover" src="https://api.xhofe.top/img/api/bing" alt="cover"><div class="content is-center"><div class="date"><i class="fas fa-history fa-fw"></i> 2022-09-19</div><div class="title">React实现五子棋游戏</div></div></a></div><div><a href="/2019/Java%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE%E8%B6%85%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B/" title="Java环境变量配置超详细教程"><img class="cover" src="https://api.xhofe.top/img/api" alt="cover"><div class="content is-center"><div class="date"><i class="fas fa-history fa-fw"></i> 2022-09-19</div><div class="title">Java环境变量配置超详细教程</div></div></a></div><div><a href="/2022/Linux%E5%85%A5%E9%97%A8%E7%9A%84%E6%96%B0%E6%96%B9%E5%BC%8F/" title="Linux入门的新方式"><img class="cover" src="https://api.yimian.xyz/img" alt="cover"><div class="content is-center"><div class="date"><i class="fas fa-history fa-fw"></i> 2022-09-19</div><div class="title">Linux入门的新方式</div></div></a></div><div><a href="/2019/MySQL%E5%AE%89%E8%A3%85%E5%8F%8A%E9%85%8D%E7%BD%AE%E6%9C%80%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B/" title="MySQL安装及配置最详细教程"><img class="cover" src="https://api.mtyqx.cn/tapi/random.php" alt="cover"><div class="content is-center"><div class="date"><i class="fas fa-history fa-fw"></i> 2022-09-19</div><div class="title">MySQL安装及配置最详细教程</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#hvml01-%E5%9C%A8%E9%BE%99%E8%8A%AF%E5%B9%B3%E5%8F%B0%E6%90%AD%E5%BB%BAhvml%E8%BF%90%E8%A1%8C%E7%8E%AF%E5%A2%83"><span class="toc-number">1.</span> <span class="toc-text">hvml01-在龙芯平台搭建hvml运行环境</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%87%86%E5%A4%87%E7%8E%AF%E5%A2%83"><span class="toc-number">1.1.</span> <span class="toc-text">1. 准备环境</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer" style="background-color: transparent;"><div id="footer-wrap"><div class="copyright">&copy;2021 - 2022 By Mxdon</div><div class="footer_custom_text">Hi, welcome to Mxdon's blog</div></div><div class="container" id="jsi-flying-fish-container"><script src="js/fish.js"></script></div><style>   @media only screen and (max-width: 767px){
+   #sidebar_search_box input[type=text]{width:calc(100% - 24px)}
+}</style></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="font-plus" type="button" title="放大字体"><i class="fas fa-plus"></i></button><button id="font-minus" type="button" title="缩小字体"><i class="fas fa-minus"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="chat_btn" type="button" title="rightside.chat_btn"><i class="fas fa-sms"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/medium-zoom/dist/medium-zoom.min.js"></script><script src="/js/search/local-search.js"></script><script async="async">var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())
+setTimeout(function(){preloader.endLoading();}, 5000);</script><div class="js-pjax"><script>(()=>{
+  const $countDom = document.getElementById('twikoo-count')
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: 'https://blog-comment-eiv9e480i-mxdongit.vercel.app',
+      region: 'eastasia'
+    }, null))
+  }
+
+  const getCount = () => {
+    twikoo.getCommentsCount({
+      envId: 'https://blog-comment-eiv9e480i-mxdongit.vercel.app',
+      region: 'eastasia',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(function (res) {
+      $countDom.innerText = res[0].count
+    }).catch(function (err) {
+      console.error(err);
+    });
+  }
+
+  const loadTwikoo = (bool = false) => {
+    if (typeof twikoo === 'object') {
+      init()
+      bool && $countDom && setTimeout(getCount,0)
+    } else {
+      getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(()=> {
+        init()
+        bool && $countDom && setTimeout(getCount,0)
+      })
+    }
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo(true)
+  } else {
+    window.loadOtherComment = () => {
+      loadTwikoo()
+    }
+  }
+})()</script></div><script>window.addEventListener('load', () => {
+  const changeContent = (content) => {
+    if (content === '') return content
+
+    content = content.replace(/<img.*?src="(.*?)"?[^\>]+>/ig, '[图片]') // replace image link
+    content = content.replace(/<a[^>]+?href=["']?([^"']+)["']?[^>]*>([^<]+)<\/a>/gi, '[链接]') // replace url
+    content = content.replace(/<pre><code>.*?<\/pre>/gi, '[代码]') // replace code
+    content = content.replace(/<[^>]+>/g,"") // remove html tag
+
+    if (content.length > 150) {
+      content = content.substring(0,150) + '...'
+    }
+    return content
+  }
+
+  const getComment = () => {
+    const runTwikoo = () => {
+      twikoo.getRecentComments({
+        envId: 'https://blog-comment-eiv9e480i-mxdongit.vercel.app',
+        region: 'eastasia',
+        pageSize: 6,
+        includeReply: true
+      }).then(function (res) {
+        const twikooArray = res.map(e => {
+          return {
+            'content': changeContent(e.comment),
+            'avatar': e.avatar,
+            'nick': e.nick,
+            'url': e.url + '#' + e.id,
+            'date': new Date(e.created).toISOString()
+          }
+        })
+
+        saveToLocal.set('twikoo-newest-comments', JSON.stringify(twikooArray), 10/(60*24))
+        generateHtml(twikooArray)
+      }).catch(function (err) {
+        const $dom = document.querySelector('#card-newest-comments .aside-list')
+        $dom.innerHTML= "无法获取评论，请确认相关配置是否正确"
+      })
+    }
+
+    if (typeof twikoo === 'object') {
+      runTwikoo()
+    } else {
+      getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(runTwikoo)
+    }
+  }
+
+  const generateHtml = array => {
+    let result = ''
+
+    if (array.length) {
+      for (let i = 0; i < array.length; i++) {
+        result += '<div class=\'aside-list-item\'>'
+
+        if (true) {
+          const name = 'src'
+          result += `<a href='${array[i].url}' class='thumbnail'><img ${name}='${array[i].avatar}' alt='${array[i].nick}'></a>`
+        }
+        
+        result += `<div class='content'>
+        <a class='comment' href='${array[i].url}'>${array[i].content}</a>
+        <div class='name'><span>${array[i].nick} / </span><time datetime="${array[i].date}">${btf.diffDate(array[i].date, true)}</time></div>
+        </div></div>`
+      }
+    } else {
+      result += '没有评论'
+    }
+
+    let $dom = document.querySelector('#card-newest-comments .aside-list')
+    $dom.innerHTML= result
+    window.lazyLoadInstance && window.lazyLoadInstance.update()
+    window.pjax && window.pjax.refresh($dom)
+  }
+
+  const newestCommentInit = () => {
+    if (document.querySelector('#card-newest-comments .aside-list')) {
+      const data = saveToLocal.get('twikoo-newest-comments')
+      if (data) {
+        generateHtml(JSON.parse(data))
+      } else {
+        getComment()
+      }
+    }
+  }
+
+  newestCommentInit()
+  document.addEventListener('pjax:complete', newestCommentInit)
+})</script><script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/gh/xiabo2/CDN@latest/fish.js"></script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-nest.min.js"></script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-heart.min.js" async="async" mobile="false"></script><script src="//code.tidio.co/tajf1h7dq4euas8t8jusi0x28q74d8av.js" async="async"></script><script>function onTidioChatApiReady() {
+  window.tidioChatApi.hide();
+  window.tidioChatApi.on("close", function() {
+    window.tidioChatApi.hide();
+  });
+}
+if (window.tidioChatApi) {
+  window.tidioChatApi.on("ready", onTidioChatApiReady);
+} else {
+  document.addEventListener("tidioChat-ready", onTidioChatApiReady);
+}
+
+var chatBtnFn = () => {
+  document.getElementById("chat_btn").addEventListener("click", function(){
+    window.tidioChatApi.show();
+    window.tidioChatApi.open();
+  });
+}
+chatBtnFn()
+</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/gh/metowolf/MetingJS@1.2/dist/Meting.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = [
+  'title',
+  '#config-diff',
+  '#body-wrap',
+  '#rightside-config-hide',
+  '#rightside-config-show',
+  '.js-pjax'
+]
+
+if (false) {
+  pjaxSelectors.unshift('meta[property="og:image"]', 'meta[property="og:title"]', 'meta[property="og:url"]')
+}
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.removeEventListener('scroll', window.tocScrollFn)
+  window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // Analytics
+  if (false) {
+    MtaH5.pgv()
+  }
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
